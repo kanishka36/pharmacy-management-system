@@ -10,6 +10,7 @@ const Navbar = () => {
   ];
 
   return (
+<<<<<<< HEAD
     <div className='md:flex items-center justify-between bg-white py-4 px-7 md:px-10'>
       <div className='text-3xl cursor-pointer md:hidden'>
         <ion-icon name="menu"></ion-icon>
@@ -28,6 +29,22 @@ const Navbar = () => {
       </div>
     </div>
   );
+=======
+    <div>
+        <div className=''>
+            <ul>
+                <li>Home</li>
+                <li>Shop</li>
+                <li>About Us</li>
+                <li>Contacts</li>
+            </ul>
+        </div>
+        <div>
+            <div>Upload Prescription</div>
+        </div>
+    </div>
+  )
+>>>>>>> 56a1e0344b8a881f678a8842a4009b4dc7f5e898
 }
 
 export default Navbar;
