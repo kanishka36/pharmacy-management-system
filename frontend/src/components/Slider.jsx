@@ -77,7 +77,7 @@ export const CategorySlider = () => {
         {CategoryData.map((slide, index) => (
           <SwiperSlide
             key={index}
-            className="text-slate-500 fle flex-col justify-center align-center bg-white border-solid border-2 border-sky-500 p-8"
+            className="text-slate-500 fle flex-col justify-center align-center bg-white border-solid border border-indigo-600 p-8"
           >
             {<img src={slide} alt="icon" />}
             {slide}
