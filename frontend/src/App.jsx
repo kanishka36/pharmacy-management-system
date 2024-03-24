@@ -5,16 +5,18 @@ import Prescription from "./pages/Prescription";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
 import LoginRegister from "./pages/LoginRegister";
+import Shop from "./pages/Shop";
 
 const App = () => {
   return (
     <div>
       <BrowserRouter>
-        {/* <Navbar /> */}
+        <Navbar />
         <Routes>
           <Route path="/my-account" element={<LoginRegister />} />
           <Route path="/" element={<Home />} />
           <Route path="/prescription" element={<Prescription />} />
+          <Route path="/shop" element={<Shop />} />
         </Routes>
         <Footer />
       </BrowserRouter>
