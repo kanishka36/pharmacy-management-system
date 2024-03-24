@@ -41,16 +41,15 @@ export const HeroSlider = () => {
           duration: 1000,
         }}
         loop={true}
-        navigation={true}
-        modules={[Pagination, Navigation, Autoplay, EffectFade]}
-        className="mySwiper"
+        modules={[Pagination, Autoplay, EffectFade]}
+        className="mySwiper w-full"
       >
         {HeroData.map((slide, index) => (
           <SwiperSlide
             key={index}
             className="text-slate-500 flex justify-center align-center bg-white"
           >
-            <img src={slide} alt="" className="w-4/5" />
+            <img src={slide} alt="" className="w-full" />
           </SwiperSlide>
         ))}
       </Swiper>
