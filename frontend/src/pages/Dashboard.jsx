@@ -17,7 +17,9 @@ const Dashboard = () => {
     <>
       <div className="flex">
         <Menu />
-        <div className="workplace h-screen ml-3"></div>
+        <div className="workplace h-screen ml-5">
+          Dashboard
+        </div>
       </div>
     </>
   );

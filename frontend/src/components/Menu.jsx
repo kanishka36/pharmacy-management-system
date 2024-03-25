@@ -5,7 +5,7 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 const menuItem = [
-  { name: "Staff Management", path: "/dashboard/staff-management" },
+  { name: "Staff Management", path: "/dashboard/display-staff" },
   { name: "Stock Management", path: "/" },
   { name: "Prescription Handling", path: "/" },
   { name: "Delivery", path: "/" },
@@ -40,7 +40,7 @@ const Menu = () => {
         ))}
       </div>
       <div
-        className="flex justify-center items-center text-3xl text-indigo-600 mx-2 animate-[bounceX_1s_ease-in-out_infinite]"
+        className="flex justify-center items-center text-3xl text-indigo-600 mx-2 animate-[bounceX_1.5s_ease-in-out_infinite] z-50"
         onClick={toggleMenu}
       >
         {isDisplay ? (

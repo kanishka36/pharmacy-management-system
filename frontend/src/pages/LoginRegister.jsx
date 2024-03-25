@@ -5,7 +5,9 @@ const LoginRegister = () => {
     <>
       <div className="container mx-auto flex flex-col md:flex-row justify-between gap-4 md:gap-16 m-3 font-poppins my-20">
         <div className="login w-full p-3">
-          <h2 className="text-3xl font-semibold mb-3 text-indigo-600">Login</h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold mb-3 text-indigo-600">
+            Login
+          </h2>
           <form>
             <div className="flex flex-col">
               <label>Username or email address</label>
@@ -31,8 +33,11 @@ const LoginRegister = () => {
             </div>
           </form>
         </div>
+        {/* Register */}
         <div className="regiter w-full p-3">
-          <h2 className="text-3xl font-semibold mb-3 text-indigo-600">Register</h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold mb-3 text-indigo-600">
+            Register
+          </h2>
           <div className="flex flex-col md:flex-row w-full gap-3">
             <div className="flex flex-col w-full">
               <label>First Name</label>
