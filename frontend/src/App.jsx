@@ -6,7 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
 import LoginRegister from "./pages/LoginRegister";
 import Shop from "./pages/Shop";
-import Admin from "./pages/Admin";
+import Dashboard from "./pages/Dashboard";
+import StaffManagement from "./pages/StaffManagement";
 
 const App = () => {
   return (
@@ -18,7 +19,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/prescription" element={<Prescription />} />
           <Route path="/shop" element={<Shop />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/staff-management" element={<StaffManagement />} />
         </Routes>
         <Footer />
       </BrowserRouter>
