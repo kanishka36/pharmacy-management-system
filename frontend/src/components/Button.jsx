@@ -9,3 +9,8 @@ const Button =(props) => {
 }  
 
 export default Button
+
+
+//git add --all
+//git commit -m "commit" 
+// git push
