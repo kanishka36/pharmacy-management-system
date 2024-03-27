@@ -54,7 +54,7 @@ const Shop = () => {
               {listItem.map((item, index) => (
                 <div className="flex items-center flex-col m-1 sm:m-2 p-3 border border-solid border-indigo-600 rounded-lg" key={index}>
                   {item}
-                  <button className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-2 rounded-full text-white font-semibold transition-all duration-100 ease-in w-1/2">Add to Cart</button>
+                  <button className="text-sm sm:text-base bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-5 py-2 sm:px-10 sm:py-2 rounded-full text-white font-semibold transition-all duration-100 ease-in">Add to Cart</button>
                 </div>
               ))}
             </div>
