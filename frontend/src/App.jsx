@@ -9,12 +9,14 @@ import Shop from "./pages/Shop";
 import Dashboard from "./pages/Dashboard";
 import DisplayStaff from "./pages/DisplayStaff";
 import AddStaff from "./pages/AddStaff";
+import StockManage from "./pages/StockManage";
 
 const App = () => {
   const shouldHideNavFooter = [
     "/dashboard",
     "/dashboard/display-staff",
     "/dashboard/add-staff",
+    "/dashboard/stock",
   ].includes(window.location.pathname);
 
   return (
@@ -24,6 +26,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/display-staff" element={<DisplayStaff />} />
           <Route path="/dashboard/add-staff" element={<AddStaff />} />
+          <Route path="/dashboard/stock" element={<StockManage />} />
         </Routes>
       ) : (
         <>

@@ -12,7 +12,6 @@ const Navbar = () => {
   return (
     <div className='md:flex items-center justify-between bg-white py-4 px-7 md:px-10'>
       <div className='text-3xl cursor-pointer md:hidden'>
-        <ion-icon name="menu"></ion-icon>
       </div>
 
       <ul className='md:flex md:items-center md:p-0 pd-12 absolute md:static bg-white md:z-auto z-[1] left-1 w-full md:W-auto md:pl-1 pl-4 transition-all duration-500 ease-in'>

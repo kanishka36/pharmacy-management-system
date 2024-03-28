@@ -6,7 +6,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 const menuItem = [
   { name: "Staff Management", path: "/dashboard/display-staff" },
-  { name: "Stock Management", path: "/" },
+  { name: "Stock Management", path: "/dashboard/stock" },
   { name: "Prescription Handling", path: "/" },
   { name: "Delivery", path: "/" },
   { name: "Item & Category Management", path: "/" },
