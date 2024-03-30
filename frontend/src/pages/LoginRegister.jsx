@@ -3,9 +3,11 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 const LoginRegister = () => {
-  const validationSchema = Yup.object({
+  const loginValidationSchema = Yup.object({
     loginUsername: Yup.string().required("Required"),
     loginPassword: Yup.string().required("Required"),
+  });
+  const registerValidationSchema = Yup.object({
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
     phone: Yup.string().required("Required"),
@@ -13,9 +15,11 @@ const LoginRegister = () => {
     password: Yup.string().required("Required"),
   });
 
-  const initialValues = {
+  const loginInitialValues = {
     loginUsername: "",
     loginPassword: "",
+  };
+  const registerInitialValues = {
     firstName: "",
     lastName: "",
     phone: "",
@@ -23,10 +27,9 @@ const LoginRegister = () => {
     password: "",
   };
 
-  const handleLoginSubmit = (values, { setSubmitting }) => {
+  const handleLoginSubmit = (values, action) => {
     // Handle login form submission
     console.log(values);
-    setSubmitting(false);
   };
 
   const handleRegisterSubmit = (values, { setSubmitting }) => {
@@ -43,14 +46,14 @@ const LoginRegister = () => {
             Login
           </h2>
           <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
+            initialValues={loginInitialValues}
+            validationSchema={loginValidationSchema}
             onSubmit={handleLoginSubmit}
           >
             {(formik) => (
               <Form>
                 <div className="flex flex-col">
-                  <label htmlFor="loginUsernameOrEmail">
+                  <label htmlFor="loginUsername">
                     Username or email address
                   </label>
                   <Field
@@ -60,7 +63,7 @@ const LoginRegister = () => {
                     className="w-full border-solid border-2 border-indigo-600 rounded-full px-3 py-1 mt-1 mb-3"
                   />
                   <ErrorMessage
-                    name="loginUsernameOrEmail"
+                    name="loginUsername"
                     component="div"
                     className="text-red-600"
                   />
@@ -98,8 +101,8 @@ const LoginRegister = () => {
             Register
           </h2>
           <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
+            initialValues={registerInitialValues}
+            validationSchema={registerValidationSchema}
             onSubmit={handleRegisterSubmit}
           >
             {(formik) => (

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Menu from "../components/Menu";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 const Products = [
   {
@@ -44,15 +45,45 @@ const Products = [
 const Category = ["painkillers", "painkillers", "painkillers", "painkillers"];
 
 const StockManage = () => {
+  const validationSchema = Yup.object({
+    barcode: Yup.string().required("Required"),
+    productName: Yup.string().required("Required"),
+    category: Yup.string().required("Required"),
+    quantity: Yup.string().required("Required"),
+    actualPrice: Yup.string().required("Required"),
+    sellingPrice: Yup.string().required("Required"),
+  });
+  const [showPopup, setShowPopup] = useState(false);
+
   const searchInitialValues = {
     barcode: "",
     medicine: "",
     category: "",
   };
 
+  const addItemInitialValues = {
+    barcode: "",
+    productName: "",
+    category: "",
+    expreDate: "",
+    quantity: "",
+    actualPrice: "",
+    sellingPrice: "",
+    profit: "",
+  };
+
   const handleSubmit = (values, actions) => {
     console.log(values);
   };
+
+  const handleAddItemPopup = () => {
+    setShowPopup(true); // Show popup when "Add Item" button is clicked
+  };
+
+  const handleAddItem = (values, actions) => {
+    console.log(values);
+  };
+
   return (
     <>
       <div className="flex">
@@ -102,9 +133,10 @@ const StockManage = () => {
                     Search
                   </button>
                   <button
-                    type="submit"
+                    type="button"
                     className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-1 rounded-full text-white font-semibold transition-all duration-100 ease-in"
                     disabled={formik.isSubmitting}
+                    onClick={handleAddItemPopup}
                   >
                     Add Item
                   </button>
@@ -112,21 +144,32 @@ const StockManage = () => {
               </Form>
             )}
           </Formik>
+          {/* table of product details  */}
           <div className="my-3 overflow-x-auto mx-3">
             <table className="table-auto w-full border border-indigo-600">
               <thead>
                 <tr>
-                  <th className="border-2 border-indigo-600 py-2">Code</th>
-                  <th className="border-2 border-indigo-600 py-2">Product</th>
-                  <th className="border-2 border-indigo-600 py-2">Category</th>
-                  <th className="border-2 border-indigo-600 py-2">Expry</th>
-                  <th className="border-2 border-indigo-600 py-2">
+                  <th className="border-2 border-indigo-600 text-indigo-600 py-2">
+                    Code
+                  </th>
+                  <th className="border-2 border-indigo-600 text-indigo-600 py-2">
+                    Product
+                  </th>
+                  <th className="border-2 border-indigo-600 text-indigo-600 py-2">
+                    Category
+                  </th>
+                  <th className="border-2 border-indigo-600 text-indigo-600 py-2">
+                    Expry
+                  </th>
+                  <th className="border-2 border-indigo-600 text-indigo-600 py-2">
                     Actual Price
                   </th>
-                  <th className="border-2 border-indigo-600 py-2">
+                  <th className="border-2 border-indigo-600 text-indigo-600 py-2">
                     Selling Price
                   </th>
-                  <th className="border-2 border-indigo-600 py-2">Profit</th>
+                  <th className="border-2 border-indigo-600 text-indigo-600 py-2">
+                    Profit
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -158,6 +201,127 @@ const StockManage = () => {
               </tbody>
             </table>
           </div>
+
+          {/* add product form  */}
+          {showPopup && (
+            <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 backdrop-blur-sm">
+              <div className="bg-white p-8 rounded-md">
+                <Formik
+                  initialValues={addItemInitialValues}
+                  validationSchema={validationSchema}
+                  onSubmit={handleAddItem}
+                >
+                  <Form>
+                    <div className="flex flex-col">
+                      <h2>Add Product</h2>
+                      <div className="flex">
+                        <label>Bar Code:</label>
+                        <Field type="text" name="barcode" className="border" />
+                      </div>
+                      <ErrorMessage
+                        name="barcode"
+                        component="div"
+                        className="text-red-600"
+                      />
+                      <div className="flex">
+                        <label>Product Name:</label>
+                        <Field
+                          type="text"
+                          name="productName"
+                          className="border"
+                        />
+                      </div>
+                      <ErrorMessage
+                        name="productName"
+                        component="div"
+                        className="text-red-600"
+                      />
+                      <div className="flex">
+                        <label>Category:</label>
+                        <Field type="text" name="category" className="border" />
+                      </div>
+                      <ErrorMessage
+                        name="category"
+                        component="div"
+                        className="text-red-600"
+                      />
+                      <div className="flex">
+                        <label>Expre Date:</label>
+                        <Field
+                          type="text"
+                          name="expreDate"
+                          className="border"
+                        />
+                      </div>
+                      <ErrorMessage
+                        name="expreDate"
+                        component="div"
+                        className="text-red-600"
+                      />
+                      <div className="flex">
+                        <label>Quantity:</label>
+                        <Field type="text" name="quantity" className="border" />
+                      </div>
+                      <ErrorMessage
+                        name="quantity"
+                        component="div"
+                        className="text-red-600"
+                      />
+                      <div className="flex">
+                        <label>Actual Price:</label>
+                        <Field
+                          type="text"
+                          name="actualPrice"
+                          className="border"
+                        />
+                      </div>
+                      <ErrorMessage
+                        name="actualPrice"
+                        component="div"
+                        className="text-red-600"
+                      />
+                      <div className="flex">
+                        <label>Selling Price:</label>
+                        <Field
+                          type="text"
+                          name="sellingPrice"
+                          className="border"
+                        />
+                      </div>
+                      <ErrorMessage
+                        name="sellingPrice"
+                        component="div"
+                        className="text-red-600"
+                      />
+                      <div className="flex">
+                        <label>Profit:</label>
+                        <Field type="text" name="profit" className="border" />
+                      </div>
+                      <ErrorMessage
+                        name="profit"
+                        component="div"
+                        className="text-red-600"
+                      />
+                      <div className="flex">
+                        <button
+                          type="submit"
+                          className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4"
+                        >
+                          Add Item
+                        </button>
+                      </div>
+                    </div>
+                  </Form>
+                </Formik>
+                <button
+                  onClick={() => setShowPopup(false)} // Hide popup when button is clicked
+                  className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>
