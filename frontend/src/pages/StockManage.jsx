@@ -45,7 +45,7 @@ const Products = [
 const Category = ["painkillers", "painkillers", "painkillers", "painkillers"];
 
 const StockManage = () => {
-  const validationSchema = Yup.object({
+  const validationSchema = Yup.object().shape({
     barcode: Yup.string().required("Required"),
     productName: Yup.string().required("Required"),
     category: Yup.string().required("Required"),
@@ -207,141 +207,165 @@ const StockManage = () => {
                   validationSchema={validationSchema}
                   onSubmit={handleAddItem}
                 >
-                  <Form>
-                    <div className="flex flex-col">
-                      <h2 className="text-indigo-600 text-2xl font-semibold mb-3">
-                        Add Product
-                      </h2>
-                      <div className="flex flex-col md:flex-row md:gap-10">
-                        <div className="basis-1/2">
-                          <div className="flex flex-col">
-                            <label>Bar Code:</label>
-                            <Field
-                              type="text"
+                  {({ touched, errors }) => (
+                    <Form>
+                      <div className="flex flex-col">
+                        <h2 className="text-indigo-600 text-2xl font-semibold mb-3">
+                          Add Product
+                        </h2>
+                        <div className="flex flex-col md:flex-row md:gap-10">
+                          <div className="basis-1/2">
+                            <div className="flex flex-col">
+                              <label>Bar Code:</label>
+                              <Field
+                                type="text"
+                                name="barcode"
+                                className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
+                                  touched.barcode && errors.barcode
+                                    ? "border-red-500"
+                                    : ""
+                                }`}
+                              />
+                            </div>
+                            <ErrorMessage
                               name="barcode"
-                              className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
+                              component="div"
+                              className="text-red-600"
                             />
                           </div>
-                          <ErrorMessage
-                            name="barcode"
-                            component="div"
-                            className="text-red-600"
-                          />
-                        </div>
-                        <div className="basis-1/2">
-                          <div className="flex flex-col">
-                            <label>Product Name:</label>
-                            <Field
-                              type="text"
+                          <div className="basis-1/2">
+                            <div className="flex flex-col">
+                              <label>Product Name:</label>
+                              <Field
+                                type="text"
+                                name="productName"
+                                className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
+                                  touched.productName && errors.productName
+                                    ? "border-red-500"
+                                    : ""
+                                }`}
+                              />
+                            </div>
+                            <ErrorMessage
                               name="productName"
-                              className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
+                              component="div"
+                              className="text-red-600"
                             />
                           </div>
-                          <ErrorMessage
-                            name="productName"
-                            component="div"
-                            className="text-red-600"
-                          />
                         </div>
-                      </div>
-                      <div className="flex flex-col md:flex-row md:gap-10">
-                        <div className="basis-1/2">
-                          <div className="flex flex-col">
-                            <label>Category:</label>
-                            <Field
-                              type="text"
+                        <div className="flex flex-col md:flex-row md:gap-10">
+                          <div className="basis-1/2">
+                            <div className="flex flex-col">
+                              <label>Category:</label>
+                              <Field
+                                type="text"
+                                name="category"
+                                className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
+                                  touched.category && errors.category
+                                    ? "border-red-500"
+                                    : ""
+                                }`}
+                              />
+                            </div>
+                            <ErrorMessage
                               name="category"
-                              className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
+                              component="div"
+                              className="text-red-600"
                             />
                           </div>
-                          <ErrorMessage
-                            name="category"
-                            component="div"
-                            className="text-red-600"
-                          />
-                        </div>
-                        <div className="basis-1/2">
-                          <div className="flex flex-col">
-                            <label>Quantity:</label>
-                            <Field
-                              type="text"
+                          <div className="basis-1/2">
+                            <div className="flex flex-col">
+                              <label>Quantity:</label>
+                              <Field
+                                type="text"
+                                name="quantity"
+                                className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
+                                  touched.quantity && errors.quantity
+                                    ? "border-red-500"
+                                    : ""
+                                }`}
+                              />
+                            </div>
+                            <ErrorMessage
                               name="quantity"
-                              className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
+                              component="div"
+                              className="text-red-600"
                             />
                           </div>
-                          <ErrorMessage
-                            name="quantity"
-                            component="div"
-                            className="text-red-600"
-                          />
                         </div>
-                      </div>
-                      <div className="flex flex-col md:flex-row md:gap-10">
-                        <div className="basis-1/2">
-                          <div className="flex flex-col">
-                            <label>Actual Price:</label>
-                            <Field
-                              type="text"
+                        <div className="flex flex-col md:flex-row md:gap-10">
+                          <div className="basis-1/2">
+                            <div className="flex flex-col">
+                              <label>Actual Price:</label>
+                              <Field
+                                type="text"
+                                name="actualPrice"
+                                className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
+                                  touched.actualPrice && errors.actualPrice
+                                    ? "border-red-500"
+                                    : ""
+                                }`}
+                              />
+                            </div>
+                            <ErrorMessage
                               name="actualPrice"
-                              className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
+                              component="div"
+                              className="text-red-600"
                             />
                           </div>
-                          <ErrorMessage
-                            name="actualPrice"
-                            component="div"
-                            className="text-red-600"
-                          />
+                          <div className="basis-1/2">
+                            <div className="flex flex-col">
+                              <label>Selling Price:</label>
+                              <Field
+                                type="text"
+                                name="sellingPrice"
+                                className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
+                                  touched.sellingPrice && errors.sellingPrice
+                                    ? "border-red-500"
+                                    : ""
+                                }`}
+                              />
+                            </div>
+                            <ErrorMessage
+                              name="sellingPrice"
+                              component="div"
+                              className="text-red-600"
+                            />
+                          </div>
                         </div>
-                        <div className="basis-1/2">
+                        <div className="">
                           <div className="flex flex-col">
-                            <label>Selling Price:</label>
+                            <label>Profit:</label>
                             <Field
                               type="text"
-                              name="sellingPrice"
-                              className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
+                              name="profit"
+                              className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 "
                             />
                           </div>
                           <ErrorMessage
-                            name="sellingPrice"
+                            name="profit"
                             component="div"
                             className="text-red-600"
                           />
                         </div>
-                      </div>
-                      <div className="">
-                        <div className="flex flex-col">
-                          <label>Profit:</label>
-                          <Field
-                            type="text"
-                            name="profit"
-                            className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
-                          />
+                        <div className="">image add</div>
+                        <div className="flex">
+                          <button
+                            type="submit"
+                            className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4 mr-3"
+                          >
+                            Add Item
+                          </button>
+                          <button
+                            onClick={() => setShowPopup(false)}
+                            className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4"
+                          >
+                            Close
+                          </button>
                         </div>
-                        <ErrorMessage
-                          name="profit"
-                          component="div"
-                          className="text-red-600"
-                        />
                       </div>
-                      <div className="">
-                        image add
-                      </div>
-                      <div className="flex">
-                        <button
-                          type="submit"
-                          className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4 mr-3"
-                        >
-                          Add Item
-                        </button>
-                        <button
-                          onClick={() => setShowPopup(false)}
-                          className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4"
-                        >
-                          Close
-                        </button>
-                      </div>
-                    </div>
-                  </Form>
+                    </Form>
+                  )}
                 </Formik>
               </div>
             </div>

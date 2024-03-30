@@ -12,8 +12,9 @@ import { Pagination, Navigation, Autoplay, EffectFade } from "swiper/modules";
 
 import slide1 from "../assets/images/slider1.jpg";
 import slide2 from "../assets/images/slider2.jpg";
+import slide3 from "../assets/images/slider3.jpg";
 
-const HeroData = [slide1, slide2, slide1, slide2, slide1, slide2];
+const HeroData = [slide1, slide2, slide3, slide1, slide2, slide3];
 const CategoryData = [
   "KIDS",
   "PERSONAL CARE",

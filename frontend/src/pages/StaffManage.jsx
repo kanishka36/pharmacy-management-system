@@ -29,12 +29,7 @@ const Staff = [
 const Category = ["pharmacist", "stock keeper", "deliver partner", "cashier"];
 
 const StaffManage = () => {
-  const validationSchema = Yup.object({
-    id: Yup.string().required("Required"),
-    name: Yup.string().required("Required"),
-    role: Yup.string().required("Required"),
-  });
-  const registerValidationSchema = Yup.object({
+  const registerValidationSchema = Yup.object().shape({
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
     phone: Yup.string().required("Required"),
@@ -174,80 +169,94 @@ const StaffManage = () => {
                   validationSchema={registerValidationSchema}
                   onSubmit={handleAddMember}
                 >
-                  <Form>
-                    <div className="flex flex-col md:flex-row w-full gap-3">
-                      <div className="flex flex-col w-full">
-                        <label htmlFor="firstName">First Name</label>
+                  {({ touched, errors }) => (
+                    <Form>
+                      <div className="flex flex-col md:flex-row w-full gap-3">
+                        <div className="flex flex-col w-full">
+                          <label htmlFor="firstName">First Name</label>
+                          <Field
+                            type="text"
+                            name="firstName"
+                            className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
+                              touched.firstName && errors.firstName
+                                ? "border-red-500"
+                                : ""
+                            }`}
+                          />
+                          <ErrorMessage
+                            name="firstName"
+                            component="div"
+                            className="text-red-600"
+                          />
+                        </div>
+                        <div className="flex flex-col w-full">
+                          <label htmlFor="lastName">Last Name</label>
+                          <Field
+                            type="text"
+                            name="lastName"
+                            className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
+                              touched.lastName && errors.lastName
+                                ? "border-red-500"
+                                : ""
+                            }`}
+                          />
+                          <ErrorMessage
+                            name="lastName"
+                            component="div"
+                            className="text-red-600"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex flex-col">
+                        <label htmlFor="phone">Phone</label>
                         <Field
                           type="text"
-                          id="firstName"
-                          name="firstName"
-                          className="w-full border-solid border border-indigo-600 rounded-md px-3 py-1 mt-1 mb-3"
+                          name="phone"
+                          className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
+                            touched.phone && errors.phone
+                              ? "border-red-500"
+                              : ""
+                          }`}
                         />
                         <ErrorMessage
-                          name="firstName"
+                          name="phone"
                           component="div"
                           className="text-red-600"
                         />
                       </div>
-                      <div className="flex flex-col w-full">
-                        <label htmlFor="lastName">Last Name</label>
+                      <div className="flex flex-col">
+                        <label htmlFor="email">Email Address</label>
                         <Field
-                          type="text"
-                          id="lastName"
-                          name="lastName"
-                          className="w-full border-solid border border-indigo-600 rounded-md px-3 py-1 mt-1 mb-3"
+                          type="email"
+                          name="email"
+                          className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
+                            touched.email && errors.email
+                              ? "border-red-500"
+                              : ""
+                          }`}
                         />
                         <ErrorMessage
-                          name="lastName"
+                          name="email"
                           component="div"
                           className="text-red-600"
                         />
                       </div>
-                    </div>
-                    <div className="flex flex-col">
-                      <label htmlFor="phone">Phone</label>
-                      <Field
-                        type="text"
-                        id="phone"
-                        name="phone"
-                        className="w-full border-solid border border-indigo-600 rounded-md px-3 py-1 mt-1 mb-3"
-                      />
-                      <ErrorMessage
-                        name="phone"
-                        component="div"
-                        className="text-red-600"
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <label htmlFor="email">Email Address</label>
-                      <Field
-                        type="email"
-                        id="email"
-                        name="email"
-                        className="w-full border-solid border border-indigo-600 rounded-md px-3 py-1 mt-1 mb-3"
-                      />
-                      <ErrorMessage
-                        name="email"
-                        component="div"
-                        className="text-red-600"
-                      />
-                    </div>
-                    <div className="flex">
-                      <button
-                        type="submit"
-                        className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4 mr-3"
-                      >
-                        Register
-                      </button>
-                      <button
-                        onClick={() => setShowPopup(false)}
-                        className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4"
-                      >
-                        Close
-                      </button>
-                    </div>
-                  </Form>
+                      <div className="flex">
+                        <button
+                          type="submit"
+                          className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4 mr-3"
+                        >
+                          Register
+                        </button>
+                        <button
+                          onClick={() => setShowPopup(false)}
+                          className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4"
+                        >
+                          Close
+                        </button>
+                      </div>
+                    </Form>
+                  )}
                 </Formik>
               </div>
             </div>
