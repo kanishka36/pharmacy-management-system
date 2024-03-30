@@ -9,7 +9,6 @@ const Navbar = () => {
     { name: "Home", path: "/" },
     { name: "Shop", path: "/shop" },
     { name: "About Us", path: "/" },
-    { name: "Login", path: "/my-account" },
     { name: "Dashboard", path: "/dashboard" },
   ];
 
@@ -18,9 +17,10 @@ const Navbar = () => {
   return (
     <>
       <div className="bg-cyan-400 py-2 px-3 text-white font-semibold font-poppins text-right">
-        <Link>Login/Register</Link>
+        <Link to="my-account">Login/Register</Link>
       </div>
-      <div className="flex flex-col sm:flex-row items-center justify-between p-3 font-poppins">
+
+      <div className="flex flex-col sm:flex-row items-center justify-between p-3 font-poppins relative">
         <div className="w-full sm:basis-1/6 flex justify-between items-center">
           <Link to="/" className="logo">
             <img
@@ -39,13 +39,15 @@ const Navbar = () => {
             ></div>
             <div
               className={`bg-indigo-600 h-1 w-6 mb-1 ${
-                isClick ? "opacity-0 transition-opacity duration-300 ease-linear" : "transition-opacity duration-300 ease-linear"
+                isClick
+                  ? "opacity-0 transition-opacity duration-300 ease-linear"
+                  : "transition-opacity duration-300 ease-linear"
               }`}
             ></div>
             <div
               className={`bg-indigo-600 h-1 w-6 ${
                 isClick
-                  ? "transform transition-transform duration-300 ease-linear rotate-45 -translate-y-[8px]"
+                  ? "transform transition-transform duration-300 ease-linear rotate-45 -translate-y-[9px]"
                   : "transform transition-transform duration-300 ease-linear"
               }`}
             ></div>
@@ -73,6 +75,24 @@ const Navbar = () => {
         >
           Upload Prescription
         </Link>
+
+        <div
+          className={`sm:hidden h-100 pb-3 absolute bg-cyan-500 w-1/3 left-0 top-0 translate-x-[-100%] ${
+            isClick
+              ? "translate-x-[0%] transform transition-transform duration-300 ease-linear"
+              : "transform transition-transform duration-300 ease-linear"
+          }`}
+        >
+          <ul className="h-full flex flex-col gap-1 ml-3 mt-3 mr-3">
+            {Links.map((element, index) => (
+              <li key={index} className="w-full">
+                <Link to={element.path} className="text-white">
+                  {element.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <div className="container mx-auto flex items-center m-3 justify-between font-poppins">
