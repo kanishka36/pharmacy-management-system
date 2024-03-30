@@ -93,56 +93,52 @@ const StockManage = () => {
             Stock Manage
           </h1>
           <Formik initialValues={searchInitialValues} onSubmit={handleSubmit}>
-            {(formik) => (
-              <Form>
-                <div className="flex lg:flex-row flex-col mx-3">
-                  <Field
-                    type="text"
-                    name="barcode"
-                    placeholder="Enter Barcode"
-                    className="border-solid border border-indigo-600 rounded-full px-3 py-1 mr-1 mb-2 lg:mb-0"
-                  />
+            <Form>
+              <div className="flex lg:flex-row flex-col mx-3">
+                <Field
+                  type="text"
+                  name="barcode"
+                  placeholder="Enter Barcode"
+                  className="border-solid border border-indigo-600 rounded-full px-3 py-1 mr-1 mb-2 lg:mb-0"
+                />
 
-                  <Field
-                    type="text"
-                    name="medicine"
-                    placeholder="Medicine"
-                    className="border-solid border border-indigo-600 rounded-full px-3 py-1 mr-1 mb-2 lg:mb-0"
-                  />
+                <Field
+                  type="text"
+                  name="medicine"
+                  placeholder="Medicine"
+                  className="border-solid border border-indigo-600 rounded-full px-3 py-1 mr-1 mb-2 lg:mb-0"
+                />
 
-                  <Field
-                    as="select"
-                    name="category"
-                    className="border-solid border border-indigo-600 rounded-full px-3 py-1 mr-1 mb-2 lg:mb-0"
-                  >
-                    <option value="">Select Category</option>
-                    {Category.map((category, index) => {
-                      return (
-                        <option key={index} value={category}>
-                          {category}
-                        </option>
-                      );
-                    })}
-                  </Field>
+                <Field
+                  as="select"
+                  name="category"
+                  className="border-solid border border-indigo-600 rounded-full px-3 py-1 mr-1 mb-2 lg:mb-0"
+                >
+                  <option value="">Select Category</option>
+                  {Category.map((category, index) => {
+                    return (
+                      <option key={index} value={category}>
+                        {category}
+                      </option>
+                    );
+                  })}
+                </Field>
 
-                  <button
-                    type="submit"
-                    className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-1 mr-1 rounded-full text-white font-semibold transition-all duration-100 ease-in mb-2 lg:mb-0"
-                    disabled={formik.isSubmitting}
-                  >
-                    Search
-                  </button>
-                  <button
-                    type="button"
-                    className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-1 rounded-full text-white font-semibold transition-all duration-100 ease-in"
-                    disabled={formik.isSubmitting}
-                    onClick={handleAddItemPopup}
-                  >
-                    Add Item
-                  </button>
-                </div>
-              </Form>
-            )}
+                <button
+                  type="submit"
+                  className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-1 mr-1 rounded-full text-white font-semibold transition-all duration-100 ease-in mb-2 lg:mb-0"
+                >
+                  Search
+                </button>
+                <button
+                  type="button"
+                  className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-1 rounded-full text-white font-semibold transition-all duration-100 ease-in"
+                  onClick={handleAddItemPopup}
+                >
+                  Add Item
+                </button>
+              </div>
+            </Form>
           </Formik>
           {/* table of product details  */}
           <div className="my-3 overflow-x-auto mx-3">
@@ -205,7 +201,7 @@ const StockManage = () => {
           {/* add product form  */}
           {showPopup && (
             <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 backdrop-blur-sm">
-              <div className="bg-white p-8 rounded-md">
+              <div className="bg-white w-1/3 p-8 rounded-md">
                 <Formik
                   initialValues={addItemInitialValues}
                   validationSchema={validationSchema}
