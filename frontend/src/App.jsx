@@ -7,15 +7,13 @@ import Prescription from "./pages/Prescription";
 import LoginRegister from "./pages/LoginRegister";
 import Shop from "./pages/Shop";
 import Dashboard from "./pages/Dashboard";
-import DisplayStaff from "./pages/DisplayStaff";
-import AddStaff from "./pages/AddStaff";
 import StockManage from "./pages/StockManage";
+import StaffManage from "./pages/StaffManage";
 
 const App = () => {
   const shouldHideNavFooter = [
     "/dashboard",
-    "/dashboard/display-staff",
-    "/dashboard/add-staff",
+    "/dashboard/staff",
     "/dashboard/stock",
   ].includes(window.location.pathname);
 
@@ -24,8 +22,7 @@ const App = () => {
       {shouldHideNavFooter ? (
         <Routes>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/display-staff" element={<DisplayStaff />} />
-          <Route path="/dashboard/add-staff" element={<AddStaff />} />
+          <Route path="/dashboard/staff" element={<StaffManage />} />
           <Route path="/dashboard/stock" element={<StockManage />} />
         </Routes>
       ) : (
@@ -37,8 +34,7 @@ const App = () => {
             <Route path="/prescription" element={<Prescription />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/dashboard/display-staff" element={<DisplayStaff />} />
-            <Route path="/dashboard/add-staff" element={<AddStaff />} />
+            <Route path="/dashboard/staff" element={<StaffManage />} />
           </Routes>
           <Footer />
         </>

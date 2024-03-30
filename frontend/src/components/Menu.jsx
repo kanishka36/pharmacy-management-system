@@ -5,11 +5,10 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 const menuItem = [
-  { name: "Staff Management", path: "/dashboard/display-staff" },
+  { name: "Staff Management", path: "/dashboard/staff" },
   { name: "Stock Management", path: "/dashboard/stock" },
   { name: "Prescription Handling", path: "/" },
   { name: "Delivery", path: "/" },
-  { name: "Item & Category Management", path: "/" },
   { name: "News & Notification Management", path: "/" },
   { name: "Order Handling", path: "/" },
 ];
