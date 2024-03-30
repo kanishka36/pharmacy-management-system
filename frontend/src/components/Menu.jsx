@@ -11,6 +11,7 @@ const menuItem = [
   { name: "Delivery", path: "/" },
   { name: "News & Notification Management", path: "/" },
   { name: "Order Handling", path: "/" },
+  { name: "Website", path: "/" },
 ];
 
 const Menu = () => {

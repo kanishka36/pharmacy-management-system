@@ -1,4 +1,5 @@
 import React from "react";
+import Logo from "../assets/images/logo.jpg";
 
 const Footer = () => {
   return (
@@ -6,7 +7,7 @@ const Footer = () => {
       <div className="bg-indigo-300 p-10">
         <div className="grid grid-cols-1 md:grid-cols-4 font-poppins">
           <div className="ml-3">
-            <img alt="logo" />
+            <img src={Logo} alt="logo" className="max-w-60 mix-blend-multiply" />
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Et harum
               ad corrupti facere rerum optio quam cumque neque ut repellat.
