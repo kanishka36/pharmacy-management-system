@@ -99,20 +99,20 @@ const StockManage = () => {
                   type="text"
                   name="barcode"
                   placeholder="Enter Barcode"
-                  className="border-solid border border-indigo-600 rounded-full px-3 py-1 mr-1 mb-2 lg:mb-0"
+                  className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
                 />
 
                 <Field
                   type="text"
                   name="medicine"
                   placeholder="Medicine"
-                  className="border-solid border border-indigo-600 rounded-full px-3 py-1 mr-1 mb-2 lg:mb-0"
+                  className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
                 />
 
                 <Field
                   as="select"
                   name="category"
-                  className="border-solid border border-indigo-600 rounded-full px-3 py-1 mr-1 mb-2 lg:mb-0"
+                  className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
                 >
                   <option value="">Select Category</option>
                   {Category.map((category, index) => {
@@ -126,13 +126,13 @@ const StockManage = () => {
 
                 <button
                   type="submit"
-                  className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-1 mr-1 rounded-full text-white font-semibold transition-all duration-100 ease-in mb-2 lg:mb-0"
+                  className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-1 mr-1 rounded-md text-white font-semibold transition-all duration-100 ease-in mb-2 lg:mb-0"
                 >
                   Search
                 </button>
                 <button
                   type="button"
-                  className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-1 rounded-full text-white font-semibold transition-all duration-100 ease-in"
+                  className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-1 rounded-md text-white font-semibold transition-all duration-100 ease-in"
                   onClick={handleAddItemPopup}
                 >
                   Add Item
@@ -201,7 +201,7 @@ const StockManage = () => {
           {/* add product form  */}
           {showPopup && (
             <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 backdrop-blur-sm">
-              <div className="bg-white w-1/3 p-8 rounded-md">
+              <div className="bg-white container m-8 p-8 rounded-md">
                 <Formik
                   initialValues={addItemInitialValues}
                   validationSchema={validationSchema}
@@ -209,112 +209,140 @@ const StockManage = () => {
                 >
                   <Form>
                     <div className="flex flex-col">
-                      <h2>Add Product</h2>
-                      <div className="flex">
-                        <label>Bar Code:</label>
-                        <Field type="text" name="barcode" className="border" />
+                      <h2 className="text-indigo-600 text-2xl font-semibold mb-3">
+                        Add Product
+                      </h2>
+                      <div className="flex flex-col md:flex-row md:gap-10">
+                        <div className="basis-1/2">
+                          <div className="flex flex-col">
+                            <label>Bar Code:</label>
+                            <Field
+                              type="text"
+                              name="barcode"
+                              className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
+                            />
+                          </div>
+                          <ErrorMessage
+                            name="barcode"
+                            component="div"
+                            className="text-red-600"
+                          />
+                        </div>
+                        <div className="basis-1/2">
+                          <div className="flex flex-col">
+                            <label>Product Name:</label>
+                            <Field
+                              type="text"
+                              name="productName"
+                              className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
+                            />
+                          </div>
+                          <ErrorMessage
+                            name="productName"
+                            component="div"
+                            className="text-red-600"
+                          />
+                        </div>
                       </div>
-                      <ErrorMessage
-                        name="barcode"
-                        component="div"
-                        className="text-red-600"
-                      />
-                      <div className="flex">
-                        <label>Product Name:</label>
-                        <Field
-                          type="text"
-                          name="productName"
-                          className="border"
+                      <div className="flex flex-col md:flex-row md:gap-10">
+                        <div className="basis-1/2">
+                          <div className="flex flex-col">
+                            <label>Category:</label>
+                            <Field
+                              type="text"
+                              name="category"
+                              className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
+                            />
+                          </div>
+                          <ErrorMessage
+                            name="category"
+                            component="div"
+                            className="text-red-600"
+                          />
+                        </div>
+                        <div className="basis-1/2">
+                          <div className="flex flex-col">
+                            <label>Quantity:</label>
+                            <Field
+                              type="text"
+                              name="quantity"
+                              className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
+                            />
+                          </div>
+                          <ErrorMessage
+                            name="quantity"
+                            component="div"
+                            className="text-red-600"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex flex-col md:flex-row md:gap-10">
+                        <div className="basis-1/2">
+                          <div className="flex flex-col">
+                            <label>Actual Price:</label>
+                            <Field
+                              type="text"
+                              name="actualPrice"
+                              className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
+                            />
+                          </div>
+                          <ErrorMessage
+                            name="actualPrice"
+                            component="div"
+                            className="text-red-600"
+                          />
+                        </div>
+                        <div className="basis-1/2">
+                          <div className="flex flex-col">
+                            <label>Selling Price:</label>
+                            <Field
+                              type="text"
+                              name="sellingPrice"
+                              className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
+                            />
+                          </div>
+                          <ErrorMessage
+                            name="sellingPrice"
+                            component="div"
+                            className="text-red-600"
+                          />
+                        </div>
+                      </div>
+                      <div className="">
+                        <div className="flex flex-col">
+                          <label>Profit:</label>
+                          <Field
+                            type="text"
+                            name="profit"
+                            className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
+                          />
+                        </div>
+                        <ErrorMessage
+                          name="profit"
+                          component="div"
+                          className="text-red-600"
                         />
                       </div>
-                      <ErrorMessage
-                        name="productName"
-                        component="div"
-                        className="text-red-600"
-                      />
-                      <div className="flex">
-                        <label>Category:</label>
-                        <Field type="text" name="category" className="border" />
+                      <div className="">
+                        image add
                       </div>
-                      <ErrorMessage
-                        name="category"
-                        component="div"
-                        className="text-red-600"
-                      />
-                      <div className="flex">
-                        <label>Expre Date:</label>
-                        <Field
-                          type="text"
-                          name="expreDate"
-                          className="border"
-                        />
-                      </div>
-                      <ErrorMessage
-                        name="expreDate"
-                        component="div"
-                        className="text-red-600"
-                      />
-                      <div className="flex">
-                        <label>Quantity:</label>
-                        <Field type="text" name="quantity" className="border" />
-                      </div>
-                      <ErrorMessage
-                        name="quantity"
-                        component="div"
-                        className="text-red-600"
-                      />
-                      <div className="flex">
-                        <label>Actual Price:</label>
-                        <Field
-                          type="text"
-                          name="actualPrice"
-                          className="border"
-                        />
-                      </div>
-                      <ErrorMessage
-                        name="actualPrice"
-                        component="div"
-                        className="text-red-600"
-                      />
-                      <div className="flex">
-                        <label>Selling Price:</label>
-                        <Field
-                          type="text"
-                          name="sellingPrice"
-                          className="border"
-                        />
-                      </div>
-                      <ErrorMessage
-                        name="sellingPrice"
-                        component="div"
-                        className="text-red-600"
-                      />
-                      <div className="flex">
-                        <label>Profit:</label>
-                        <Field type="text" name="profit" className="border" />
-                      </div>
-                      <ErrorMessage
-                        name="profit"
-                        component="div"
-                        className="text-red-600"
-                      />
                       <div className="flex">
                         <button
                           type="submit"
-                          className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4"
+                          className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4 mr-3"
                         >
                           Add Item
+                        </button>
+                        <button
+                          onClick={() => setShowPopup(false)}
+                          className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4"
+                        >
+                          Close
                         </button>
                       </div>
                     </div>
                   </Form>
                 </Formik>
-                <button
-                  onClick={() => setShowPopup(false)} // Hide popup when button is clicked
-                  className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4"
-                >
-                  Close
-                </button>
               </div>
             </div>
           )}
