@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Menu from "../components/Menu";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { userRegister } from "../api/userAuthApi.js";
 
 const Staff = [
   {
@@ -34,8 +35,8 @@ const StaffManage = () => {
     lastName: Yup.string().required("Required"),
     phone: Yup.string().required("Required"),
     email: Yup.string().email("Invalid email address").required("Required"),
-    password: Yup.string().required("Required"),
   });
+
   const [showPopup, setShowPopup] = useState(false);
 
   const searchInitialValues = {
@@ -52,17 +53,18 @@ const StaffManage = () => {
     password: "",
   };
 
-  const handleSubmit = (values, actions) => {
-    console.log(values);
-  };
+  const handleSubmit = (values, actions) => {};
 
   const handleAddItemPopup = () => {
     setShowPopup(true); // Show popup when "Add Item" button is clicked
   };
 
-  const handleAddMember = (values, actions) => {
-    console.log(values);
+  const handleAddMember = async (values, actions) => {
+    userRegister(values);
+    actions.setSubmitting(false);
+    actions.resetForm();
   };
+
   return (
     <>
       <div className="flex">
@@ -249,6 +251,7 @@ const StaffManage = () => {
                           Register
                         </button>
                         <button
+                          type="button"
                           onClick={() => setShowPopup(false)}
                           className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4"
                         >
