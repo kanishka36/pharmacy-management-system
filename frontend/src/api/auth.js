@@ -15,7 +15,7 @@ export const userRegister = async (values) => {
 
 export const customerRegister = async (values) => {
   try {
-    const response = await axios.post(`${apiUrl}register/cutomer`, values, {
+    const response = await axios.post(`${apiUrl}register/customer`, values, {
       withCredentials: true,
     });
     return response.data;
