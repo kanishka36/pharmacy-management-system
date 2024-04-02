@@ -1,7 +1,9 @@
 import asyncHandler from "express-async-handler";
 import bcryptjs from "bcryptjs";
 import User from "../models/user.model.js";
+import jwt from "jsonwebtoken";
 
+//register staff
 const regUser = asyncHandler(async (req, res) => {
   const { firstName, lastName, role, phone, email, password } = req.body;
 
@@ -35,4 +37,30 @@ const regUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { regUser };
+//login staff
+const loginUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const validUser = await User.findOne({ email });
+    if (!validUser) {
+      res.status(404).json({ error: "User not found!" });
+      return;
+    }
+    const validPassword = bcryptjs.compareSync(password, validUser.password);
+    if (!validPassword) {
+      res.status(401).json({ error: "Wrong cridential!" });
+      return;
+    }
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+    res
+      .cookie("access_token", token, { httpOnly: true })
+      .status(200)
+      .json({ validUser });
+  } catch (error) {
+    console.error("Error during user login:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+export { regUser, loginUser };
