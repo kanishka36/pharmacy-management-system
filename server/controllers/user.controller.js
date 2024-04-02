@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import bcryptjs from "bcryptjs";
 import User from "../models/user.model.js";
-import jwt from "jsonwebtoken";
+import generateToken from "../utils/generateToken.util.js";
 
 //register staff
 const regUser = asyncHandler(async (req, res) => {
@@ -52,14 +52,10 @@ const loginUser = asyncHandler(async (req, res) => {
       res.status(401).json({ error: "Wrong cridential!" });
       return;
     }
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
 
+    generateToken(res, validUser._id);
     const { password: pass, ...rest } = validUser._doc;
-
-    res
-      .cookie("access_token", token, { httpOnly: true })
-      .status(200)
-      .json({ rest });
+    res.status(200).json({ rest });
   } catch (error) {
     console.error("Error during user login:", error);
     res.status(500).json({ error: "Internal server error" });

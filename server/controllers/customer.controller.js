@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import bcryptjs from "bcryptjs";
 import Customer from "../models/customer.model.js";
-import jwt from "jsonwebtoken";
+import generateToken from "../utils/generateToken.util.js";
 
 //login customer
 const regCustomer = asyncHandler(async (req, res) => {
@@ -55,14 +55,10 @@ const loginCustomer = asyncHandler(async (req, res) => {
       res.status(401).json({ error: "Wrong cridential!" });
       return;
     }
-    const token = jwt.sign({ id: validCustomer._id }, process.env.JWT_SECRET);
 
+    generateToken(res, validCustomer._id);
     const { password: pass, ...rest } = validCustomer._doc;
-
-    res
-      .cookie("access_token", token, { httpOnly: true })
-      .status(200)
-      .json({ rest });
+    res.status(200).json({ rest });
   } catch (error) {
     console.error("Error during customer login:", error);
     res.status(500).json({ error: "Internal server error" });
