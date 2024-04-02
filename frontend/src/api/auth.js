@@ -9,6 +9,6 @@ export const userRegister = async (values) => {
     });
     return response.data;
   } catch (error) {
-    throw error;
+    throw error.response.data.error || "Something went wrong";
   }
 };

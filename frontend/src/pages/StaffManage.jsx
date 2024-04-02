@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Menu from "../components/Menu";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { userRegister } from "../api/userAuthApi.js";
+import { userRegister } from "../api/auth.js";
 
 const Staff = [
   {
@@ -33,6 +33,7 @@ const StaffManage = () => {
   const registerValidationSchema = Yup.object().shape({
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
+    role: Yup.string().required("Required"),
     phone: Yup.string().required("Required"),
     email: Yup.string().email("Invalid email address").required("Required"),
   });
@@ -48,6 +49,7 @@ const StaffManage = () => {
   const registerInitialValues = {
     firstName: "",
     lastName: "",
+    role: "",
     phone: "",
     email: "",
     password: "",
@@ -60,7 +62,12 @@ const StaffManage = () => {
   };
 
   const handleAddMember = async (values, actions) => {
-    userRegister(values);
+    try {
+      const response = await userRegister(values);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
     actions.setSubmitting(false);
     actions.resetForm();
   };
@@ -208,6 +215,27 @@ const StaffManage = () => {
                             className="text-red-600"
                           />
                         </div>
+                      </div>
+                      <div className="flex flex-col">
+                        <Field
+                          as="select"
+                          name="role"
+                          className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 mt-3"
+                        >
+                          <option value="">Select Role</option>
+                          {Category.map((category, index) => {
+                            return (
+                              <option key={index} value={category}>
+                                {category}
+                              </option>
+                            );
+                          })}
+                        </Field>
+                        <ErrorMessage
+                          name="role"
+                          component="div"
+                          className="text-red-600"
+                        />
                       </div>
                       <div className="flex flex-col">
                         <label htmlFor="phone">Phone</label>

@@ -3,8 +3,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 const LoginRegister = () => {
-  const loginValidationSchema = Yup.object({
-    loginUsername: Yup.string().required("Required"),
+  const loginValidationSchema = Yup.object().shape({
+    email: Yup.string().required("Required"),
     loginPassword: Yup.string().required("Required"),
   });
   const registerValidationSchema = Yup.object({
@@ -16,7 +16,7 @@ const LoginRegister = () => {
   });
 
   const loginInitialValues = {
-    loginUsername: "",
+    email: "",
     loginPassword: "",
   };
   const registerInitialValues = {
@@ -50,44 +50,52 @@ const LoginRegister = () => {
             validationSchema={loginValidationSchema}
             onSubmit={handleLoginSubmit}
           >
-            <Form>
-              <div className="flex flex-col">
-                <label htmlFor="loginUsername">Username or email address</label>
-                <Field
-                  type="text"
-                  id="loginUsername"
-                  name="loginUsername"
-                  className="w-full border-solid border-2 border-indigo-600 rounded-full px-3 py-1 mt-1 mb-3"
-                />
-                <ErrorMessage
-                  name="loginUsername"
-                  component="div"
-                  className="text-red-600"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label htmlFor="loginPassword">Password</label>
-                <Field
-                  type="password"
-                  id="loginPassword"
-                  name="loginPassword"
-                  className="w-full border-solid border-2 border-indigo-600 rounded-full px-3 py-1 mt-1 mb-3"
-                />
-                <ErrorMessage
-                  name="loginPassword"
-                  component="div"
-                  className="text-red-600"
-                />
-              </div>
-              <div className="flex">
-                <button
-                  type="submit"
-                  className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-2 rounded-full text-white font-semibold transition-all duration-100 ease-in"
-                >
-                  Log in
-                </button>
-              </div>
-            </Form>
+            {({ touched, errors }) => (
+              <Form>
+                <div className="flex flex-col">
+                  <label htmlFor="loginUsername">Email</label>
+                  <Field
+                    type="text"
+                    id="email"
+                    name="email"
+                    className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
+                      touched.email && errors.email ? "border-red-500" : ""
+                    }`}
+                  />
+                  <ErrorMessage
+                    name="loginUsername"
+                    component="div"
+                    className="text-red-600"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="loginPassword">Password</label>
+                  <Field
+                    type="password"
+                    id="loginPassword"
+                    name="loginPassword"
+                    className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
+                      touched.loginPassword && errors.loginPassword
+                        ? "border-red-500"
+                        : ""
+                    }`}
+                  />
+                  <ErrorMessage
+                    name="loginPassword"
+                    component="div"
+                    className="text-red-600"
+                  />
+                </div>
+                <div className="flex">
+                  <button
+                    type="submit"
+                    className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-2 rounded-md text-white font-semibold transition-all duration-100 ease-in"
+                  >
+                    Log in
+                  </button>
+                </div>
+              </Form>
+            )}
           </Formik>
         </div>
         {/* Register */}
@@ -100,86 +108,104 @@ const LoginRegister = () => {
             validationSchema={registerValidationSchema}
             onSubmit={handleRegisterSubmit}
           >
-            <Form>
-              <div className="flex flex-col md:flex-row w-full gap-3">
-                <div className="flex flex-col w-full">
-                  <label htmlFor="firstName">First Name</label>
+            {({ touched, errors }) => (
+              <Form>
+                <div className="flex flex-col md:flex-row w-full gap-3">
+                  <div className="flex flex-col w-full">
+                    <label htmlFor="firstName">First Name</label>
+                    <Field
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
+                        touched.firstName && errors.firstName
+                          ? "border-red-500"
+                          : ""
+                      }`}
+                    />
+                    <ErrorMessage
+                      name="firstName"
+                      component="div"
+                      className="text-red-600"
+                    />
+                  </div>
+                  <div className="flex flex-col w-full">
+                    <label htmlFor="lastName">Last Name</label>
+                    <Field
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
+                        touched.lastName && errors.lastName
+                          ? "border-red-500"
+                          : ""
+                      }`}
+                    />
+                    <ErrorMessage
+                      name="lastName"
+                      component="div"
+                      className="text-red-600"
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="phone">Phone</label>
                   <Field
                     type="text"
-                    id="firstName"
-                    name="firstName"
-                    className="w-full border-solid border-2 border-indigo-600 rounded-full px-3 py-1 mt-1 mb-3"
+                    id="phone"
+                    name="phone"
+                    className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
+                      touched.phone && errors.phone ? "border-red-500" : ""
+                    }`}
                   />
                   <ErrorMessage
-                    name="firstName"
+                    name="phone"
                     component="div"
                     className="text-red-600"
                   />
                 </div>
-                <div className="flex flex-col w-full">
-                  <label htmlFor="lastName">Last Name</label>
+                <div className="flex flex-col">
+                  <label htmlFor="email">Email Address</label>
                   <Field
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    className="w-full border-solid border-2 border-indigo-600 rounded-full px-3 py-1 mt-1 mb-3"
+                    type="email"
+                    id="email"
+                    name="email"
+                    className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
+                      touched.phone && errors.phone ? "border-red-500" : ""
+                    }`}
                   />
                   <ErrorMessage
-                    name="lastName"
+                    name="email"
                     component="div"
                     className="text-red-600"
                   />
                 </div>
-              </div>
-              <div className="flex flex-col">
-                <label htmlFor="phone">Phone</label>
-                <Field
-                  type="text"
-                  id="phone"
-                  name="phone"
-                  className="w-full border-solid border-2 border-indigo-600 rounded-full px-3 py-1 mt-1 mb-3"
-                />
-                <ErrorMessage
-                  name="phone"
-                  component="div"
-                  className="text-red-600"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label htmlFor="email">Email Address</label>
-                <Field
-                  type="email"
-                  id="email"
-                  name="email"
-                  className="w-full border-solid border-2 border-indigo-600 rounded-full px-3 py-1 mt-1 mb-3"
-                />
-                <ErrorMessage
-                  name="email"
-                  component="div"
-                  className="text-red-600"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label htmlFor="password">Password</label>
-                <Field
-                  type="password"
-                  id="password"
-                  name="password"
-                  className="w-full border-solid border-2 border-indigo-600 rounded-full px-3 py-1 mt-1 mb-3"
-                />
-                <ErrorMessage
-                  name="password"
-                  component="div"
-                  className="text-red-600"
-                />
-              </div>
-              <button
-                type="submit"
-                className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-2 rounded-full text-white font-semibold transition-all duration-100 ease-in"
-              >
-                Register
-              </button>
-            </Form>
+                <div className="flex flex-col">
+                  <label htmlFor="password">Password</label>
+                  <Field
+                    type="password"
+                    id="password"
+                    name="password"
+                    className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
+                      touched.password && errors.password
+                        ? "border-red-500"
+                        : ""
+                    }`}
+                  />
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="text-red-600"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-2 rounded-md text-white font-semibold transition-all duration-100 ease-in"
+                >
+                  Register
+                </button>
+              </Form>
+            )}
           </Formik>
         </div>
       </div>
