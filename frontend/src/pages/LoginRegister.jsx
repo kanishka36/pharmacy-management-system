@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { customerRegister } from "../api/auth.js";
+import { customerRegister, userLogin } from "../api/auth.js";
 
 const LoginRegister = () => {
   const loginValidationSchema = Yup.object().shape({
@@ -32,9 +32,15 @@ const LoginRegister = () => {
     conformPassword: "",
   };
 
-  const handleLoginSubmit = (values, action) => {
-    // Handle login form submission
-    console.log(values);
+  const handleLoginSubmit = async (values, action) => {
+    try {
+      const response = await userLogin(values);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+    action.setSubmitting(false);
+    action.resetForm();
   };
 
   const handleRegisterSubmit = async (values, action) => {

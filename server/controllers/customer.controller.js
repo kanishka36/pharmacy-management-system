@@ -37,32 +37,4 @@ const regCustomer = asyncHandler(async (req, res) => {
   }
 });
 
-//login customer
-const loginCustomer = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    const validCustomer = await Customer.findOne({ email });
-    if (!validCustomer) {
-      res.status(404).json({ error: "Customer not found!" });
-      return;
-    }
-    const validPassword = bcryptjs.compareSync(
-      password,
-      validCustomer.password
-    );
-    if (!validPassword) {
-      res.status(401).json({ error: "Wrong cridential!" });
-      return;
-    }
-
-    generateToken(res, validCustomer._id);
-    const { password: pass, ...rest } = validCustomer._doc;
-    res.status(200).json({ rest });
-  } catch (error) {
-    console.error("Error during customer login:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-export { regCustomer, loginCustomer };
+export { regCustomer };

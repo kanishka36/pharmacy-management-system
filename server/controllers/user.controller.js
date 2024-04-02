@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import bcryptjs from "bcryptjs";
 import User from "../models/user.model.js";
+import Customer from "../models/customer.model.js";
 import generateToken from "../utils/generateToken.util.js";
 
 //register staff
@@ -42,14 +43,15 @@ const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const validUser = await User.findOne({ email });
+    const validUser =
+      (await User.findOne({ email })) || (await Customer.findOne({ email })); //both customer and user login
     if (!validUser) {
       res.status(404).json({ error: "User not found!" });
       return;
     }
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) {
-      res.status(401).json({ error: "Wrong cridential!" });
+      res.status(401).json({ error: "Wrong cridential....!" });
       return;
     }
 
