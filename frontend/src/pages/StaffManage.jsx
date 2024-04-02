@@ -61,15 +61,15 @@ const StaffManage = () => {
     setShowPopup(true); // Show popup when "Add Item" button is clicked
   };
 
-  const handleAddMember = async (values, actions) => {
+  const handleAddMember = async (values, action) => {
     try {
       const response = await userRegister(values);
       console.log(response);
     } catch (error) {
       console.log(error);
     }
-    actions.setSubmitting(false);
-    actions.resetForm();
+    action.setSubmitting(false);
+    action.resetForm();
   };
 
   return (

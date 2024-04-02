@@ -1,23 +1,28 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { customerRegister } from "../api/auth";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const LoginRegister = () => {
   const loginValidationSchema = Yup.object().shape({
     email: Yup.string().required("Required"),
-    loginPassword: Yup.string().required("Required"),
+    password: Yup.string().required("Required"),
   });
-  const registerValidationSchema = Yup.object({
+  const registerValidationSchema = Yup.object().shape({
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
     phone: Yup.string().required("Required"),
     email: Yup.string().email("Invalid email address").required("Required"),
     password: Yup.string().required("Required"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .required("Confirm Password is required"),
   });
 
   const loginInitialValues = {
     email: "",
-    loginPassword: "",
+    password: "",
   };
   const registerInitialValues = {
     firstName: "",
@@ -25,6 +30,7 @@ const LoginRegister = () => {
     phone: "",
     email: "",
     password: "",
+    conformPassword: "",
   };
 
   const handleLoginSubmit = (values, action) => {
@@ -32,10 +38,15 @@ const LoginRegister = () => {
     console.log(values);
   };
 
-  const handleRegisterSubmit = (values, { setSubmitting }) => {
-    // Handle register form submission
-    console.log(values);
-    setSubmitting(false);
+  const handleRegisterSubmit = async (values, action) => {
+    try {
+      const response = await customerRegister(values);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+    action.setSubmitting(false);
+    action.resetForm();
   };
 
   return (
@@ -56,7 +67,6 @@ const LoginRegister = () => {
                   <label htmlFor="loginUsername">Email</label>
                   <Field
                     type="text"
-                    id="email"
                     name="email"
                     className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
                       touched.email && errors.email ? "border-red-500" : ""
@@ -72,7 +82,6 @@ const LoginRegister = () => {
                   <label htmlFor="loginPassword">Password</label>
                   <Field
                     type="password"
-                    id="loginPassword"
                     name="loginPassword"
                     className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
                       touched.loginPassword && errors.loginPassword
@@ -115,7 +124,6 @@ const LoginRegister = () => {
                     <label htmlFor="firstName">First Name</label>
                     <Field
                       type="text"
-                      id="firstName"
                       name="firstName"
                       className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
                         touched.firstName && errors.firstName
@@ -133,7 +141,6 @@ const LoginRegister = () => {
                     <label htmlFor="lastName">Last Name</label>
                     <Field
                       type="text"
-                      id="lastName"
                       name="lastName"
                       className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
                         touched.lastName && errors.lastName
@@ -152,7 +159,6 @@ const LoginRegister = () => {
                   <label htmlFor="phone">Phone</label>
                   <Field
                     type="text"
-                    id="phone"
                     name="phone"
                     className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
                       touched.phone && errors.phone ? "border-red-500" : ""
@@ -168,7 +174,6 @@ const LoginRegister = () => {
                   <label htmlFor="email">Email Address</label>
                   <Field
                     type="email"
-                    id="email"
                     name="email"
                     className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
                       touched.phone && errors.phone ? "border-red-500" : ""
@@ -184,10 +189,26 @@ const LoginRegister = () => {
                   <label htmlFor="password">Password</label>
                   <Field
                     type="password"
-                    id="password"
                     name="password"
                     className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
                       touched.password && errors.password
+                        ? "border-red-500"
+                        : ""
+                    }`}
+                  />
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="text-red-600"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="conformPassword">Password</label>
+                  <Field
+                    type="password"
+                    name="conformPassword"
+                    className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
+                      touched.conformPassword && errors.conformPassword
                         ? "border-red-500"
                         : ""
                     }`}
