@@ -1,8 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { customerRegister } from "../api/auth";
-import { faL } from "@fortawesome/free-solid-svg-icons";
+import { customerRegister } from "../api/auth.js";
 
 const LoginRegister = () => {
   const loginValidationSchema = Yup.object().shape({
@@ -15,7 +14,7 @@ const LoginRegister = () => {
     phone: Yup.string().required("Required"),
     email: Yup.string().email("Invalid email address").required("Required"),
     password: Yup.string().required("Required"),
-    confirmPassword: Yup.string()
+    conformPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Passwords must match")
       .required("Confirm Password is required"),
   });
@@ -64,33 +63,33 @@ const LoginRegister = () => {
             {({ touched, errors }) => (
               <Form>
                 <div className="flex flex-col">
-                  <label htmlFor="loginUsername">Email</label>
+                  <label htmlFor="email">Email</label>
                   <Field
-                    type="text"
+                    type="email"
                     name="email"
                     className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
                       touched.email && errors.email ? "border-red-500" : ""
                     }`}
                   />
                   <ErrorMessage
-                    name="loginUsername"
+                    name="email"
                     component="div"
                     className="text-red-600"
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="loginPassword">Password</label>
+                  <label htmlFor="password">Password</label>
                   <Field
                     type="password"
-                    name="loginPassword"
+                    name="password"
                     className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
-                      touched.loginPassword && errors.loginPassword
+                      touched.password && errors.password
                         ? "border-red-500"
                         : ""
                     }`}
                   />
                   <ErrorMessage
-                    name="loginPassword"
+                    name="password"
                     component="div"
                     className="text-red-600"
                   />
@@ -176,7 +175,7 @@ const LoginRegister = () => {
                     type="email"
                     name="email"
                     className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
-                      touched.phone && errors.phone ? "border-red-500" : ""
+                      touched.email && errors.email ? "border-red-500" : ""
                     }`}
                   />
                   <ErrorMessage
@@ -203,7 +202,7 @@ const LoginRegister = () => {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="conformPassword">Password</label>
+                  <label htmlFor="conformPassword">Conform Password</label>
                   <Field
                     type="password"
                     name="conformPassword"
@@ -214,7 +213,7 @@ const LoginRegister = () => {
                     }`}
                   />
                   <ErrorMessage
-                    name="password"
+                    name="conformPassword"
                     component="div"
                     className="text-red-600"
                   />

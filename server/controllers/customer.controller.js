@@ -6,7 +6,7 @@ const regCustomer = asyncHandler(async (req, res) => {
   const { firstName, lastName, role, phone, email, password } = req.body;
 
   try {
-    if (!firstName || !lastName || !phone || !email || !role) {
+    if (!firstName || !lastName || !phone || !email || !password) {
       res.status(400).json({ error: "Please fill in all required fields" });
       return;
     }
