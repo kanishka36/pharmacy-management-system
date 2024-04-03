@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import StockManage from "./pages/StockManage";
 import StaffManage from "./pages/StaffManage";
 import WebsiteLayout from "./components/WebsiteLayout";
+import CustomerAccount from "./pages/CustomerAccount";
 
 const App = () => {
   return (
@@ -23,6 +24,10 @@ const App = () => {
           element={<WebsiteLayout component={Prescription} />}
         />
         <Route path="/shop" element={<WebsiteLayout component={Shop} />} />
+        <Route
+          path="/profile"
+          element={<WebsiteLayout component={CustomerAccount} />}
+        />
 
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/staff" element={<StaffManage />} />

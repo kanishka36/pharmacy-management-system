@@ -1,25 +1,27 @@
-import React, { useState, useTransition } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Logo from "../assets/images/logo.jpg";
+import { useSelector } from "react-redux";
+import Header from "./Header";
 
 const Navbar = () => {
+  const { currentUser } = useSelector((state) => state.user);
   const Links = [
     { name: "Home", path: "/" },
     { name: "Shop", path: "/shop" },
     { name: "About Us", path: "/" },
-    { name: "Dashboard", path: "/dashboard" },
+    currentUser && currentUser.rest.role === "customer"
+      ? ""
+      : { name: "Dashboard", path: "/dashboard" },
   ];
 
   const [isClick, setIsClick] = useState(false);
 
   return (
     <>
-      <div className="bg-cyan-400 py-2 px-3 text-white font-semibold font-poppins text-right">
-        <Link to="my-account">Login/Register</Link>
-      </div>
-
+      <Header />
       <div className="flex flex-col sm:flex-row items-center justify-between p-3 font-poppins relative">
         <div className="w-full sm:basis-1/6 flex justify-between items-center">
           <Link to="/" className="logo">

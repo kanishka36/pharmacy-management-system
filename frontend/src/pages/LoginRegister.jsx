@@ -8,6 +8,7 @@ import {
   loginSuccess,
   loginFailure,
 } from "../redux/user/userSlice.js";
+import { useNavigate } from "react-router-dom";
 
 const LoginRegister = () => {
   const loginValidationSchema = Yup.object().shape({
@@ -42,11 +43,13 @@ const LoginRegister = () => {
   const { loading, error } = useSelector((state) => state.user); //for login
   const [regBtnLoading, setRegBtnLoading] = useState(false); //for register
   const [regError, setRegError] = useState(null); //for register
+  const navigate = useNavigate();
 
   const handleLoginSubmit = async (values, action) => {
     try {
       dispatch(loginStart());
       const response = await userLogin(values);
+      navigate("/");
       dispatch(loginSuccess(response));
     } catch (error) {
       dispatch(loginFailure(error));
