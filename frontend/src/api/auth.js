@@ -13,9 +13,10 @@ export const userRegister = async (values) => {
   }
 };
 
+//both customer and staff login
 export const userLogin = async (values) => {
   try {
-    const response = await axios.post(`${apiUrl}login/user`, values, {
+    const response = await axios.post(`${apiUrl}login`, values, {
       withCredentials: true,
     });
     return response.data;
@@ -27,17 +28,6 @@ export const userLogin = async (values) => {
 export const customerRegister = async (values) => {
   try {
     const response = await axios.post(`${apiUrl}register/customer`, values, {
-      withCredentials: true,
-    });
-    return response.data;
-  } catch (error) {
-    throw error.response.data.error || "Something went wrong";
-  }
-};
-
-export const customerLogin = async (values) => {
-  try {
-    const response = await axios.post(`${apiUrl}login/customer`, values, {
       withCredentials: true,
     });
     return response.data;

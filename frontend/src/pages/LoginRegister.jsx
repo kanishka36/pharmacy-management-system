@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { customerRegister, userLogin } from "../api/auth.js";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  loginStart,
+  loginSuccess,
+  loginFailure,
+} from "../redux/user/userSlice.js";
 
 const LoginRegister = () => {
   const loginValidationSchema = Yup.object().shape({
@@ -32,12 +38,16 @@ const LoginRegister = () => {
     conformPassword: "",
   };
 
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.user);
+
   const handleLoginSubmit = async (values, action) => {
     try {
+      dispatch(loginStart());
       const response = await userLogin(values);
-      console.log(response);
+      dispatch(loginSuccess(response));
     } catch (error) {
-      console.log(error);
+      dispatch(loginFailure(error));
     }
     action.setSubmitting(false);
     action.resetForm();
@@ -103,11 +113,13 @@ const LoginRegister = () => {
                 <div className="flex">
                   <button
                     type="submit"
+                    disabled={loading}
                     className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-2 rounded-md text-white font-semibold transition-all duration-100 ease-in"
                   >
-                    Log in
+                    {loading ? "Loading" : "Log in"}
                   </button>
                 </div>
+                {error && <p className="text-red-500 mt-3">{error}</p>}
               </Form>
             )}
           </Formik>
