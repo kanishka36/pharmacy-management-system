@@ -1,46 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Menu from "../components/Menu";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-
-const Products = [
-  {
-    code: 1,
-    product: "panadol",
-    category: "painkiller",
-    exp: "2020.02.10",
-    actualPrice: 20,
-    sellPrice: 30,
-    profit: 10,
-  },
-  {
-    code: 1,
-    product: "panadol",
-    category: "painkiller",
-    exp: "2020.02.10",
-    actualPrice: 20,
-    sellPrice: 30,
-    profit: 10,
-  },
-  {
-    code: 1,
-    product: "panadol",
-    category: "painkiller",
-    exp: "2020.02.10",
-    actualPrice: 20,
-    sellPrice: 30,
-    profit: 10,
-  },
-  {
-    code: 1,
-    product: "panadol",
-    category: "painkiller",
-    exp: "2020.02.10",
-    actualPrice: 20,
-    sellPrice: 30,
-    profit: 10,
-  },
-];
+import { addItem, displayItem } from "../api/stock";
 
 const Category = ["painkillers", "painkillers", "painkillers", "painkillers"];
 
@@ -54,6 +16,7 @@ const StockManage = () => {
     sellingPrice: Yup.string().required("Required"),
   });
   const [showPopup, setShowPopup] = useState(false);
+  const [items, setItems] = useState([]);
 
   const searchInitialValues = {
     barcode: "",
@@ -80,9 +43,30 @@ const StockManage = () => {
     setShowPopup(true); // Show popup when "Add Item" button is clicked
   };
 
-  const handleAddItem = (values, actions) => {
-    console.log(values);
+  //add item
+  const handleAddItem = async (values, actions) => {
+    try {
+      const response = await addItem(values);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+    actions.setSubmitting(false);
+    actions.resetForm();
   };
+  //display item
+  const fetchItem = async () => {
+    try {
+      const response = await displayItem();
+      setItems(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchItem();
+  }, []);
 
   return (
     <>
@@ -169,28 +153,28 @@ const StockManage = () => {
                 </tr>
               </thead>
               <tbody>
-                {Products.map((product, index) => (
+                {items.map((item, index) => (
                   <tr key={index} className="text-center">
                     <td className="border border-indigo-600 py-1">
-                      {product.code}
+                      {item.barcode}
                     </td>
                     <td className="border border-indigo-600 py-1">
-                      {product.product}
+                      {item.productName}
                     </td>
                     <td className="border border-indigo-600 py-1">
-                      {product.category}
+                      {item.category}
                     </td>
                     <td className="border border-indigo-600 py-1">
-                      {product.exp}
+                      {item.expreDate}
                     </td>
                     <td className="border border-indigo-600 py-1">
-                      {product.actualPrice}
+                      {item.actualPrice}
                     </td>
                     <td className="border border-indigo-600 py-1">
-                      {product.sellPrice}
+                      {item.sellingPrice}
                     </td>
                     <td className="border border-indigo-600 py-1">
-                      {product.profit}
+                      {`${(item.sellingPrice - item.actualPrice) / 100}%`}
                     </td>
                   </tr>
                 ))}
@@ -333,21 +317,43 @@ const StockManage = () => {
                             />
                           </div>
                         </div>
-                        <div className="">
-                          <div className="flex flex-col">
-                            <label>Profit:</label>
-                            <Field
-                              type="text"
+                        <div className="flex flex-col md:flex-row md:gap-10">
+                          <div className="basis-1/2">
+                            <div className="flex flex-col">
+                              <label>Profit:</label>
+                              <Field
+                                type="text"
+                                name="profit"
+                                className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 "
+                              />
+                            </div>
+                            <ErrorMessage
                               name="profit"
-                              className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 "
+                              component="div"
+                              className="text-red-600"
                             />
                           </div>
-                          <ErrorMessage
-                            name="profit"
-                            component="div"
-                            className="text-red-600"
-                          />
+                          <div className="basis-1/2">
+                            <div className="flex flex-col">
+                              <label>Expre Date:</label>
+                              <Field
+                                type="text"
+                                name="expreDate"
+                                className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
+                                  touched.expreDate && errors.expreDate
+                                    ? "border-red-500"
+                                    : ""
+                                }`}
+                              />
+                            </div>
+                            <ErrorMessage
+                              name="expreDate"
+                              component="div"
+                              className="text-red-600"
+                            />
+                          </div>
                         </div>
+
                         <div className="">image add</div>
                         <div className="flex">
                           <button
