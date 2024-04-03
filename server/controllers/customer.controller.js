@@ -15,7 +15,7 @@ const regCustomer = asyncHandler(async (req, res) => {
     const existingCustomer = await Customer.findOne({ email });
 
     if (existingCustomer) {
-      res.status(400).json({ error: "Customer already exists" });
+      res.status(400).json({ error: "This email already exists" });
       return;
     }
 

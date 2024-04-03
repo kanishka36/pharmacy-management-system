@@ -39,7 +39,9 @@ const LoginRegister = () => {
   };
 
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.user);
+  const { loading, error } = useSelector((state) => state.user); //for login
+  const [regBtnLoading, setRegBtnLoading] = useState(false); //for register
+  const [regError, setRegError] = useState(null); //for register
 
   const handleLoginSubmit = async (values, action) => {
     try {
@@ -55,10 +57,12 @@ const LoginRegister = () => {
 
   const handleRegisterSubmit = async (values, action) => {
     try {
+      setRegBtnLoading(true);
       const response = await customerRegister(values);
-      console.log(response);
+      setRegBtnLoading(false);
     } catch (error) {
-      console.log(error);
+      setRegBtnLoading(false);
+      setRegError(error);
     }
     action.setSubmitting(false);
     action.resetForm();
@@ -238,10 +242,12 @@ const LoginRegister = () => {
                 </div>
                 <button
                   type="submit"
+                  disabled={regBtnLoading}
                   className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-2 rounded-md text-white font-semibold transition-all duration-100 ease-in"
                 >
-                  Register
+                  {regBtnLoading ? "Loading..." : "Register"}
                 </button>
+                {regError && <p className="text-red-500 mt-3">{regError}</p>}
               </Form>
             )}
           </Formik>
