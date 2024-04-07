@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { displayItem } from "../api/stock";
+import { Link } from "react-router-dom";
 
 const listItem = [
   "item1",
@@ -41,28 +42,28 @@ const Shop = () => {
           <div className="hidden sm:block basis-1/5 border-r-2 border-solid border-indigo-600 mx-3">
             <h2 className="text-xl font-medium mb-3">Category</h2>
             <p>
-              <a href="/">Ayurveda</a>
+              <Link to="/">Ayurveda</Link>
             </p>
             <p>
-              <a href="/">Personal Care</a>
+              <Link to="/">Personal Care</Link>
             </p>
             <p>
-              <a href="/">Diabetic Care</a>
+              <Link to="/">Diabetic Care</Link>
             </p>
             <p>
-              <a href="/">Surgical Item</a>
+              <Link to="/">Surgical Item</Link>
             </p>
             <p>
-              <a href="/">Kids</a>
+              <Link to="/">Kids</Link>
             </p>
             <p>
-              <a href="/">Vitamins & Nutritions</a>
+              <Link to="/">Vitamins & Nutritions</Link>
             </p>
             <p>
-              <a href="/">Adult Care</a>
+              <Link to="/">Adult Care</Link>
             </p>
             <p>
-              <a href="/">Mother & Baby Care</a>
+              <Link to="/">Mother & Baby Care</Link>
             </p>
           </div>
           <div className="item basis-full sm:basis-4/5 mx-1 sm:m-0">

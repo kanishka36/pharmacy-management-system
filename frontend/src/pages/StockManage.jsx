@@ -3,6 +3,8 @@ import Menu from "../components/Menu";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { addItem, displayItem } from "../api/stock";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const Category = ["painkillers", "painkillers", "painkillers", "painkillers"];
 
@@ -175,6 +177,14 @@ const StockManage = () => {
                     </td>
                     <td className="border border-indigo-600 py-1">
                       {`${(item.sellingPrice - item.actualPrice) / 100}%`}
+                    </td>
+                    <td className="border border-indigo-600">
+                      <button className="text-indigo-600 mr-1">
+                        <FontAwesomeIcon icon={faPenToSquare} />
+                      </button>
+                      <button className="text-red-600">
+                        <FontAwesomeIcon icon={faTrash} />
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -353,8 +363,13 @@ const StockManage = () => {
                             />
                           </div>
                         </div>
+                        <div className="basis-1/2">
+                          <div className="flex flex-col">
+                            <label>Add Image:</label>
+                            <Field type="file" name="image" accept="image/*" />
+                          </div>
+                        </div>
 
-                        <div className="">image add</div>
                         <div className="flex">
                           <button
                             type="submit"

@@ -10,6 +10,7 @@ const addItem = asyncHandler(async (req, res) => {
     quantity,
     actualPrice,
     sellingPrice,
+    image,
   } = req.body;
 
   try {
@@ -40,6 +41,7 @@ const addItem = asyncHandler(async (req, res) => {
       quantity,
       actualPrice,
       sellingPrice,
+      image,
     });
 
     res.status(201).json({ message: "Item added successfully" });

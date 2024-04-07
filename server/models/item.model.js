@@ -31,6 +31,9 @@ const itemSchema = mongoose.Schema(
       type: Number,
       required: [true, "Please add selling price"],
     },
+    image: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
