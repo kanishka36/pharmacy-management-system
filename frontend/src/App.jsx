@@ -8,7 +8,7 @@ import LoginRegister from "./pages/website/LoginRegister";
 import Prescription from "./pages/website/Prescription";
 import StockManage from "./pages/dashboard/StockManage";
 import StaffManage from "./pages/dashboard/StaffManage";
-import WebsiteLayout from "./components/websiteLayout";
+import WebsiteLayout from "./components/WebsiteLayout";
 
 const App = () => {
   return (

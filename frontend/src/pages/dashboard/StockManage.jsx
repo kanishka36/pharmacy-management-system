@@ -1,42 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Menu from "../../components/Menu";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { addItem, displayItem } from "../../api/stock";
+import { Formik, Form, Field } from "formik";
+import { displayItem } from "../../api/stock";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import AddItem from "../../components/AddItem";
 
 const Category = ["painkillers", "painkillers", "painkillers", "painkillers"];
 
 const StockManage = () => {
-  const validationSchema = Yup.object().shape({
-    barcode: Yup.string().required("Required"),
-    productName: Yup.string().required("Required"),
-    category: Yup.string().required("Required"),
-    quantity: Yup.string().required("Required"),
-    actualPrice: Yup.string().required("Required"),
-    sellingPrice: Yup.string().required("Required"),
-  });
   const [showPopup, setShowPopup] = useState(false);
   const [items, setItems] = useState([]);
-  const [file, setFile] = useState(undefined);
-  console.log(file);
 
   const searchInitialValues = {
     barcode: "",
     medicine: "",
     category: "",
-  };
-
-  const addItemInitialValues = {
-    barcode: "",
-    productName: "",
-    category: "",
-    expreDate: "",
-    quantity: "",
-    actualPrice: "",
-    sellingPrice: "",
-    profit: "",
   };
 
   const handleSubmit = (values, actions) => {
@@ -47,17 +26,6 @@ const StockManage = () => {
     setShowPopup(true); // Show popup when "Add Item" button is clicked
   };
 
-  //add item
-  const handleAddItem = async (values, actions) => {
-    try {
-      const response = await addItem(values);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-    actions.setSubmitting(false);
-    actions.resetForm();
-  };
   //display item
   const fetchItem = async () => {
     try {
@@ -197,200 +165,7 @@ const StockManage = () => {
           {/* add product form  */}
           {showPopup && (
             <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 backdrop-blur-sm">
-              <div className="bg-white container m-8 p-8 rounded-md">
-                <Formik
-                  initialValues={addItemInitialValues}
-                  validationSchema={validationSchema}
-                  onSubmit={handleAddItem}
-                >
-                  {({ touched, errors }) => (
-                    <Form>
-                      <div className="flex flex-col">
-                        <h2 className="text-indigo-600 text-2xl font-semibold mb-3">
-                          Add Product
-                        </h2>
-                        <div className="flex flex-col md:flex-row md:gap-10">
-                          <div className="basis-1/2">
-                            <div className="flex flex-col">
-                              <label>Bar Code:</label>
-                              <Field
-                                type="text"
-                                name="barcode"
-                                className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
-                                  touched.barcode && errors.barcode
-                                    ? "border-red-500"
-                                    : ""
-                                }`}
-                              />
-                            </div>
-                            <ErrorMessage
-                              name="barcode"
-                              component="div"
-                              className="text-red-600"
-                            />
-                          </div>
-                          <div className="basis-1/2">
-                            <div className="flex flex-col">
-                              <label>Product Name:</label>
-                              <Field
-                                type="text"
-                                name="productName"
-                                className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
-                                  touched.productName && errors.productName
-                                    ? "border-red-500"
-                                    : ""
-                                }`}
-                              />
-                            </div>
-                            <ErrorMessage
-                              name="productName"
-                              component="div"
-                              className="text-red-600"
-                            />
-                          </div>
-                        </div>
-                        <div className="flex flex-col md:flex-row md:gap-10">
-                          <div className="basis-1/2">
-                            <div className="flex flex-col">
-                              <label>Category:</label>
-                              <Field
-                                type="text"
-                                name="category"
-                                className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
-                                  touched.category && errors.category
-                                    ? "border-red-500"
-                                    : ""
-                                }`}
-                              />
-                            </div>
-                            <ErrorMessage
-                              name="category"
-                              component="div"
-                              className="text-red-600"
-                            />
-                          </div>
-                          <div className="basis-1/2">
-                            <div className="flex flex-col">
-                              <label>Quantity:</label>
-                              <Field
-                                type="text"
-                                name="quantity"
-                                className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
-                                  touched.quantity && errors.quantity
-                                    ? "border-red-500"
-                                    : ""
-                                }`}
-                              />
-                            </div>
-                            <ErrorMessage
-                              name="quantity"
-                              component="div"
-                              className="text-red-600"
-                            />
-                          </div>
-                        </div>
-                        <div className="flex flex-col md:flex-row md:gap-10">
-                          <div className="basis-1/2">
-                            <div className="flex flex-col">
-                              <label>Actual Price:</label>
-                              <Field
-                                type="text"
-                                name="actualPrice"
-                                className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
-                                  touched.actualPrice && errors.actualPrice
-                                    ? "border-red-500"
-                                    : ""
-                                }`}
-                              />
-                            </div>
-                            <ErrorMessage
-                              name="actualPrice"
-                              component="div"
-                              className="text-red-600"
-                            />
-                          </div>
-                          <div className="basis-1/2">
-                            <div className="flex flex-col">
-                              <label>Selling Price:</label>
-                              <Field
-                                type="text"
-                                name="sellingPrice"
-                                className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
-                                  touched.sellingPrice && errors.sellingPrice
-                                    ? "border-red-500"
-                                    : ""
-                                }`}
-                              />
-                            </div>
-                            <ErrorMessage
-                              name="sellingPrice"
-                              component="div"
-                              className="text-red-600"
-                            />
-                          </div>
-                        </div>
-                        <div className="flex flex-col md:flex-row md:gap-10">
-                          <div className="basis-1/2">
-                            <div className="flex flex-col">
-                              <label>Profit:</label>
-                              <Field
-                                type="text"
-                                name="profit"
-                                className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 "
-                              />
-                            </div>
-                            <ErrorMessage
-                              name="profit"
-                              component="div"
-                              className="text-red-600"
-                            />
-                          </div>
-                          <div className="basis-1/2">
-                            <div className="flex flex-col">
-                              <label>Expre Date:</label>
-                              <Field
-                                type="text"
-                                name="expreDate"
-                                className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
-                                  touched.expreDate && errors.expreDate
-                                    ? "border-red-500"
-                                    : ""
-                                }`}
-                              />
-                            </div>
-                            <ErrorMessage
-                              name="expreDate"
-                              component="div"
-                              className="text-red-600"
-                            />
-                          </div>
-                        </div>
-                        <div className="basis-1/2">
-                          <div className="flex flex-col">
-                            <label>Add Image:</label>
-                            <Field type="file" name="image" accept="image/*" />
-                          </div>
-                        </div>
-
-                        <div className="flex">
-                          <button
-                            type="submit"
-                            className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4 mr-3"
-                          >
-                            Add Item
-                          </button>
-                          <button
-                            onClick={() => setShowPopup(false)}
-                            className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4"
-                          >
-                            Close
-                          </button>
-                        </div>
-                      </div>
-                    </Form>
-                  )}
-                </Formik>
-              </div>
+              <AddItem setShowPopup={setShowPopup} />
             </div>
           )}
         </div>
