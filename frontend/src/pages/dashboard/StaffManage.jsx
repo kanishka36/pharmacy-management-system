@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Menu from "../components/Menu";
+import Menu from "../../components/Menu.jsx";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { userRegister } from "../api/auth.js";
+import { userRegister } from "../../api/auth.js";
 
 const Staff = [
   {

@@ -1,5 +1,5 @@
 import React from "react";
-import { CategorySlider, HeroSlider } from "../components/Slider";
+import { CategorySlider, HeroSlider } from "../../components/Slider";
 import "swiper/css";
 
 const Home = () => {

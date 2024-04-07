@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Menu from "../components/Menu";
+import Menu from "../../components/Menu";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { addItem, displayItem } from "../api/stock";
+import { addItem, displayItem } from "../../api/stock";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -19,6 +19,8 @@ const StockManage = () => {
   });
   const [showPopup, setShowPopup] = useState(false);
   const [items, setItems] = useState([]);
+  const [file, setFile] = useState(undefined);
+  console.log(file);
 
   const searchInitialValues = {
     barcode: "",

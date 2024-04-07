@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { displayItem } from "../api/stock";
+import { displayItem } from "../../api/stock";
 import { Link } from "react-router-dom";
 
 const listItem = [

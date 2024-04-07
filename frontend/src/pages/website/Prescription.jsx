@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import guidImg from "../assets/images/slider1.jpg";
+import guidImg from "../../assets/images/slider1.jpg";
 
 const Prescription = () => {
   const validationSchema = Yup.object().shape({

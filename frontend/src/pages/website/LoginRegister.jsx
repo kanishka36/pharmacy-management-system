@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { customerRegister, userLogin } from "../api/auth.js";
+import { customerRegister, userLogin } from "../../api/auth.js";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loginStart,
   loginSuccess,
   loginFailure,
-} from "../redux/user/userSlice.js";
+} from "../../redux/user/userSlice.js";
 import { useNavigate } from "react-router-dom";
 
 const LoginRegister = () => {

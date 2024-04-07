@@ -1,14 +1,14 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Home from "./pages/Home";
-import Prescription from "./pages/Prescription";
-import LoginRegister from "./pages/LoginRegister";
-import Shop from "./pages/Shop";
-import Dashboard from "./pages/Dashboard";
-import StockManage from "./pages/StockManage";
-import StaffManage from "./pages/StaffManage";
-import WebsiteLayout from "./components/WebsiteLayout";
-import CustomerAccount from "./pages/CustomerAccount";
+import Home from "./pages/website/Home";
+import Dashboard from "./pages/dashboard/Dashboard";
+import CustomerAccount from "./pages/website/CustomerAccount";
+import Shop from "./pages/website/Shop";
+import LoginRegister from "./pages/website/LoginRegister";
+import Prescription from "./pages/website/Prescription";
+import StockManage from "./pages/dashboard/StockManage";
+import StaffManage from "./pages/dashboard/StaffManage";
+import WebsiteLayout from "./components/websiteLayout";
 
 const App = () => {
   return (
