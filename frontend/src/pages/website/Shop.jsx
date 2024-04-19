@@ -73,7 +73,9 @@ const Shop = () => {
                   className="flex items-center flex-col m-1 sm:m-2 p-3 border border-solid border-indigo-600 rounded-lg"
                   key={index}
                 >
-                  <img src="" />
+                  <div className="flex justify-center w-full h-40">
+                    <img className="h-40 object-contain" src={item.image} />
+                  </div>
                   <p>{item.barcode}</p>
                   <p>{item.productName}</p>
                   <p>{item.sellingPrice}</p>

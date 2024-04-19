@@ -38,10 +38,11 @@ const AddItem = ({ setShowPopup }) => {
   };
 
   //add item
-  const handleAddItem = async (values, actions) => {
+  const handleSubmit = async (values, actions) => {
     try {
       values.image = imgURL;
       const response = await addItem(values);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -63,7 +64,7 @@ const AddItem = ({ setShowPopup }) => {
         const url = await storeImage(file);
         setImgURL(url);
         setFileUploadError(false);
-        setFilePercentage(null)
+        setFilePercentage(null);
       }
     } catch (error) {
       console.log(error);
@@ -114,7 +115,7 @@ const AddItem = ({ setShowPopup }) => {
         <Formik
           initialValues={addItemInitialValues}
           validationSchema={validationSchema}
-          onSubmit={handleAddItem}
+          onSubmit={handleSubmit}
         >
           {({ touched, errors }) => (
             <Form>

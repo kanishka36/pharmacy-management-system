@@ -122,6 +122,9 @@ const StockManage = () => {
                   <th className="border-2 border-indigo-600 text-indigo-600 py-2">
                     Profit
                   </th>
+                  <th className="border-2 border-indigo-600 text-indigo-600 py-2">
+                    Image
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -145,8 +148,17 @@ const StockManage = () => {
                     <td className="border border-indigo-600 py-1">
                       {item.sellingPrice}
                     </td>
+
                     <td className="border border-indigo-600 py-1">
                       {`${(item.sellingPrice - item.actualPrice) / 100}%`}
+                    </td>
+                    <td className="border border-indigo-600 py-1">
+                      {
+                        <img
+                          className="w-20 h-15 object-contain"
+                          src={item.image}
+                        />
+                      }
                     </td>
                     <td className="border border-indigo-600">
                       <button className="text-indigo-600 mr-1">
