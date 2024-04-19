@@ -65,8 +65,12 @@ const displayItem = asyncHandler(async (req, res) => {
 //delete item
 const deleteItem = asyncHandler(async (req, res) => {
   try {
-    await Item.findByIdAndDelete(req.params.id);
-    res.status(200).json("item has been deleted");
+    if (req.user.role === "admin") {
+      await Item.findByIdAndDelete(req.params.id);
+      res.status(200).json("item has been deleted");
+    } else {
+      return res.status(401).json("You are not authorized");
+    }
   } catch (error) {
     console.error("Error during item delete:", error);
   }

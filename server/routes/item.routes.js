@@ -10,6 +10,6 @@ const itemRouter = express.Router();
 
 itemRouter.post("/add-item", verifyToken, addItem);
 itemRouter.get("/display-item", displayItem);
-itemRouter.delete("/delete-item/:id", deleteItem);
+itemRouter.delete("/delete-item/:id", verifyToken, deleteItem);
 
 export { itemRouter };

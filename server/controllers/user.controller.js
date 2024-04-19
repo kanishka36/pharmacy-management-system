@@ -55,7 +55,7 @@ const loginUser = asyncHandler(async (req, res) => {
       return;
     }
 
-    generateToken(res, validUser._id);
+    generateToken(res, validUser._id, validUser.role);
     const { password: pass, ...rest } = validUser._doc;
     res.status(200).json({ rest });
   } catch (error) {
