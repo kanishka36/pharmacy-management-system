@@ -12,12 +12,9 @@ import { app } from "../firebase.js";
 
 const AddItem = ({ setShowPopup }) => {
   const [file, setFile] = useState(null);
-  const [filePercentage, setFilePercentage] = useState(0);
+  const [filePercentage, setFilePercentage] = useState(null);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [imgURL, setImgURL] = useState("");
-  console.log(filePercentage);
-  console.log(fileUploadError);
-  console.log(imgURL);
 
   const validationSchema = Yup.object().shape({
     barcode: Yup.string().required("Required"),
@@ -45,8 +42,6 @@ const AddItem = ({ setShowPopup }) => {
     try {
       values.image = imgURL;
       const response = await addItem(values);
-      console.log(response);
-      console.log(values);
     } catch (error) {
       console.log(error);
     }
@@ -54,19 +49,35 @@ const AddItem = ({ setShowPopup }) => {
     actions.resetForm();
   };
 
-  const handleImageSubmit = async (e) => {
-    try {
-      if (file) {
-        const url = await storeImage(file);
-        setImgURL(url);
-        console.log(imgURL);
-      }
-    } catch (error) {
-      console.log(error);
-      setFileUploadError(true);
+  const handleChange = (e) => {
+    if (e.target.files.length) {
+      setFile(e.target.files[0]);
+    } else {
+      console.log("No image selected");
     }
   };
 
+  const handleImageUpload = async (e) => {
+    try {
+      if (file && !imgURL) {
+        const url = await storeImage(file);
+        setImgURL(url);
+        setFileUploadError(false);
+        setFilePercentage(null)
+      }
+    } catch (error) {
+      console.log(error);
+      setFileUploadError("Image upload failed (2 mb max per image)");
+    }
+  };
+
+  const handleRemoveImg = () => {
+    setImgURL("");
+    setFile(null);
+    filePercentage(null);
+  };
+
+  //store image in firebase
   const storeImage = async (file) => {
     return new Promise((resolve, reject) => {
       const storage = getStorage(app);
@@ -95,14 +106,6 @@ const AddItem = ({ setShowPopup }) => {
         }
       );
     });
-  };
-
-  const handleChange = (e) => {
-    if (e.target.files.length) {
-      setFile(e.target.files[0]);
-    } else {
-      console.log("No image selected");
-    }
   };
 
   return (
@@ -279,21 +282,64 @@ const AddItem = ({ setShowPopup }) => {
                   <div className="flex flex-col">
                     <label>Add Image:</label>
 
-                    <div className="">
-                      <Field
+                    <div className="relative">
+                      <label
+                        htmlFor="image"
+                        className="border border-indigo-500 px-2 py-1 rounded-md"
+                      >
+                        Choose File
+                      </label>
+                      <input
                         type="file"
                         name="image"
                         accept="image/*"
                         onChange={handleChange}
+                        className="absolute inset-0 w-28 h-full opacity-0 cursor-pointer"
                       />
                       <button
                         type="button"
-                        className="px-3 py-1 rounded-md bg-green-600 text-white font-semibold"
-                        onClick={handleImageSubmit}
+                        className="px-3 py-1 rounded-md bg-green-600 text-white font-semibold ml-6"
+                        onClick={handleImageUpload}
                       >
                         Upload
                       </button>
                     </div>
+                    <p className="text-red-600">
+                      {fileUploadError && fileUploadError}
+                    </p>
+                    <p>
+                      {filePercentage > 0 && filePercentage < 100 ? (
+                        <span>{`Uploading ${filePercentage}%`}</span>
+                      ) : (
+                        ""
+                      )}
+                    </p>
+                    <p>
+                      {file && imgURL ? (
+                        <span className="text-green-600">
+                          Image seccussful uploaded
+                        </span>
+                      ) : (
+                        ""
+                      )}
+                    </p>
+                    {imgURL.length > 0 ? (
+                      <div className="flex pt-3">
+                        <img
+                          className="w-40 h-30 object-contain rounded-lg mr-3"
+                          src={imgURL}
+                        />
+                        <button
+                          type="button"
+                          className="text-red-600 uppercase"
+                          onClick={() => handleRemoveImg()}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
 
