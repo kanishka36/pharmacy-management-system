@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Menu from "../../components/Menu";
 import { Formik, Form, Field } from "formik";
-import { displayItem } from "../../api/stock";
+import { displayItem, deleteItem } from "../../api/stock";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import AddItem from "../../components/AddItem";
@@ -39,6 +39,15 @@ const StockManage = () => {
   useEffect(() => {
     fetchItem();
   }, []);
+
+  const handleDeleteItem = async (itemId) => {
+    try {
+      await deleteItem(itemId);
+      setItems((prev) => prev.filter((item) => item._id !== itemId));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -148,7 +157,6 @@ const StockManage = () => {
                     <td className="border border-indigo-600 py-1">
                       {item.sellingPrice}
                     </td>
-
                     <td className="border border-indigo-600 py-1">
                       {`${(item.sellingPrice - item.actualPrice) / 100}%`}
                     </td>
@@ -164,7 +172,11 @@ const StockManage = () => {
                       <button className="text-indigo-600 mr-1">
                         <FontAwesomeIcon icon={faPenToSquare} />
                       </button>
-                      <button className="text-red-600">
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteItem(item._id)}
+                        className="text-red-600"
+                      >
                         <FontAwesomeIcon icon={faTrash} />
                       </button>
                     </td>

@@ -62,4 +62,14 @@ const displayItem = asyncHandler(async (req, res) => {
   }
 });
 
-export { addItem, displayItem };
+//delete item
+const deleteItem = asyncHandler(async (req, res) => {
+  try {
+    await Item.findByIdAndDelete(req.params.id);
+    res.status(200).json("item has been deleted");
+  } catch (error) {
+    console.error("Error during item delete:", error);
+  }
+});
+
+export { addItem, displayItem, deleteItem };

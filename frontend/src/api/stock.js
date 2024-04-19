@@ -23,3 +23,14 @@ export const displayItem = async () => {
     throw error.response.data.error || "Something went wrong";
   }
 };
+
+export const deleteItem = async (itemId) => {
+  try {
+    const response = await axios.delete(`${apiUrl}delete-item/${itemId}`, {
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    throw error.response.data.error || "Something went wrong";
+  }
+};
