@@ -5,12 +5,15 @@ import { displayItem, deleteItem } from "../../api/stock";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import AddItem from "../../components/AddItem";
+import EditItem from "../../components/EditItem";
 
 const Category = ["painkillers", "painkillers", "painkillers", "painkillers"];
 
 const StockManage = () => {
   const [showPopup, setShowPopup] = useState(false);
+  const [showPopup2, setShowPopup2] = useState(false);
   const [items, setItems] = useState([]);
+  const [data, setData] = useState();
 
   const searchInitialValues = {
     barcode: "",
@@ -18,12 +21,21 @@ const StockManage = () => {
     category: "",
   };
 
+  //search function
   const handleSubmit = (values, actions) => {
     console.log(values);
   };
 
+  // Show popup when "Add Item" button is clicked
   const handleAddItemPopup = () => {
-    setShowPopup(true); // Show popup when "Add Item" button is clicked
+    setShowPopup(true);
+  };
+
+  // Show popup when "Edit Icon" button is clicked
+  const handleEditItemPopup = (itemId) => {
+    setShowPopup2(true);
+    const selectedItem = items.find((item) => item._id === itemId);
+    setData(selectedItem);
   };
 
   //display item
@@ -107,7 +119,7 @@ const StockManage = () => {
           </Formik>
           {/* table of product details  */}
           <div className="my-3 overflow-x-auto mx-3">
-            <table className="table-auto w-full border border-indigo-600">
+            <table className="table-auto w-full">
               <thead>
                 <tr>
                   <th className="border-2 border-indigo-600 text-indigo-600 py-2">
@@ -162,14 +174,20 @@ const StockManage = () => {
                     </td>
                     <td className="border border-indigo-600 py-1">
                       {
-                        <img
-                          className="w-20 h-15 object-contain"
-                          src={item.image}
-                        />
+                        <div className="flex justify-center">
+                          <img
+                            className="w-20 h-15 object-contain"
+                            src={item.image}
+                          />
+                        </div>
                       }
                     </td>
                     <td className="border border-indigo-600">
-                      <button className="text-indigo-600 mr-1">
+                      <button
+                        type="button"
+                        onClick={() => handleEditItemPopup(item._id)}
+                        className="text-indigo-600 mr-1"
+                      >
                         <FontAwesomeIcon icon={faPenToSquare} />
                       </button>
                       <button
@@ -188,8 +206,14 @@ const StockManage = () => {
 
           {/* add product form  */}
           {showPopup && (
-            <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 backdrop-blur-sm">
+            <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 backdrop-blur-sm ">
               <AddItem setShowPopup={setShowPopup} />
+            </div>
+          )}
+          {/* edit product form  */}
+          {showPopup2 && (
+            <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 backdrop-blur-sm ">
+              <EditItem setShowPopup2={setShowPopup2} data={data} />
             </div>
           )}
         </div>

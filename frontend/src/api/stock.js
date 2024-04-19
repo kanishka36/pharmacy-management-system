@@ -34,3 +34,14 @@ export const deleteItem = async (itemId) => {
     throw error.response.data.error || "Something went wrong";
   }
 };
+
+export const updateItem = async (values, itemId) => {
+  try {
+    const response = await axios.put(`${apiUrl}update-item/${itemId}`, values, {
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    throw error.response.data.error || "Something went wrong";
+  }
+};

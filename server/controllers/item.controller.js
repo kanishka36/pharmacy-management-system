@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Item from "../models/item.model.js";
+import { error } from "console";
 
 const addItem = asyncHandler(async (req, res) => {
   const {
@@ -67,7 +68,7 @@ const deleteItem = asyncHandler(async (req, res) => {
   try {
     if (req.user.role === "admin") {
       await Item.findByIdAndDelete(req.params.id);
-      res.status(200).json("item has been deleted");
+      res.status(200).json("Item has been deleted");
     } else {
       return res.status(401).json("You are not authorized");
     }
@@ -76,4 +77,58 @@ const deleteItem = asyncHandler(async (req, res) => {
   }
 });
 
-export { addItem, displayItem, deleteItem };
+//update item
+const updateItem = asyncHandler(async (req, res) => {
+  try {
+    const id = req.params.id;
+    const {
+      barcode,
+      productName,
+      category,
+      expreDate,
+      quantity,
+      actualPrice,
+      sellingPrice,
+      image,
+    } = req.body;
+
+    if (
+      !barcode ||
+      !productName ||
+      !category ||
+      !expreDate ||
+      !quantity ||
+      !actualPrice ||
+      !sellingPrice
+    ) {
+      res.status(400).json({ error: "Please fill in all required fields" });
+      return;
+    }
+    if (req.user.role === "admin") {
+      const response = await Item.findByIdAndUpdate(
+        id,
+        {
+          barcode,
+          productName,
+          category,
+          expreDate,
+          quantity,
+          actualPrice,
+          sellingPrice,
+          image,
+        },
+        { new: true }
+      );
+      if (!response) {
+        return res.status(404).json({ error: "Item not found" });
+      }
+      res.status(200).json("Item has been updated");
+    } else {
+      return res.status(401).json("You are not authorized");
+    }
+  } catch (error) {
+    console.error("Error during item update:", error);
+  }
+});
+
+export { addItem, displayItem, deleteItem, updateItem };
