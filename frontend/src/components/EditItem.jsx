@@ -10,7 +10,7 @@ import {
 } from "firebase/storage";
 import { app } from "../firebase.js";
 
-const EditItem = ({ setShowPopup2, data }) => {
+const EditItem = ({ setShowPopup2, data, setItems }) => {
   const [file, setFile] = useState(null);
   const [filePercentage, setFilePercentage] = useState(null);
   const [fileUploadError, setFileUploadError] = useState(false);
@@ -42,7 +42,13 @@ const EditItem = ({ setShowPopup2, data }) => {
     try {
       values.image = imgURL || data.image;
       console.log(values);
-      const response = await updateItem(values, data._id);
+      await updateItem(values, data._id);
+      //update display item row
+      setItems((prevItems) =>
+        prevItems.map((item) =>
+          item._id === data._id ? { ...item, ...values } : item
+        )
+      );
     } catch (error) {
       console.log(error);
     }

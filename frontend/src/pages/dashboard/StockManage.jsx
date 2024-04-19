@@ -213,7 +213,11 @@ const StockManage = () => {
           {/* edit product form  */}
           {showPopup2 && (
             <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 backdrop-blur-sm ">
-              <EditItem setShowPopup2={setShowPopup2} data={data} />
+              <EditItem
+                setShowPopup2={setShowPopup2}
+                data={data}
+                setItems={setItems}
+              />
             </div>
           )}
         </div>
