@@ -3,6 +3,8 @@ import Menu from "../../components/Menu.jsx";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { userRegister } from "../../api/auth.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const Staff = [
   {
@@ -130,7 +132,7 @@ const StaffManage = () => {
           </Formik>
           {/* table of product details  */}
           <div className="my-3 overflow-x-auto mx-3">
-            <table className="table-auto w-full border border-indigo-600">
+            <table className="table-auto w-full">
               <thead>
                 <tr>
                   <th className="border-2 border-indigo-600 text-indigo-600 py-2">
@@ -156,9 +158,21 @@ const StaffManage = () => {
                     <td className="border border-indigo-600 py-1">
                       {member.role}
                     </td>
-                    <td className="border border-indigo-600 py-1">
-                      <button>See More</button>
-                      <button>Delete</button>
+                    <td className="border border-indigo-600">
+                      <button
+                        type="button"
+                        onClick={() => handleEditItemPopup(item._id)}
+                        className="text-indigo-600 mr-1"
+                      >
+                        <FontAwesomeIcon icon={faPenToSquare} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteItem(item._id)}
+                        className="text-red-600"
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </button>
                     </td>
                   </tr>
                 ))}

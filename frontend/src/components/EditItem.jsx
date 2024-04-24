@@ -41,7 +41,6 @@ const EditItem = ({ setShowPopup2, data, setItems }) => {
   const handleSubmit = async (values, actions) => {
     try {
       values.image = imgURL || data.image;
-      console.log(values);
       await updateItem(values, data._id);
       //update display item row
       setItems((prevItems) =>
