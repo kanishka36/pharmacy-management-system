@@ -131,4 +131,17 @@ const updateItem = asyncHandler(async (req, res) => {
   }
 });
 
-export { addItem, displayItem, deleteItem, updateItem };
+//search item
+const searchItem = asyncHandler(async (req, res) => {
+  try {
+    const searchInput = req.query.search;
+    const regex = new RegExp(searchInput, "i");
+    const searchData = await Item.find({ productName: regex });
+    res.status(200).json(searchData);
+  } catch (error) {
+    console.error("Error during item search:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+export { addItem, displayItem, deleteItem, updateItem, searchItem };

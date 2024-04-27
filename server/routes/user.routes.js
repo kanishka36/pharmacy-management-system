@@ -13,6 +13,6 @@ userRouter.post("/register/user", verifyToken, regUser);
 userRouter.post("/login", loginUser);
 userRouter.get("/display-staff", verifyToken, displayUser);
 userRouter.put("/update-staff/:id", verifyToken, updateUser);
-userRouter.delete("/delete-staff/:id", verifyToken, deleteUser);
+userRouter.get("/delete-staff/:id", verifyToken, deleteUser);
 
 export { userRouter };

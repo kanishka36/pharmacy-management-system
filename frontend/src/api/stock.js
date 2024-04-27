@@ -45,3 +45,17 @@ export const updateItem = async (values, itemId) => {
     throw error.response.data.error || "Something went wrong";
   }
 };
+
+export const searchItem = async (input) => {
+  try {
+    const response = await axios.get(
+      `${apiUrl}product-search?search=${input}`,
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data.error || "Something went wrong";
+  }
+};
