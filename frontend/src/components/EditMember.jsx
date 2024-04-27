@@ -1,11 +1,11 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { userRegister } from "../api/auth.js";
+import { updateStaff } from "../api/staff";
 
 const Category = ["pharmacist", "stock keeper", "deliver partner", "cashier"];
 
-const AddMember = ({ setShowPopup }) => {
+const EditMember = ({ setShowPopup2, data, setStaff }) => {
   const registerValidationSchema = Yup.object().shape({
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
@@ -15,30 +15,32 @@ const AddMember = ({ setShowPopup }) => {
   });
 
   const registerInitialValues = {
-    firstName: "",
-    lastName: "",
-    role: "",
-    phone: "",
-    email: "",
-    password: "",
+    firstName: data.firstName,
+    lastName: data.lastName,
+    role: data.role,
+    phone: data.phone,
+    email: data.email,
   };
 
-  const handleAddMember = async (values, action) => {
+  const handleAddMember = async (values, actions) => {
     try {
-      await userRegister(values);
-      location.reload();
+      await updateStaff(values, data._id);
+      setStaff((prevMember) =>
+        prevMember.map((member) =>
+          member._id === data._id ? { ...member, ...values } : member
+        )
+      );
+      actions.setSubmitting(false);
     } catch (error) {
       console.log(error);
     }
-    action.setSubmitting(false);
-    action.resetForm();
   };
 
   return (
     <>
       <div className="container bg-white rounded-md p-3">
         <h2 className="text-2xl sm:text-3xl font-semibold mb-3 text-indigo-600">
-          Add Member
+          Edit Member
         </h2>
         <Formik
           initialValues={registerInitialValues}
@@ -139,11 +141,11 @@ const AddMember = ({ setShowPopup }) => {
                   type="submit"
                   className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4 mr-3"
                 >
-                  Register
+                  Update
                 </button>
                 <button
                   type="button"
-                  onClick={() => setShowPopup(false)}
+                  onClick={() => setShowPopup2(false)}
                   className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4"
                 >
                   Close
@@ -157,4 +159,4 @@ const AddMember = ({ setShowPopup }) => {
   );
 };
 
-export default AddMember;
+export default EditMember;

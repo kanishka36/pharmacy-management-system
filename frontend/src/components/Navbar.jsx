@@ -12,8 +12,8 @@ const Navbar = () => {
     { name: "Home", path: "/" },
     { name: "Shop", path: "/shop" },
     { name: "About Us", path: "/" },
-    currentUser && currentUser.rest.role === "customer"
-      ? ""
+    currentUser && currentUser.rest && currentUser.rest.role === "customer"
+      ? null
       : { name: "Dashboard", path: "/dashboard" },
   ];
 

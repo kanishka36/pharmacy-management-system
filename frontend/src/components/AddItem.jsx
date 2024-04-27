@@ -41,8 +41,8 @@ const AddItem = ({ setShowPopup }) => {
   const handleSubmit = async (values, actions) => {
     try {
       values.image = imgURL;
-      const response = await addItem(values);
-      console.log(response);
+      await addItem(values);
+      location.reload();
     } catch (error) {
       console.log(error);
     }

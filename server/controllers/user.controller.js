@@ -64,4 +64,64 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { regUser, loginUser };
+//display user
+const displayUser = asyncHandler(async (req, res) => {
+  try {
+    const user = await User.find();
+    res.status(201).send(user);
+  } catch (error) {
+    console.error("Error during item registration:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+//udate user
+const updateUser = asyncHandler(async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { firstName, lastName, role, phone, email } = req.body;
+
+    if (!firstName || !lastName || !role || !phone || !email) {
+      res.status(400).json({ error: "Please fill in all required fields" });
+      return;
+    }
+    if (req.user.role === "admin") {
+      const response = await User.findByIdAndUpdate(
+        id,
+        {
+          firstName,
+          lastName,
+          role,
+          phone,
+          email,
+        },
+        { new: true }
+      );
+
+      if (!response) {
+        return res.status(404).json({ error: "Member not found" });
+      }
+      res.status(200).json("Member has been updated");
+    } else {
+      return res.status(401).json("You are not authorized");
+    }
+  } catch (error) {
+    console.error("Error during member update:", error);
+  }
+});
+
+//delete item
+const deleteUser = asyncHandler(async (req, res) => {
+  try {
+    if (req.user.role === "admin") {
+      await User.findByIdAndDelete(req.params.id);
+      res.status(200).json("User has been deleted");
+    } else {
+      return res.status(401).json("You are not authorized");
+    }
+  } catch (error) {
+    console.error("Error during user delete:", error);
+  }
+});
+
+export { regUser, loginUser, displayUser, updateUser, deleteUser };
