@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
-import Item from "../models/item.model.js";
-import { error } from "console";
+import { Item, Category } from "../models/item.model.js";
+
 
 const addItem = asyncHandler(async (req, res) => {
   const {
@@ -144,4 +144,92 @@ const searchItem = asyncHandler(async (req, res) => {
   }
 });
 
-export { addItem, displayItem, deleteItem, updateItem, searchItem };
+//add category
+const addCategory = asyncHandler(async (req, res) => {
+  const {category }= req.body;
+
+  try {
+    if (!category) {
+      res.status(400).json({ error: "Please fill in all required fields" });
+      return;
+    }
+    const existingItem = await Category.findOne({ category });
+
+    if (existingItem) {
+      res.status(400).json({ error: "This category already exists" });
+      return;
+    }
+
+    await Category.create({ category });
+
+    res.status(201).json({ message: "category added successfully" });
+  } catch (error) {
+    console.error("Error during category add:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+//display category
+const displayCategory = asyncHandler(async (req, res) => {
+  try {
+    const category = await Category.find();
+    res.status(201).send(category);
+  } catch (error) {
+    console.error("Error during category display:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+const updateCategory = asyncHandler(async (req, res) => {
+  try {
+    const id = req.params.id;
+    const {category} = req.body;
+
+    if (!category) {
+      res.status(400).json({ error: "Please fill in all required fields" });
+      return;
+    }
+    if (req.user.role === "admin") {
+      const response = await Category.findByIdAndUpdate(
+        id,
+        {category},
+        { new: true }
+      );
+      if (!response) {
+        return res.status(404).json({ error: "Category not found" });
+      }
+      res.status(200).json("Category has been updated");
+    } else {
+      return res.status(401).json("You are not authorized");
+    }
+  } catch (error) {
+    console.error("Error during Category update:", error);
+  }
+});
+
+//delete category
+const deleteCategory = asyncHandler(async (req, res) => {
+  try {
+    if (req.user.role === "admin") {
+      await Category.findByIdAndDelete(req.params.id);
+      res.status(200).json("Category has been deleted");
+    } else {
+      return res.status(401).json("You are not authorized");
+    }
+  } catch (error) {
+    console.error("Error during category delete:", error);
+  }
+});
+
+
+export {
+  addItem,
+  displayItem,
+  deleteItem,
+  updateItem,
+  searchItem,
+  addCategory,
+  displayCategory,
+  updateCategory,
+  deleteCategory
+};

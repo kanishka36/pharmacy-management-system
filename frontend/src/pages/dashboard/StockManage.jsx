@@ -6,12 +6,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import AddItem from "../../components/AddItem";
 import EditItem from "../../components/EditItem";
+import CategoryManage from "../../components/CategoryMange";
 
 const Category = ["painkillers", "painkillers", "painkillers", "painkillers"];
 
 const StockManage = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showPopup2, setShowPopup2] = useState(false);
+  const [showPopup3, setShowPopup3] = useState(false);
   const [items, setItems] = useState([]);
   const [data, setData] = useState();
 
@@ -36,6 +38,11 @@ const StockManage = () => {
     setShowPopup2(true);
     const selectedItem = items.find((item) => item._id === itemId);
     setData(selectedItem);
+  };
+
+  //show popup when add new category button clicked
+  const handleAddCategoryPopup = () => {
+    setShowPopup3(true);
   };
 
   //display item
@@ -109,10 +116,17 @@ const StockManage = () => {
                 </button>
                 <button
                   type="button"
-                  className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-1 rounded-md text-white font-semibold transition-all duration-100 ease-in"
+                  className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-1 mr-1 rounded-md text-white font-semibold transition-all duration-100 ease-in"
                   onClick={handleAddItemPopup}
                 >
                   Add Item
+                </button>
+                <button
+                  type="button"
+                  className="bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-10 py-1 rounded-md text-white font-semibold transition-all duration-100 ease-in"
+                  onClick={handleAddCategoryPopup}
+                >
+                  Add New Category
                 </button>
               </div>
             </Form>
@@ -218,6 +232,12 @@ const StockManage = () => {
                 data={data}
                 setItems={setItems}
               />
+            </div>
+          )}
+          {/* add new category  */}
+          {showPopup3 && (
+            <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 backdrop-blur-sm ">
+              <CategoryManage setShowPopup3={setShowPopup3} />
             </div>
           )}
         </div>

@@ -59,3 +59,47 @@ export const searchItem = async (input) => {
     throw error.response.data.error || "Something went wrong";
   }
 };
+
+export const addCategory = async (values) => {
+  try {
+    const response = await axios.post(`${apiUrl}add-category`, values, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data.error || "Something went wrong";
+  }
+};
+
+export const displayCategory = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}display-category`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data.error || "Something went wrong";
+  }
+};
+
+export const updateCategory = async (values, categoryId) => {
+  try {
+    const response = await axios.put(`${apiUrl}update-category/${categoryId}`, values, {
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    throw error.response.data.error || "Something went wrong";
+  }
+};
+
+export const deleteCategory = async (itemId) => {
+  try {
+    const response = await axios.delete(`${apiUrl}delete-category/${itemId}`, {
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    throw error.response.data.error || "Something went wrong";
+  }
+};

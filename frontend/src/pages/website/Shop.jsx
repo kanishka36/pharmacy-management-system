@@ -76,9 +76,8 @@ const Shop = () => {
                   <div className="flex justify-center w-full h-40">
                     <img className="h-40 object-contain" src={item.image} />
                   </div>
-                  <p>{item.barcode}</p>
                   <p>{item.productName}</p>
-                  <p>{item.sellingPrice}</p>
+                  <p>{item.sellingPrice}.00 <span className="font-bold">LKR</span></p>
                   <button className="text-sm sm:text-base bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-5 py-2 sm:px-10 sm:py-2 rounded-full text-white font-semibold transition-all duration-100 ease-in">
                     Add to Cart
                   </button>

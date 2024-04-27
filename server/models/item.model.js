@@ -38,6 +38,15 @@ const itemSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const Item = mongoose.model("Item", itemSchema);
+const categorySchema = mongoose.Schema({
+  category: {
+    type: String,
+    required: [true, "Please add a category"],
+    unique: true,
+  },
+});
 
-export default Item;
+const Item = mongoose.model("Item", itemSchema);
+const Category = mongoose.model("Category", categorySchema);
+
+export { Item, Category };

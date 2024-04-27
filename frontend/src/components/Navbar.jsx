@@ -94,12 +94,12 @@ const Navbar = () => {
 
           {/* search result */}
           {searchResults.length > 0 && (
-            <div className="search-result bg-white p-2 top-18 z-40 absolute w-full left-0">
+            <div className="search-result bg-indigo-50 p-2 top-18 z-40 absolute w-full left-0">
               <div className="relative">
                 {searchResults.map((result) => (
                   <div className="flex" key={result._id}>
                     <div
-                      className="flex items-center justify-between w-1/2 hover:bg-slate-300 p-1"
+                      className="flex items-center justify-between sm:w-1/2 w-full hover:bg-slate-300 p-1"
                       onMouseEnter={() => setHoveredResult(result._id)}
                     >
                       <div className="flex items-center gap-3">
@@ -115,10 +115,10 @@ const Navbar = () => {
                       </div>
                     </div>
                     {hoveredResult === result._id && (
-                      <div className="full-result absolute left-[50%] top-0 ml-2 w-1/2 bg-white">
+                      <div className="full-result absolute left-[50%] top-0 ml-2 w-1/2 bg-indigo-50 hidden sm:block">
                         <div className="h-42 w-full flex justify-center border-b border-indigo-600 mb-6">
                           <img
-                            className="h-40 object-contain bg-white p-6"
+                            className="h-40 object-contain bg-indigo-50 p-6"
                             src={result.image}
                             alt="product"
                           />
