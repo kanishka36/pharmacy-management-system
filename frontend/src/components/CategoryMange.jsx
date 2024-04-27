@@ -32,6 +32,7 @@ const AddCategory = ({ setShowPopup3 }) => {
         fetchCategory();
       } else {
         res = await updateCategory(values, categoryId);
+        setEditCategory(false)
         fetchCategory();
       }
     } catch (error) {

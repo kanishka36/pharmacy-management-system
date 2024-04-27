@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Menu from "../../components/Menu";
 import { Formik, Form, Field } from "formik";
-import { displayItem, deleteItem } from "../../api/stock";
+import { displayItem, deleteItem, displayCategory } from "../../api/stock";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import AddItem from "../../components/AddItem";
 import EditItem from "../../components/EditItem";
 import CategoryManage from "../../components/CategoryMange";
-
-const Category = ["painkillers", "painkillers", "painkillers", "painkillers"];
 
 const StockManage = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -16,6 +14,7 @@ const StockManage = () => {
   const [showPopup3, setShowPopup3] = useState(false);
   const [items, setItems] = useState([]);
   const [data, setData] = useState();
+  const [category, setCategory] = useState([]);
 
   const searchInitialValues = {
     barcode: "",
@@ -54,9 +53,19 @@ const StockManage = () => {
       console.log(error);
     }
   };
+  //fetch category
+  const fetchCategory = async () => {
+    try {
+      const response = await displayCategory()
+      setCategory(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
     fetchItem();
+    fetchCategory()
   }, []);
 
   const handleDeleteItem = async (itemId) => {
@@ -99,10 +108,10 @@ const StockManage = () => {
                   className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
                 >
                   <option value="">Select Category</option>
-                  {Category.map((category, index) => {
+                  {category.map((category, index) => {
                     return (
-                      <option key={index} value={category}>
-                        {category}
+                      <option key={index} value={category.category}>
+                        {category.category}
                       </option>
                     );
                   })}

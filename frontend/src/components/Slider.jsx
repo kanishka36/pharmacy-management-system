@@ -13,18 +13,10 @@ import { Pagination, Navigation, Autoplay, EffectFade } from "swiper/modules";
 import slide1 from "../assets/images/slider1.jpg";
 import slide2 from "../assets/images/slider2.jpg";
 import slide3 from "../assets/images/slider3.jpg";
+import { displayCategory } from "../api/stock";
+import { useEffect, useState } from "react";
 
 const HeroData = [slide1, slide2, slide3, slide1, slide2, slide3];
-const CategoryData = [
-  "KIDS",
-  "PERSONAL CARE",
-  "DIABETIC CARE",
-  "SURGICAL ITEMS",
-  "AYURVEDA",
-  "VITAMINS & NUTRITIONS",
-  "ADULT CARE",
-  "MOTHER & BABY CARE",
-];
 
 export const HeroSlider = () => {
   return (
@@ -59,6 +51,20 @@ export const HeroSlider = () => {
 };
 
 export const CategorySlider = () => {
+  const [category, setCategory] = useState([])
+  const fetchCategory = async () => {
+    try {
+      const response = await displayCategory();
+      setCategory(response)
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+  useEffect(()=> {
+    fetchCategory();
+  },[])
+
   return (
     <div>
       <Swiper
@@ -75,13 +81,13 @@ export const CategorySlider = () => {
         modules={[Pagination, Navigation, Autoplay]}
         className="mySwiper pb-20 mx-10"
       >
-        {CategoryData.map((slide, index) => (
+        {category.map((slide, index) => (
           <SwiperSlide
             key={index}
-            className="text-slate-500 fle flex-col justify-center align-center bg-white border-solid border border-indigo-600 p-8"
+            className="text-slate-500 fle flex-col justify-center align-center bg-white border-solid border border-indigo-600 p-8 uppercase"
           >
             {<img src={slide} alt="icon" />}
-            {slide}
+            {slide.category}
           </SwiperSlide>
         ))}
       </Swiper>
