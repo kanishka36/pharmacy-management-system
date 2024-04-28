@@ -76,7 +76,7 @@ const AddItem = ({ setShowPopup }) => {
   const handleRemoveImg = () => {
     setImgURL("");
     setFile(null);
-    filePercentage(null);
+    setFilePercentage(null);
   };
 
   //store image in firebase

@@ -6,6 +6,7 @@ import { customerRouter } from "./routes/customer.routes.js";
 import { itemRouter } from "./routes/item.routes.js";
 import connectDB from "./config/db.config.js";
 import cookieParser from "cookie-parser";
+import { prescriptionRouter } from "./routes/prescription.routes.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -27,6 +28,7 @@ app.use(
 app.use(userRouter);
 app.use(customerRouter);
 app.use(itemRouter);
+app.use(prescriptionRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

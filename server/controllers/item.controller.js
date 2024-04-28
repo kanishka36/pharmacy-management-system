@@ -33,7 +33,7 @@ const addItem = asyncHandler(async (req, res) => {
       return;
     }
 
-    const newItem = await Item.create({
+    await Item.create({
       barcode,
       productName,
       category,
@@ -44,7 +44,7 @@ const addItem = asyncHandler(async (req, res) => {
       image,
     });
 
-    res.status(201).json({ message: "Item added successfully" });
+    res.status(200).json({ message: "Item added successfully" });
   } catch (error) {
     console.error("Error during item registration:", error);
     res.status(500).json({ error: "Internal server error" });
