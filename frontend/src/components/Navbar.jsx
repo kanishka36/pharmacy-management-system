@@ -13,8 +13,8 @@ const Navbar = () => {
     { name: "Home", path: "/" },
     { name: "Shop", path: "/shop" },
     { name: "About Us", path: "/" },
-    currentUser && currentUser.rest && currentUser.rest.role === "customer"
-      ? null
+    currentUser && currentUser.rest.role === "customer"
+      ? ""
       : { name: "Dashboard", path: "/dashboard" },
   ];
 

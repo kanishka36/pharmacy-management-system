@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { displayCustomer } from "../../api/customer";
-
+import { useSelector } from "react-redux";
 
 const AccountDetails = () => {
   const [btnLoading, setBtnLoading] = useState(false);
   const [Error, setError] = useState(null);
-  const [data, setData] = useState([]);
+  const { currentUser } = useSelector((state) => state.user);
+
+
+  console.log(currentUser.rest.firstName)
 
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    password: "",
-    conformPassword: "",
+    firstName: currentUser.rest.firstName,
+    lastName: currentUser.rest.lastName,
+    phone: currentUser.rest.phone,
+    email: currentUser.rest.email,
   };
 
   const validationSchema = Yup.object().shape({
@@ -23,10 +23,6 @@ const AccountDetails = () => {
     lastName: Yup.string().required("Required"),
     phone: Yup.string().required("Required"),
     email: Yup.string().email("Invalid email address").required("Required"),
-    password: Yup.string().required("Required"),
-    conformPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
-      .required("Confirm Password is required"),
   });
 
   const handleRegisterSubmit = async (values, action) => {
@@ -41,20 +37,6 @@ const AccountDetails = () => {
     action.setSubmitting(false);
     action.resetForm();
   };
-
-  //fetch customer
-  const fetchCustomer = async () => {
-    try {
-      const response = await displayCustomer();
-      setData(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCustomer();
-  }, []);
 
   return (
     <>
@@ -135,38 +117,7 @@ const AccountDetails = () => {
                   className="text-red-600"
                 />
               </div>
-              <div className="flex flex-col">
-                <label htmlFor="password">Password</label>
-                <Field
-                  type="password"
-                  name="password"
-                  className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
-                    touched.password && errors.password ? "border-red-500" : ""
-                  }`}
-                />
-                <ErrorMessage
-                  name="password"
-                  component="div"
-                  className="text-red-600"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label htmlFor="conformPassword">Conform Password</label>
-                <Field
-                  type="password"
-                  name="conformPassword"
-                  className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
-                    touched.conformPassword && errors.conformPassword
-                      ? "border-red-500"
-                      : ""
-                  }`}
-                />
-                <ErrorMessage
-                  name="conformPassword"
-                  component="div"
-                  className="text-red-600"
-                />
-              </div>
+
               <button
                 type="submit"
                 disabled={btnLoading}

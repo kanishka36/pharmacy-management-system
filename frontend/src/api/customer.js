@@ -3,7 +3,7 @@ const apiUrl = import.meta.env.VITE_ROUTE_URL;
 
 export const displayCustomer = async () => {
   try {
-    const response = await axios.get(`${apiUrl}display/custome`, {
+    const response = await axios.get(`${apiUrl}display/customer`, {
       withCredentials: true,
     });
     return response.data;
