@@ -4,7 +4,7 @@ import { Formik, Form, Field } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import AddMember from "../../components/AddMember.jsx";
-import { deleteStaff, displayStaff } from "../../api/staff.js";
+import { deleteStaff, displayStaff, searchUser } from "../../api/staff.js";
 import EditMember from "../../components/EditMember.jsx";
 
 const Category = ["pharmacist", "stock keeper", "deliver partner", "cashier"];
@@ -16,12 +16,20 @@ const StaffManage = () => {
   const [data, setData] = useState();
 
   const searchInitialValues = {
-    id: "",
     name: "",
     role: "",
   };
 
-  const handleSubmit = (values, actions) => {};
+  const handleSubmit = async (values, actions) => {
+    try {
+      const response = await searchUser(values);
+      setStaff(response);
+    } catch (error) {
+      console.log(error);
+    }
+    actions.setSubmitting(false);
+    actions.resetForm();
+  };
 
   // Show popup when "Edit Icon" button is clicked
   const handleEditMemberPopup = (memberId) => {
@@ -48,7 +56,6 @@ const StaffManage = () => {
     setShowPopup(true); // Show popup when "Add Member" button is clicked
   };
 
-
   const handleDeleteMember = async (memberId) => {
     try {
       await deleteStaff(memberId);
@@ -69,13 +76,6 @@ const StaffManage = () => {
           <Formik initialValues={searchInitialValues} onSubmit={handleSubmit}>
             <Form>
               <div className="flex lg:flex-row flex-col mx-3">
-                <Field
-                  type="text"
-                  name="id"
-                  placeholder="Member ID"
-                  className="border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0"
-                />
-
                 <Field
                   type="text"
                   name="name"

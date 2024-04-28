@@ -5,6 +5,7 @@ import {
   displayUser,
   updateUser,
   deleteUser,
+  searchUser,
 } from "../controllers/user.controller.js";
 const userRouter = express.Router();
 import { verifyToken } from "../utils/verifyUser.js";
@@ -14,5 +15,6 @@ userRouter.post("/login", loginUser);
 userRouter.get("/display-staff", verifyToken, displayUser);
 userRouter.put("/update-staff/:id", verifyToken, updateUser);
 userRouter.get("/delete-staff/:id", verifyToken, deleteUser);
+userRouter.post("/search-staff", verifyToken, searchUser);
 
 export { userRouter };

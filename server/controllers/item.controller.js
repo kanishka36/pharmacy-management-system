@@ -1,7 +1,6 @@
 import asyncHandler from "express-async-handler";
 import { Item, Category } from "../models/item.model.js";
 
-
 const addItem = asyncHandler(async (req, res) => {
   const {
     barcode,
@@ -146,7 +145,7 @@ const searchItem = asyncHandler(async (req, res) => {
 
 //add category
 const addCategory = asyncHandler(async (req, res) => {
-  const {category }= req.body;
+  const { category } = req.body;
 
   try {
     if (!category) {
@@ -183,7 +182,7 @@ const displayCategory = asyncHandler(async (req, res) => {
 const updateCategory = asyncHandler(async (req, res) => {
   try {
     const id = req.params.id;
-    const {category} = req.body;
+    const { category } = req.body;
 
     if (!category) {
       res.status(400).json({ error: "Please fill in all required fields" });
@@ -192,7 +191,7 @@ const updateCategory = asyncHandler(async (req, res) => {
     if (req.user.role === "admin") {
       const response = await Category.findByIdAndUpdate(
         id,
-        {category},
+        { category },
         { new: true }
       );
       if (!response) {
@@ -221,6 +220,34 @@ const deleteCategory = asyncHandler(async (req, res) => {
   }
 });
 
+//search product in dashboard
+const searchItemDashboard = asyncHandler(async (req, res) => {
+  const { barcode, productName, category } = req.body;
+  const filters = {};
+
+  if (barcode) {
+    filters.barcode = barcode;
+  }
+
+  if (productName) {
+    filters.productName = { $regex: new RegExp(productName, "i") };
+  }
+
+  if (category) {
+    filters.category = category;
+  }
+
+  try {
+    if (req.user.role === "admin") {
+      const searchItem = await Item.find(filters);
+      res.status(200).json(searchItem);
+    } else {
+      return res.status(401).json("You are not authorized");
+    }
+  } catch (error) {
+    console.error("Error during item search:", error);
+  }
+});
 
 export {
   addItem,
@@ -231,5 +258,6 @@ export {
   addCategory,
   displayCategory,
   updateCategory,
-  deleteCategory
+  deleteCategory,
+  searchItemDashboard,
 };

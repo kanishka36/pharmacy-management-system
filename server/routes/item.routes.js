@@ -8,7 +8,8 @@ import {
   addCategory,
   displayCategory,
   updateCategory,
-  deleteCategory
+  deleteCategory,
+  searchItemDashboard,
 } from "../controllers/item.controller.js";
 import { verifyToken } from "../utils/verifyUser.js";
 
@@ -23,5 +24,6 @@ itemRouter.post("/add-category", verifyToken, addCategory);
 itemRouter.get("/display-category", verifyToken, displayCategory);
 itemRouter.put("/update-category/:id", verifyToken, updateCategory);
 itemRouter.delete("/delete-category/:id", verifyToken, deleteCategory);
+itemRouter.post("/search-item-dashboard", verifyToken, searchItemDashboard);
 
 export { itemRouter };

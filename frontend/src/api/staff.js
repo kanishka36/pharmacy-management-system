@@ -38,3 +38,15 @@ export const deleteStaff = async (memberId) => {
     throw error.response.data.error || "Something went wrong";
   }
 };
+
+
+export const searchUser = async (searchParams) => {
+  try {
+    const response = await axios.post(`${apiUrl}search-staff`, searchParams, {
+      withCredentials: true,
+    })
+    return response.data
+  } catch (error) {
+    throw error.response.data.error || "Something went wrong";
+  }
+}

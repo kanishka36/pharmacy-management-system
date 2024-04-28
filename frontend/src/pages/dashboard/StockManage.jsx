@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Menu from "../../components/Menu";
 import { Formik, Form, Field } from "formik";
-import { displayItem, deleteItem, displayCategory } from "../../api/stock";
+import { displayItem, deleteItem, displayCategory, searchItemDashboard } from "../../api/stock";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import AddItem from "../../components/AddItem";
@@ -23,8 +23,15 @@ const StockManage = () => {
   };
 
   //search function
-  const handleSubmit = (values, actions) => {
-    console.log(values);
+  const handleSubmit = async (values, actions) => {
+    try {
+      const response = await searchItemDashboard(values);
+      setItems(response);
+    } catch (error) {
+      console.log(error);
+    }
+    actions.setSubmitting(false);
+    actions.resetForm();
   };
 
   // Show popup when "Add Item" button is clicked

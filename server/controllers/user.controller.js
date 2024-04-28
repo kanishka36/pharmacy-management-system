@@ -110,7 +110,7 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
-//delete item
+//delete user
 const deleteUser = asyncHandler(async (req, res) => {
   try {
     if (req.user.role === "admin") {
@@ -124,4 +124,42 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { regUser, loginUser, displayUser, updateUser, deleteUser };
+//search user
+const searchUser = asyncHandler(async (req, res) => {
+  const { name, role } = req.body;
+  const filters = {};
+
+  if (name) {
+    const [firstName, lastName] = name.split(" ");
+
+    // If both first name and last name are provided, search for both
+    if (firstName && lastName) {
+      filters.$and = [
+        { firstName: { $regex: new RegExp(firstName, "i") } },
+        { lastName: { $regex: new RegExp(lastName, "i") } },
+      ];
+    } else {
+      // If only one of them is provided, search for either first name or last name
+      filters.$or = [
+        { firstName: { $regex: new RegExp(firstName || lastName, "i") } },
+        { lastName: { $regex: new RegExp(firstName || lastName, "i") } },
+      ];
+    }
+  }
+  if (role) {
+    filters.role = role;
+  }
+
+  try {
+    if (req.user.role === "admin") {
+      const searchUser = await User.find(filters);
+      res.status(200).json(searchUser);
+    } else {
+      return res.status(401).json("You are not authorized");
+    }
+  } catch (error) {
+    console.error("Error during user search:", error);
+  }
+});
+
+export { regUser, loginUser, displayUser, updateUser, deleteUser, searchUser };
