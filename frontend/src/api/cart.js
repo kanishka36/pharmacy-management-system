@@ -23,3 +23,26 @@ export const displayCart = async () => {
     throw error.response.data.error || "Something went wrong";
   }
 };
+
+export const deleteCart = async (cartId) => {
+  try {
+    const response = await axios.delete(`${apiUrl}delete-cart/${cartId}`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data.error || "Something went wrong";
+  }
+};
+
+export const updateCart = async (items) => {
+  try {
+    const response = await axios.put(`${apiUrl}update-cart`, items, {
+      withCredentials: true,
+    });
+    return response;
+    console.log(items)
+  } catch (error) {
+    throw error.response.data.error || "Something went wrong";
+  }
+};

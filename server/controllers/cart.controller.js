@@ -3,21 +3,20 @@ import Cart from "../models/cart.model.js";
 
 //add cart
 const addCart = asyncHandler(async (req, res) => {
-  const { product, price, qty, subtotal } = req.body;
+  const { productName, sellingPrice, quantity } = req.body;
   const customerId = req.user.userId;
 
   try {
-    if (!product || !price || !qty || !subtotal || !customerId) {
+    if (!productName || !sellingPrice || !customerId) {
       return res
         .status(400)
         .json({ error: "Please fill in all required fields" });
     }
 
     await Cart.create({
-      product,
-      price,
-      qty,
-      subtotal,
+      productName,
+      sellingPrice,
+      quantity,
       customerId,
     });
 
@@ -40,4 +39,44 @@ const displayCart = asyncHandler(async (req, res) => {
   }
 });
 
-export { addCart, displayCart };
+//delete cart
+const deleteCart = asyncHandler(async (req, res) => {
+  try {
+    await Cart.findByIdAndDelete(req.params.id);
+    return res.status(200).json("Item has been deleted");
+  } catch (error) {
+    console.error("Error during item delete:", error);
+  }
+});
+
+//update cart
+const updateCart = asyncHandler(async (req, res) => {
+  const updateItems = req.body;
+  const customerId = req.user.userId;
+  try {
+    if (!customerId) {
+      return res
+        .status(400)
+        .json({ error: "Please fill in all required fields" });
+    }
+    // Loop through the updated items array and update each item in the database
+    const updateCart = await Promise.all(
+      updateItems.map(async (item) => {
+        const { itemId, quantity } = item;
+
+        const updatedItem = await Cart.findByIdAndUpdate(
+          itemId,
+          { quantity },
+          { new: true }
+        );
+        return updatedItem;
+      })
+    );
+    res.status(200).json("Cart has been updated");
+  } catch (error) {
+    console.error("Error during cart update:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+export { addCart, displayCart, deleteCart, updateCart };

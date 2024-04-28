@@ -11,6 +11,7 @@ import Header from "./Header";
 import { searchItem } from "../api/stock";
 
 const Navbar = () => {
+  const total = useSelector((state) => state.cart.total);
   const { currentUser } = useSelector((state) => state.user);
   const Links = [
     { name: "Home", path: "/" },
@@ -191,7 +192,7 @@ const Navbar = () => {
                 <p>
                   <span className="font-bold">Cart</span> item
                 </p>
-                <p>LKR 0.00</p>
+                <p>LKR {total}.00</p>
               </div>
             </Link>
           </div>
