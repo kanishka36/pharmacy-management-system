@@ -1,15 +1,18 @@
 import React from "react";
 import { logout } from "../../api/auth";
 import { loginoutSuccess } from "../../redux/user/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const logoutCustomer = async () => {
     try {
-      const response = await logout();
+      await logout();
       dispatch(loginoutSuccess());
-      // console.log(response);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

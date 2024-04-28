@@ -9,6 +9,8 @@ import Prescription from "./pages/website/Prescription";
 import StockManage from "./pages/dashboard/StockManage";
 import StaffManage from "./pages/dashboard/StaffManage";
 import WebsiteLayout from "./components/WebsiteLayout";
+import OnlyStaffPrivateRoute from "./components/OnlyStaffPrivateRoute";
+import Cart from "./pages/website/Cart";
 
 const App = () => {
   return (
@@ -28,10 +30,12 @@ const App = () => {
           path="/profile"
           element={<WebsiteLayout component={CustomerAccount} />}
         />
-
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/staff" element={<StaffManage />} />
-        <Route path="/dashboard/stock" element={<StockManage />} />
+        <Route path="/cart" element={<WebsiteLayout component={Cart} />} />
+        <Route element={<OnlyStaffPrivateRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/staff" element={<StaffManage />} />
+          <Route path="/dashboard/stock" element={<StockManage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

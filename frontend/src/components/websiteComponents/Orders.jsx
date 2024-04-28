@@ -4,6 +4,9 @@ const Orders = () => {
   return (
     <>
       <div className="">
+        <h2 className="text-2xl sm:text-3xl font-semibold mb-3 text-indigo-600">
+          Orders
+        </h2>
         <p>
           Order [#13514] was placed on [April 17, 2024] and currently [Pending
           payment]

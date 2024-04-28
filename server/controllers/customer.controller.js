@@ -36,7 +36,7 @@ const regCustomer = asyncHandler(async (req, res) => {
   }
 });
 
-const displayCustomer = asyncHandler(async (req, res) => {
+const editCustomer = asyncHandler(async (req, res) => {
   try {
     const id = req.user.userId;
     const customer = await Customer.findById(id);
@@ -47,4 +47,4 @@ const displayCustomer = asyncHandler(async (req, res) => {
   }
 });
 
-export { regCustomer, displayCustomer };
+export { regCustomer, editCustomer };
