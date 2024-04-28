@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { updateStaff } from "../api/staff";
+import { updateStaff } from "../../api/staff";
 
 const Category = ["pharmacist", "stock keeper", "deliver partner", "cashier"];
 

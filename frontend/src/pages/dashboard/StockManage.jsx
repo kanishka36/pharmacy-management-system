@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Menu from "../../components/Menu";
 import { Formik, Form, Field } from "formik";
-import { displayItem, deleteItem, displayCategory, searchItemDashboard } from "../../api/stock";
+import {
+  displayItem,
+  deleteItem,
+  displayCategory,
+  searchItemDashboard,
+} from "../../api/stock";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
-import AddItem from "../../components/AddItem";
-import EditItem from "../../components/EditItem";
-import CategoryManage from "../../components/CategoryMange";
+import AddItem from "../../components/dashboardComponents/AddItem";
+import EditItem from "../../components/dashboardComponents/EditItem";
+import CategoryManage from "../../components/dashboardComponents/CategoryMange";
 
 const StockManage = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -63,16 +68,16 @@ const StockManage = () => {
   //fetch category
   const fetchCategory = async () => {
     try {
-      const response = await displayCategory()
-      setCategory(response)
+      const response = await displayCategory();
+      setCategory(response);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     fetchItem();
-    fetchCategory()
+    fetchCategory();
   }, []);
 
   const handleDeleteItem = async (itemId) => {

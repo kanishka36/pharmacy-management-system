@@ -9,12 +9,14 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import { addPrescription } from "../../api/prescription";
 
 const Prescription = () => {
   const [file, setFile] = useState(null);
   const [filePercentage, setFilePercentage] = useState(null);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [imgURL, setImgURL] = useState("");
+  const [message, setMessage] = useState();
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
@@ -35,8 +37,17 @@ const Prescription = () => {
     image: "",
   };
 
-  const handleSubmit = (values, action) => {
-    console.log(values);
+  const handleSubmit = async (values, actions) => {
+    try {
+      values.image = imgURL;
+      const response = await addPrescription(values);
+      setImgURL("");
+      setMessage(response.message);
+    } catch (error) {
+      console.log(error);
+    }
+    actions.setSubmitting(false);
+    actions.resetForm();
   };
 
   const handleChange = (e) => {
@@ -282,6 +293,7 @@ const Prescription = () => {
                   SUBMIT
                 </button>
               </div>
+              <div className="text-center text-green-600 mt-2">{message}</div>
             </Form>
           )}
         </Formik>

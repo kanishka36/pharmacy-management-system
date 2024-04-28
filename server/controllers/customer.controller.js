@@ -36,4 +36,15 @@ const regCustomer = asyncHandler(async (req, res) => {
   }
 });
 
-export { regCustomer };
+const displayCustomer = asyncHandler(async (req, res) => {
+  try {
+    const id = req.user.userId;
+    const customer = await Customer.findById(id);
+    res.status(201).send(customer);
+  } catch (error) {
+    console.error("Error during customer registration:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+export { regCustomer, displayCustomer };

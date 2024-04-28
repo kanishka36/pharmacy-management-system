@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { displayCategory, updateItem } from "../api/stock";
+import { displayCategory, updateItem } from "../../api/stock.js";
 import {
   getStorage,
   ref,
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { app } from "../firebase.js";
+import { app } from "../../firebase.js";
 
 const EditItem = ({ setShowPopup2, data, setItems }) => {
   const [file, setFile] = useState(null);
   const [filePercentage, setFilePercentage] = useState(null);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [imgURL, setImgURL] = useState("");
-  const [category, setCategory] = useState([])
+  const [category, setCategory] = useState([]);
 
   const validationSchema = Yup.object().shape({
     barcode: Yup.string().required("Required"),
@@ -115,19 +115,19 @@ const EditItem = ({ setShowPopup2, data, setItems }) => {
     });
   };
 
-      //fetch category
-      const fetchCategory = async () => {
-        try {
-          const response = await displayCategory()
-          setCategory(response)
-        } catch (error) {
-          console.log(error)
-        }
-      }
-  
-      useEffect(()=> {
-        fetchCategory();
-      },[])
+  //fetch category
+  const fetchCategory = async () => {
+    try {
+      const response = await displayCategory();
+      setCategory(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategory();
+  }, []);
 
   return (
     <>

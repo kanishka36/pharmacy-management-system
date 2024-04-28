@@ -1,6 +1,5 @@
 import asyncHandler from "express-async-handler";
-import Prescription from "../models/prescription.model";
-import { error } from "console";
+import Prescription from "../models/prescription.model.js";
 
 //upload prescription
 const addPrescription = asyncHandler(async (req, res) => {

@@ -1,6 +1,4 @@
-import { timeStamp } from "console";
 import mongoose from "mongoose";
-import { type } from "os";
 
 const prescriptionShema = mongoose.Schema(
   {
@@ -16,7 +14,7 @@ const prescriptionShema = mongoose.Schema(
       type: Number,
       required: [true, "please add age"],
     },
-    constactNo: {
+    contactNo: {
       type: Number,
       required: [true, "please add a contact number"],
     },

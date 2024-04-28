@@ -35,3 +35,15 @@ export const customerRegister = async (values) => {
     throw error.response.data.error || "Something went wrong";
   }
 };
+
+export const logout = async () => {
+  try {
+    const response = await fetch(`${apiUrl}logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data.error || "Something went wrong";
+  }
+};

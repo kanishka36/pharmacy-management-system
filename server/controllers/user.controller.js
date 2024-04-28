@@ -162,4 +162,17 @@ const searchUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { regUser, loginUser, displayUser, updateUser, deleteUser, searchUser };
+//logout user
+const logout = asyncHandler(async (req, res) => {
+  try {
+    res
+      .clearCookie("access_token", { httpOnly: true })
+      .status(200)
+      .json({ message: "User has been logged out" });
+  } catch (error) {
+    console.error("Error clearing cookie:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+export { regUser, loginUser, displayUser, updateUser, deleteUser, searchUser, logout };

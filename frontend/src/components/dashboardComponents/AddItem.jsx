@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { addItem, displayCategory } from "../api/stock.js";
+import { addItem, displayCategory } from "../../api/stock.js";
 import {
   getStorage,
   ref,
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { app } from "../firebase.js";
+import { app } from "../../firebase.js";
 
 const AddItem = ({ setShowPopup }) => {
   const [file, setFile] = useState(null);

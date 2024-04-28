@@ -3,9 +3,9 @@ import Menu from "../../components/Menu.jsx";
 import { Formik, Form, Field } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
-import AddMember from "../../components/AddMember.jsx";
+import AddMember from "../../components/dashboardComponents/AddMember.jsx";
 import { deleteStaff, displayStaff, searchUser } from "../../api/staff.js";
-import EditMember from "../../components/EditMember.jsx";
+import EditMember from "../../components/dashboardComponents/EditMember.jsx";
 
 const Category = ["pharmacist", "stock keeper", "deliver partner", "cashier"];
 

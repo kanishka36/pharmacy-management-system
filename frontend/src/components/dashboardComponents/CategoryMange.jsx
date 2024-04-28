@@ -6,7 +6,7 @@ import {
   deleteCategory,
   displayCategory,
   updateCategory,
-} from "../api/stock.js";
+} from "../../api/stock.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -32,7 +32,7 @@ const AddCategory = ({ setShowPopup3 }) => {
         fetchCategory();
       } else {
         res = await updateCategory(values, categoryId);
-        setEditCategory(false)
+        setEditCategory(false);
         fetchCategory();
       }
     } catch (error) {
