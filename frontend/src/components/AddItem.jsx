@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { addItem } from "../api/stock.js";
+import { addItem, displayCategory } from "../api/stock.js";
 import {
   getStorage,
   ref,
@@ -15,6 +15,7 @@ const AddItem = ({ setShowPopup }) => {
   const [filePercentage, setFilePercentage] = useState(null);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [imgURL, setImgURL] = useState("");
+  const [category, setCategory] = useState([])
 
   const validationSchema = Yup.object().shape({
     barcode: Yup.string().required("Required"),
@@ -109,6 +110,20 @@ const AddItem = ({ setShowPopup }) => {
     });
   };
 
+    //fetch category
+    const fetchCategory = async () => {
+      try {
+        const response = await displayCategory()
+        setCategory(response)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    useEffect(()=> {
+      fetchCategory();
+    },[])
+
   return (
     <>
       <div className="bg-white container m-8 p-8 rounded-md">
@@ -168,14 +183,23 @@ const AddItem = ({ setShowPopup }) => {
                     <div className="flex flex-col">
                       <label>Category:</label>
                       <Field
-                        type="text"
+                        as="select"
                         name="category"
                         className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-0 ${
                           touched.category && errors.category
                             ? "border-red-500"
                             : ""
                         }`}
-                      />
+                      >
+                        <option value="">Select Category</option>
+                        {category.map((category, index) => {
+                          return (
+                            <option key={index} value={category.category}>
+                              {category.category}
+                            </option>
+                          );
+                        })}
+                      </Field>
                     </div>
                     <ErrorMessage
                       name="category"
