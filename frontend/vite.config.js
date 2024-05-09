@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/': {
-        target: 'https://pharmacy-management-system-rtmh.onrender.com/',
+        target: 'https://pharmacy-management-system-rtmh.onrender.com',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\//, ''),
       },
