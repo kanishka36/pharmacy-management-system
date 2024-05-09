@@ -11,7 +11,7 @@ import { cartRouter } from "./routes/cart.routes.js";
 
 dotenv.config();
 // const PORT = process.env.PORT || 5000;
-const PORT = 3000;
+const PORT = 3005;
 
 const app = express();
 connectDB();
