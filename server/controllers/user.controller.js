@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import bcryptjs from "bcryptjs";
 import Customer from "../models/customer.model.js";
-// import generateToken from "../utils/generateToken.util.js";
+import generateToken from "../utils/generateToken.util.js";
 import User from "../models/useModel.js";
 
 //register staff
@@ -55,7 +55,7 @@ const loginUser = asyncHandler(async (req, res) => {
       return;
     }
 
-    // generateToken(res, validUser._id, validUser.role);
+    generateToken(res, validUser._id, validUser.role);
     const { password: pass, ...rest } = validUser._doc;
     res.status(200).json({ rest });
   } catch (error) {
