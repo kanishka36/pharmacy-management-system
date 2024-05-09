@@ -31,7 +31,7 @@ app.get("/", (req, res)=> {
   res.json("Hello")
 })
 
-app.use(userRouter);
+// app.use(userRouter);
 app.use(customerRouter);
 app.use(itemRouter);
 app.use(prescriptionRouter);
