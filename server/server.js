@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-// import { userRouter } from "./routes/user.routes.js";
+import { userRouter } from "./routes/user.routes.js";
 import { customerRouter } from "./routes/customer.routes.js";
 import { itemRouter } from "./routes/item.routes.js";
 import connectDB from "./config/db.config.js";
@@ -31,7 +31,7 @@ app.get("/", (req, res)=> {
   res.json("Hello")
 })
 
-// app.use(userRouter);
+app.use(userRouter);
 app.use(customerRouter);
 app.use(itemRouter);
 app.use(prescriptionRouter);
