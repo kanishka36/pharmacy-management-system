@@ -9,7 +9,8 @@ export default defineConfig({
       '/': {
         target: 'https://pharmacy-management-system-rtmh.onrender.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\//, ''),
+        // rewrite: (path) => path.replace(/^\//, ''),
+        rewrite: (path) => path,
       },
     },
   },
