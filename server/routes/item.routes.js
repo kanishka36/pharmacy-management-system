@@ -21,7 +21,7 @@ itemRouter.delete("/delete-item/:id", verifyToken, deleteItem);
 itemRouter.put("/update-item/:id", verifyToken, updateItem);
 itemRouter.get("/product-search", searchItem);
 itemRouter.post("/add-category", verifyToken, addCategory);
-itemRouter.get("/display-category", verifyToken, displayCategory);
+itemRouter.get("/display-category", displayCategory);
 itemRouter.put("/update-category/:id", verifyToken, updateCategory);
 itemRouter.delete("/delete-category/:id", verifyToken, deleteCategory);
 itemRouter.post("/search-item-dashboard", verifyToken, searchItemDashboard);
