@@ -26,11 +26,16 @@ app.use(
   })
 );
 
+app.get("/", (req, res)=> {
+  res.json("Hello")
+})
+
 app.use(userRouter);
 app.use(customerRouter);
 app.use(itemRouter);
 app.use(prescriptionRouter);
 app.use(cartRouter);
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
