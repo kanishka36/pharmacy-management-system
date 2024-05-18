@@ -8,9 +8,11 @@ import LoginRegister from "./pages/website/LoginRegister";
 import Prescription from "./pages/website/Prescription";
 import StockManage from "./pages/dashboard/StockManage";
 import StaffManage from "./pages/dashboard/StaffManage";
+import PrescriptionHandling from "./pages/dashboard/PrescriptionHandling";
 import WebsiteLayout from "./components/WebsiteLayout";
 import OnlyStaffPrivateRoute from "./components/OnlyStaffPrivateRoute";
 import Cart from "./pages/website/Cart";
+import PrescriptionView from "./components/dashboardComponents/PrescriptionView";
 
 const App = () => {
   return (
@@ -35,6 +37,8 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/staff" element={<StaffManage />} />
           <Route path="/dashboard/stock" element={<StockManage />} />
+          <Route path="/dashboard/prescription" element={<PrescriptionHandling />} />
+          <Route path="/dashboard/prescription/:id" element={<PrescriptionView />} />
         </Route>
       </Routes>
     </BrowserRouter>

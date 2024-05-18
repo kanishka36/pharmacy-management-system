@@ -71,6 +71,8 @@ const LoginRegister = () => {
     action.resetForm();
   };
 
+  console.log(error)
+
   return (
     <>
       <div className="container mx-auto flex flex-col md:flex-row justify-between gap-4 md:gap-16 m-3 font-poppins my-20">
@@ -126,7 +128,7 @@ const LoginRegister = () => {
                     {loading ? "Loading" : "Log in"}
                   </button>
                 </div>
-                {error && <p className="text-red-500 mt-3">{error}</p>}
+                {error && <p className="text-red-500 mt-3">{null || error}</p>}
               </Form>
             )}
           </Formik>

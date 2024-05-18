@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { displayCategory, displayItem } from "../../api/stock";
 import { Link } from "react-router-dom";
 import { addCart } from "../../api/cart";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 
 const Shop = () => {
   const [items, setItems] = useState([]);
   const [category, setCategory] = useState([]);
+  const [message, setMessage] = useState(null);
 
   //display item
   const fetchItem = async () => {
@@ -37,13 +40,23 @@ const Shop = () => {
       const productName = selected.productName;
       const sellingPrice = selected.sellingPrice;
       // const quantity = selected.quantity;
-      const values = { subtotal, productName, sellingPrice};
+      const values = { subtotal, productName, sellingPrice };
       const response = await addCart(values);
-      console.log(response)
+      setMessage(response.message);
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMessage(null);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [message]);
 
   return (
     <>
@@ -58,7 +71,7 @@ const Shop = () => {
               </p>
             ))}
           </div>
-          <div className="item basis-full sm:basis-4/5 mx-1 sm:m-0">
+          <div className="item basis-full sm:basis-4/5 mx-1 sm:m-0 relative">
             <div className="grid grid-cols-2 lg:grid-cols-3">
               {items.map((item, index) => (
                 <div
@@ -75,12 +88,28 @@ const Shop = () => {
                   </p>
                   <button
                     onClick={() => handleAddtoCart(item._id)}
-                    className="text-sm sm:text-base bg-indigo-600 hover:bg-indigo-800 hover:scale-105 px-5 py-2 sm:px-10 sm:py-2 rounded-full text-white font-semibold transition-all duration-100 ease-in"
+                    className={`text-sm sm:text-base ${
+                      message !== null
+                        ? "bg-indigo-400"
+                        : "hover:scale-105 bg-indigo-600 hover:bg-indigo-800"
+                    } px-5 py-2 sm:px-10 sm:py-2 rounded-full text-white font-semibold transition-all duration-100 ease-in`}
+                    disabled={message !== null}
                   >
                     Add to Cart
                   </button>
                 </div>
               ))}
+            </div>
+            <div
+              className={`top-1/4 left-1/2 p-4 translate-x-[-50%] translate-y-[-50%] bg-white rounded-md border border-green-600 ${
+                message ? "fixed" : "hidden"
+              }`}
+            >
+              <div className="flex flex-col justify-center items-center h-full text-green-500 text-center">
+                {message}
+                <p>Go check your cart</p>
+                <FontAwesomeIcon icon={faCircleCheck} className="text-4xl"/>
+              </div>
             </div>
           </div>
         </div>

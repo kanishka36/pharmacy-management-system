@@ -12,3 +12,25 @@ export const addPrescription = async (values) => {
     throw error.response.data.error || "Something went wrong";
   }
 };
+
+export const displayPrescription = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}display-prescription`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data.error || "Something went wrong";
+  }
+};
+
+export const displaySinglePrescription = async (id) => {
+  try {
+    const response = await axios.get(`${apiUrl}display-prescription/${id}`, {
+      withCredentials: true,
+    })
+    return response.data;
+  } catch (error) {
+    throw error.response.data.error || "Something went wrong";
+  }
+}

@@ -57,7 +57,7 @@ const displayItem = asyncHandler(async (req, res) => {
     const item = await Item.find();
     res.status(200).send(item);
   } catch (error) {
-    console.error("Error during item registration:", error);
+    console.error("Error during item display:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

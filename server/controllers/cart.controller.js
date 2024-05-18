@@ -20,7 +20,7 @@ const addCart = asyncHandler(async (req, res) => {
       customerId,
     });
 
-    res.status(200).json({ message: "Product added to cart successfully" });
+    res.status(200).json({ message: "Product Added to your Cart Successfully" });
   } catch (error) {
     console.error("Error during customer registration:", error);
     res.status(500).json({ error: "Internal server error" });

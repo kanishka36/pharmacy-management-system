@@ -29,6 +29,9 @@ const prescriptionShema = mongoose.Schema(
       type: String,
       required: [true, "please add a prescription"],
     },
+    currentDate: {
+      type: Date,
+    }
   },
   { timeStamp: true }
 );
