@@ -6,7 +6,9 @@ const PayHerePayment = () => {
   const apiUrl = import.meta.env.VITE_ROUTE_URL;
 
   const amount = useSelector((state) => state.cart.total);
-  
+  const user = useSelector((state) => state.user);
+  console.log(user);
+
   const handlePayment = async () => {
     const payment = {
       sandbox: true,
@@ -15,13 +17,13 @@ const PayHerePayment = () => {
       cancel_url: "http://localhost:5173/cancel",
       notify_url: "http://localhost:5173/notify",
       order_id: "ItemNo12345",
-      items: "Door bell wireless",
+      items: "Pharmacy Item",
       amount: amount,
       currency: "LKR",
-      first_name: "Saman",
-      last_name: "Perera",
-      email: "samanp@gmail.com",
-      phone: "0771234567",
+      first_name: user.firstName,
+      last_name: user.lastName,
+      email: user.email,
+      phone: user.phone,
       address: "No.1, Galle Road",
       city: "Colombo",
       country: "Sri Lanka",
