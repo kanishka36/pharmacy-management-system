@@ -13,6 +13,10 @@ import WebsiteLayout from "./components/WebsiteLayout";
 import OnlyStaffPrivateRoute from "./components/OnlyStaffPrivateRoute";
 import Cart from "./pages/website/Cart";
 import PrescriptionView from "./components/dashboardComponents/PrescriptionView";
+import PayHerePayment from "./components/PayHerePayment";
+import Return from "./components/Return";
+import Cancel from "./components/Cancel";
+import Notify from "./components/Notify";
 
 const App = () => {
   return (
@@ -33,6 +37,10 @@ const App = () => {
           element={<WebsiteLayout component={CustomerAccount} />}
         />
         <Route path="/cart" element={<WebsiteLayout component={Cart} />} />
+        <Route path="/payhere" element={<WebsiteLayout component={PayHerePayment}/>} /> {/* Add PayHere payment route */}
+        <Route path="/return" element={<WebsiteLayout component={Return} />} /> {/* Add PayHere return route */}
+        <Route path="/cancel" element={<WebsiteLayout component={Cancel} />} /> {/* Add PayHere cancel route */}
+        <Route path="/notify" element={<WebsiteLayout component={Notify} />} /> {/* Add PayHere notify route */}
         <Route element={<OnlyStaffPrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/staff" element={<StaffManage />} />

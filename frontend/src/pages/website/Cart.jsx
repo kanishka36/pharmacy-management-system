@@ -4,6 +4,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { updateTotal } from "../../redux/user/cartSlice";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -189,7 +190,7 @@ const Cart = () => {
                 </p>
               </div>
               <button className="text-sm sm:text-base bg-indigo-600 hover:bg-indigo-800 hover:scale-[1.02] px-5 py-2 sm:px-10 sm:py-2 rounded-full text-white font-semibold transition-all duration-100 ease-in w-full mt-3">
-                Proceed to checkout
+               <Link to="/payhere"> Proceed to checkout</Link>
               </button>
             </div>
           </div>
