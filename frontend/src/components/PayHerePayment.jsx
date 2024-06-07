@@ -7,7 +7,6 @@ const PayHerePayment = () => {
 
   const amount = useSelector((state) => state.cart.total);
   const user = useSelector((state) => state.user);
-  console.log(user);
 
   const handlePayment = async () => {
     const payment = {
@@ -17,7 +16,7 @@ const PayHerePayment = () => {
       cancel_url: "http://localhost:5173/cancel",
       notify_url: "http://localhost:5173/notify",
       order_id: "ItemNo12345",
-      items: "Pharmacy Item",
+      items: "Pharmacy Items",
       amount: amount,
       currency: "LKR",
       first_name: user.firstName,
