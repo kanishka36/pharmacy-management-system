@@ -17,6 +17,8 @@ import PayHerePayment from "./components/PayHerePayment";
 import Return from "./components/Return";
 import Cancel from "./components/Cancel";
 import Notify from "./components/Notify";
+import PlaceOrder from "./pages/website/PlaceOrder";
+import PaymentMethod from "./pages/website/PaymentMethod";
 
 const App = () => {
   return (
@@ -37,6 +39,9 @@ const App = () => {
           element={<WebsiteLayout component={CustomerAccount} />}
         />
         <Route path="/cart" element={<WebsiteLayout component={Cart} />} />
+        <Route path="/place-order" element={<WebsiteLayout component={PlaceOrder} />} />
+        <Route path="/payment-method" element={<WebsiteLayout component={PaymentMethod} />} />
+
         <Route path="/payhere" element={<WebsiteLayout component={PayHerePayment}/>} /> {/* Add PayHere payment route */}
         <Route path="/return" element={<WebsiteLayout component={Return} />} /> {/* Add PayHere return route */}
         <Route path="/cancel" element={<WebsiteLayout component={Cancel} />} /> {/* Add PayHere cancel route */}

@@ -56,7 +56,7 @@ const PayHerePayment = () => {
 
     payhere.onDismissed = function onDismissed() {
       console.log("Payment dismissed");
-      window.location.href = "http://localhost:5173/cart";
+      window.location.href = "http://localhost:5173/payment-method";
     };
 
     payhere.onError = function onError(error) {
