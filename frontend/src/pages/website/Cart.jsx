@@ -2,21 +2,22 @@ import React, { useEffect, useState } from "react";
 import { deleteCart, displayCart, updateCart } from "../../api/cart";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { updateTotal } from "../../redux/user/cartSlice";
+import { updateTotal, proceedItem } from "../../redux/user/cartSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const [cartData, setCartData] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
   const [isUpdated, setIsUpdated] = useState(false);
 
-  //total price
-  const total = cartData.reduce((acc, item) => {
+  // Total price based on selected items
+  const total = selectedItems.reduce((acc, item) => {
     return acc + item.sellingPrice * item.quantity;
   }, 0);
 
-  //delete cart
+  // Delete all items in the cart
   const handleDelete = async (itemId) => {
     try {
       await deleteCart(itemId);
@@ -26,15 +27,13 @@ const Cart = () => {
     }
   };
 
-  //update cart
+  // Update all items in the cart
   const handleUpdate = async () => {
     try {
-      const updateItems = cartData.map((item) => {
-        return {
-          itemId: item._id,
-          quantity: item.quantity,
-        };
-      });
+      const updateItems = cartData.map((item) => ({
+        itemId: item._id,
+        quantity: item.quantity,
+      }));
 
       const res = await updateCart(updateItems);
       console.log(res);
@@ -45,7 +44,7 @@ const Cart = () => {
     }
   };
 
-  //display cart
+  // Fetch and display cart items
   const fetchCart = async () => {
     try {
       const response = await displayCart();
@@ -61,6 +60,7 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(updateTotal(total));
+    dispatch(proceedItem(selectedItems))
   }, [total, dispatch]);
 
   const incrementCount = (itemId) => {
@@ -83,6 +83,18 @@ const Cart = () => {
     setIsUpdated(true);
   };
 
+  const handleCheckboxChange = (item) => {
+    setSelectedItems((prev) => {
+      if (prev.some((i) => i._id === item._id)) {
+        return prev.filter((i) => i._id !== item._id);
+      } else {
+        return [...prev, item];
+      }
+    });
+  };
+
+  
+
   return (
     <>
       <div className="container flex sm:flex-row flex-col mx-auto gap-4">
@@ -91,6 +103,9 @@ const Cart = () => {
             <table className="table-auto w-full">
               <thead>
                 <tr>
+                  <th className="border border-indigo-600 text-indigo-600 py-2">
+                    Select
+                  </th>
                   <th className="border border-indigo-600 text-indigo-600 py-2">
                     Product
                   </th>
@@ -103,6 +118,9 @@ const Cart = () => {
                   <th className="border border-indigo-600 text-indigo-600 py-2">
                     Subtotal
                   </th>
+                  <th className="border border-indigo-600 text-indigo-600 py-2">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -111,6 +129,13 @@ const Cart = () => {
                     key={index}
                     className="text-center border border-indigo-600"
                   >
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={selectedItems.some((i) => i._id === item._id)}
+                        onChange={() => handleCheckboxChange(item)}
+                      />
+                    </td>
                     <td className=" py-1">{item.productName}</td>
                     <td className=" py-1">{item.sellingPrice}.00</td>
                     <td className="flex justify-center items-center py-1">
@@ -130,7 +155,6 @@ const Cart = () => {
                         -
                       </button>
                     </td>
-
                     <td className=" py-1">
                       {item.sellingPrice * item.quantity}.00
                     </td>
@@ -162,10 +186,11 @@ const Cart = () => {
             </button>
           </div>
         </div>
+        {/* Order Summary */}
         <div className="right sm:basis-1/3">
           <div className="bg-indigo-50 rounded-md p-3">
             <p className="font-bold text-indigo-600 text-xl mb-2">
-              Order Summery
+              Order Summary
             </p>
             <div className="border border-indigo-600 p-2">
               <div className="flex">
@@ -190,8 +215,7 @@ const Cart = () => {
                 </p>
               </div>
               <button className="text-sm sm:text-base bg-indigo-600 hover:bg-indigo-800 hover:scale-[1.02] px-5 py-2 sm:px-10 sm:py-2 rounded-full text-white font-semibold transition-all duration-100 ease-in w-full mt-3">
-              <Link to="/place-order"> Proceed to checkout</Link> 
-              {/* <Link to="/payhere"> Proceed to checkout</Link>  */}
+                <Link to="/place-order"> Proceed to checkout</Link>
               </button>
             </div>
           </div>

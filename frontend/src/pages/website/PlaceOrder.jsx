@@ -1,34 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { deleteCart, displayCart, updateCart } from "../../api/cart";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { updateTotal } from "../../redux/user/cartSlice";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { addOrder } from "../../api/order";
 
 const PlaceOrder = () => {
-  const dispatch = useDispatch();
-  const [cartData, setCartData] = useState([]);
+  const cartData = useSelector((state) => state.cart.items);
+  const total = useSelector((state)=> state.cart.total);
 
-  //total price
-  const total = cartData.reduce((acc, item) => {
-    return acc + item.sellingPrice * item.quantity;
-  }, 0);
-
-  //display cart
-  const fetchCart = async () => {
+  //submit order info
+  const handleSubmit = async () => {
     try {
-      const response = await displayCart();
-      setCartData(response);
+      const response = await addOrder(cartData);
+      console.log(response)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
-
-  useEffect(() => {
-    fetchCart();
-  }, []);
-
+  }
 
   return (
     <>
@@ -100,8 +87,9 @@ const PlaceOrder = () => {
                   {total + 450}.00 <span className="font-semibold">LKR</span>
                 </p>
               </div>
-              <button className="text-sm sm:text-base bg-indigo-600 hover:bg-indigo-800 hover:scale-[1.02] px-5 py-2 sm:px-10 sm:py-2 rounded-full text-white font-semibold transition-all duration-100 ease-in w-full mt-3">
-                <Link to="/payment-method"> Place Order</Link> 
+              <button className="text-sm sm:text-base bg-indigo-600 hover:bg-indigo-800 hover:scale-[1.02] px-5 py-2 sm:px-10 sm:py-2 rounded-full text-white font-semibold transition-all duration-100 ease-in w-full mt-3"
+              onClick={handleSubmit}>
+                <Link to="/payment-method"> Place Order</Link>
               </button>
             </div>
           </div>

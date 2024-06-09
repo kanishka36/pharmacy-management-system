@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser";
 import { prescriptionRouter } from "./routes/prescription.routes.js";
 import { cartRouter } from "./routes/cart.routes.js";
 import md5 from 'md5';
+import { orderRouter } from "./routes/order.routes.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -51,6 +52,7 @@ app.use(customerRouter);
 app.use(itemRouter);
 app.use(prescriptionRouter);
 app.use(cartRouter);
+app.use(orderRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
