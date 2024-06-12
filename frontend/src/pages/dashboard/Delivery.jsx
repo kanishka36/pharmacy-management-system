@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { displayOrder } from "../../api/order";
+import Menu from "../../components/Menu";
+import { displayAllOrder } from "../../api/order";
 
-const Orders = () => {
+const Delivery = () => {
   const [orders, setOrders] = useState([]);
 
   // display order
-  const fetchOrders = async () => {
+  const fetchAllOrders = async () => {
     try {
-      const response = await displayOrder();
+      const response = await displayAllOrder();
       setOrders(response);
     } catch (error) {
       console.log(error);
@@ -15,18 +16,19 @@ const Orders = () => {
   };
 
   useEffect(() => {
-    fetchOrders();
+    fetchAllOrders();
   }, []);
 
   return (
     <>
-      <div className="">
-        <h2 className="text-2xl sm:text-3xl font-semibold mb-3 text-indigo-600">
-          Orders
-        </h2>
-        <div className="">
-          <p>Order details</p>
-          <div className="my-3 overflow-x-auto">
+      <div className="flex">
+        <Menu />
+        <div className="container mx-auto w-full font-poppins">
+          <h1 className="text-3xl sm:text-6xl font-medium text-indigo-600 my-3 ml-3">
+            Delivery
+          </h1>
+
+          <div className="my-3 overflow-x-auto mx-3">
             <table className="table-auto w-full">
               <thead>
                 <tr>
@@ -34,10 +36,19 @@ const Orders = () => {
                     Item
                   </th>
                   <th className="border border-indigo-600 text-indigo-600 py-2">
+                    Address
+                  </th>
+                  <th className="border border-indigo-600 text-indigo-600 py-2">
                     Status
                   </th>
                   <th className="border border-indigo-600 text-indigo-600 py-2">
+                    Payment Method
+                  </th>
+                  <th className="border border-indigo-600 text-indigo-600 py-2">
                     Total
+                  </th>
+                  <th className="border border-indigo-600 text-indigo-600 py-2">
+                    Action
                   </th>
                 </tr>
               </thead>
@@ -73,8 +84,15 @@ const Orders = () => {
                       ))}
                     </td>
                     <td className="border border-indigo-600 py-1">
-                      {order.status}
+                      {order.deliveryAddress}
                     </td>
+                    <td className="border border-indigo-600 py-1">
+                      <div className="">{order.deliverStatus}</div>
+                      <div className="">
+                        <button>Update Status</button>
+                      </div>
+                    </td>
+                    <td className="border border-indigo-600 py-1">{order.paymentMethod}</td>
                     <td className="border border-indigo-600 py-1">
                       Rs.{" "}
                       {order.cartItems
@@ -85,6 +103,9 @@ const Orders = () => {
                           0
                         )
                         .toFixed(2)}
+                    </td>
+                    <td className="border border-indigo-600 py-1">
+                      <button>Complete</button>
                     </td>
                   </tr>
                 ))}
@@ -97,4 +118,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default Delivery;

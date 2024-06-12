@@ -7,8 +7,10 @@ export const addCart = async (values) => {
     const response = await axios.post(`${apiUrl}add-cart`, values, {
       withCredentials: true,
     });
+    console.log("second"+values)
     return response.data;
   } catch (error) {
+    console.log(error)
     throw error.response.data.error || "Something went wrong";
   }
 };

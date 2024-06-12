@@ -20,6 +20,7 @@ const LoginRegister = () => {
     lastName: Yup.string().required("Required"),
     phone: Yup.string().required("Required"),
     email: Yup.string().email("Invalid email address").required("Required"),
+    address: Yup.string().required("Required"),
     password: Yup.string().required("Required"),
     conformPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Passwords must match")
@@ -35,6 +36,7 @@ const LoginRegister = () => {
     lastName: "",
     phone: "",
     email: "",
+    address: "",
     password: "",
     conformPassword: "",
   };
@@ -71,7 +73,7 @@ const LoginRegister = () => {
     action.resetForm();
   };
 
-  console.log(error)
+  console.log(error);
 
   return (
     <>
@@ -207,6 +209,21 @@ const LoginRegister = () => {
                   />
                   <ErrorMessage
                     name="email"
+                    component="div"
+                    className="text-red-600"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="address">Address</label>
+                  <Field
+                    type="address"
+                    name="address"
+                    className={`border-solid border border-indigo-600 rounded-md px-3 py-1 mr-1 mb-2 lg:mb-3 ${
+                      touched.address && errors.address ? "border-red-500" : ""
+                    }`}
+                  />
+                  <ErrorMessage
+                    name="address"
                     component="div"
                     className="text-red-600"
                   />

@@ -8,9 +8,9 @@ const menuItem = [
   { name: "Staff Management", path: "/dashboard/staff" },
   { name: "Stock Management", path: "/dashboard/stock" },
   { name: "Prescription Handling", path: "/dashboard/prescription" },
-  { name: "Delivery", path: "/" },
+  { name: "Delivery", path: "/dashboard/delivery" },
   { name: "News & Notification Management", path: "/" },
-  { name: "Order Handling", path: "/" },
+  { name: "Order Handling", path: "/dashboard/orders" },
   { name: "Website", path: "/" },
 ];
 

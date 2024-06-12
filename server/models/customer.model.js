@@ -19,6 +19,10 @@ const customerSchema = mongoose.Schema(
       required: [true, "Please add a email"],
       unique: true,
     },
+    address: {
+      type: String,
+      required: [true, "Please add a address"],
+    },
     phone: {
       type: Number,
       required: [true, "Please add a phone number"],

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { displayOrder } from "../../api/order";
+import Menu from "../../components/Menu";
+import { displayAllOrder } from "../../api/order";
 
-const Orders = () => {
+const OrderHandling = () => {
   const [orders, setOrders] = useState([]);
 
   // display order
   const fetchOrders = async () => {
     try {
-      const response = await displayOrder();
+      const response = await displayAllOrder();
       setOrders(response);
     } catch (error) {
       console.log(error);
@@ -17,16 +18,16 @@ const Orders = () => {
   useEffect(() => {
     fetchOrders();
   }, []);
-
   return (
     <>
-      <div className="">
-        <h2 className="text-2xl sm:text-3xl font-semibold mb-3 text-indigo-600">
-          Orders
-        </h2>
-        <div className="">
-          <p>Order details</p>
-          <div className="my-3 overflow-x-auto">
+      <div className="flex">
+        <Menu />
+        <div className="container mx-auto w-full font-poppins">
+          <h1 className="text-3xl sm:text-6xl font-medium text-indigo-600 my-3 ml-3">
+            Oders Handling
+          </h1>
+
+          <div className="my-3 overflow-x-auto mx-3">
             <table className="table-auto w-full">
               <thead>
                 <tr>
@@ -97,4 +98,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default OrderHandling;

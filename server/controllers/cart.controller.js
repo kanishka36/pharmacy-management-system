@@ -1,43 +1,50 @@
 import asyncHandler from "express-async-handler";
 import Cart from "../models/cart.model.js";
+import Order from "../models/order.model.js";
 
 //add cart
 const addCart = asyncHandler(async (req, res) => {
-  const { productName, sellingPrice, quantity } = req.body;
+  const {productId,quantity}  = req.body;
   const customerId = req.user.userId;
 
   try {
-    if (!productName || !sellingPrice || !customerId) {
+    if (!productId || !customerId) {
       return res
         .status(400)
         .json({ error: "Please fill in all required fields" });
     }
 
+    // const productItemIds = productItem.map(item => item._id);
+
     await Cart.create({
-      productName,
-      sellingPrice,
+      products: productId,
       quantity,
       customerId,
     });
 
     res.status(200).json({ message: "Product Added to your Cart Successfully" });
   } catch (error) {
-    console.error("Error during customer registration:", error);
+    console.error("Error during add Cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 //display cart
 const displayCart = asyncHandler(async (req, res) => {
   try {
     const id = req.user.userId;
-    const cart = await Cart.find({ customerId: id });
+    const cart = await Cart.find({ customerId: id }).populate('products');
     res.status(200).send(cart);
   } catch (error) {
     console.error("Error during display cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+
+
+
 
 //delete cart
 const deleteCart = asyncHandler(async (req, res) => {

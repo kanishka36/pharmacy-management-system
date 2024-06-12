@@ -38,7 +38,7 @@ const EditItem = ({ setShowPopup2, data, setItems }) => {
     image: data.image,
   };
 
-  //add item
+  //update item
   const handleSubmit = async (values, actions) => {
     try {
       values.image = imgURL || data.image;

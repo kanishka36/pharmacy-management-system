@@ -14,7 +14,7 @@ const Cart = () => {
 
   // Total price based on selected items
   const total = selectedItems.reduce((acc, item) => {
-    return acc + item.sellingPrice * item.quantity;
+    return acc + item.products.sellingPrice * item.quantity;
   }, 0);
 
   // Delete all items in the cart
@@ -60,7 +60,7 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(updateTotal(total));
-    dispatch(proceedItem(selectedItems))
+    dispatch(proceedItem(selectedItems));
   }, [total, dispatch]);
 
   const incrementCount = (itemId) => {
@@ -92,8 +92,6 @@ const Cart = () => {
       }
     });
   };
-
-  
 
   return (
     <>
@@ -136,8 +134,8 @@ const Cart = () => {
                         onChange={() => handleCheckboxChange(item)}
                       />
                     </td>
-                    <td className=" py-1">{item.productName}</td>
-                    <td className=" py-1">{item.sellingPrice}.00</td>
+                    <td className=" py-1">{item.products.productName}</td>
+                    <td className=" py-1">{item.products.sellingPrice}.00</td>
                     <td className="flex justify-center items-center py-1">
                       <button
                         className="text-2xl font-bold text-white bg-indigo-600 flex justify-center items-center rounded-full pb-2 px-1 h-6 mx-1"
@@ -156,7 +154,7 @@ const Cart = () => {
                       </button>
                     </td>
                     <td className=" py-1">
-                      {item.sellingPrice * item.quantity}.00
+                      {item.products.sellingPrice * item.quantity}.00
                     </td>
                     <td className=" py-1">
                       <button

@@ -1,21 +1,26 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addOrder } from "../../api/order";
+import { useSelector, useDispatch } from "react-redux";
+import { getOrderId } from "../../redux/user/orderSlice";
 
 const PlaceOrder = () => {
   const cartData = useSelector((state) => state.cart.items);
-  const total = useSelector((state)=> state.cart.total);
+  const total = useSelector((state) => state.cart.total);
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
+  const deliveryAddress = currentUser.rest.address;
+  const paymentMethod = "Not selected";
   //submit order info
   const handleSubmit = async () => {
     try {
-      const response = await addOrder(cartData);
-      console.log(response)
+      const values = { cartData, deliveryAddress, paymentMethod };
+      const response = await addOrder(values);
+      dispatch(getOrderId(response.orderId));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <>
@@ -45,14 +50,14 @@ const PlaceOrder = () => {
                     key={index}
                     className="text-center border border-indigo-600"
                   >
-                    <td className=" py-1">{item.productName}</td>
-                    <td className=" py-1">{item.sellingPrice}.00</td>
+                    <td className=" py-1">{item.products.productName}</td>
+                    <td className=" py-1">{item.products.sellingPrice}.00</td>
                     <td className="flex justify-center items-center py-1">
                       <span className="">{item.quantity}</span>
                     </td>
 
                     <td className=" py-1">
-                      {item.sellingPrice * item.quantity}.00
+                      {item.products.sellingPrice * item.quantity}.00
                     </td>
                   </tr>
                 ))}
@@ -87,8 +92,10 @@ const PlaceOrder = () => {
                   {total + 450}.00 <span className="font-semibold">LKR</span>
                 </p>
               </div>
-              <button className="text-sm sm:text-base bg-indigo-600 hover:bg-indigo-800 hover:scale-[1.02] px-5 py-2 sm:px-10 sm:py-2 rounded-full text-white font-semibold transition-all duration-100 ease-in w-full mt-3"
-              onClick={handleSubmit}>
+              <button
+                className="text-sm sm:text-base bg-indigo-600 hover:bg-indigo-800 hover:scale-[1.02] px-5 py-2 sm:px-10 sm:py-2 rounded-full text-white font-semibold transition-all duration-100 ease-in w-full mt-3"
+                onClick={handleSubmit}
+              >
                 <Link to="/payment-method"> Place Order</Link>
               </button>
             </div>

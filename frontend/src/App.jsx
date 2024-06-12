@@ -19,7 +19,8 @@ import Cancel from "./components/Cancel";
 import Notify from "./components/Notify";
 import PlaceOrder from "./pages/website/PlaceOrder";
 import PaymentMethod from "./pages/website/PaymentMethod";
-import Orders from "./components/websiteComponents/Orders";
+import OrderHandling from "./pages/dashboard/OrderHandling";
+import Delivery from "./pages/dashboard/Delivery";
 
 const App = () => {
   return (
@@ -52,6 +53,8 @@ const App = () => {
           <Route path="/dashboard/stock" element={<StockManage />} />
           <Route path="/dashboard/prescription" element={<PrescriptionHandling />} />
           <Route path="/dashboard/prescription/:id" element={<PrescriptionView />} />
+          <Route path="/dashboard/orders" element={<OrderHandling />} />
+          <Route path="/dashboard/delivery" element={<Delivery />} />
         </Route>
       </Routes>
     </BrowserRouter>

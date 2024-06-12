@@ -36,11 +36,13 @@ const Shop = () => {
   const handleAddtoCart = async (itemId) => {
     try {
       const selected = items.find((item) => item._id === itemId);
+      const productId = selected._id;
       const subtotal = selected.sellingPrice;
-      const productName = selected.productName;
+      // const productName = selected.productName;
       const sellingPrice = selected.sellingPrice;
       // const quantity = selected.quantity;
-      const values = { subtotal, productName, sellingPrice };
+      // const values = { subtotal, productName, sellingPrice };
+      const values = { productId, subtotal, sellingPrice };
       const response = await addCart(values);
       setMessage(response.message);
     } catch (error) {
