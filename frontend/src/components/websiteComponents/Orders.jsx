@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { displayOrder } from "../../api/order";
 
 const Orders = () => {
+  const [orders, setOrders] = useState();
+
+  //display item
+  const fetchOrders = async () => {
+    try {
+      const response = await displayOrder();
+      setOrders(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(()=>{
+    fetchOrders();
+  },[])
+
+  console.log(orders)
+
+
   return (
     <>
       <div className="">
@@ -19,9 +39,6 @@ const Orders = () => {
                 <tr>
                   <th className="border border-indigo-600 text-indigo-600 py-2">
                     Order
-                  </th>
-                  <th className="border border-indigo-600 text-indigo-600 py-2">
-                    Date
                   </th>
                   <th className="border border-indigo-600 text-indigo-600 py-2">
                     Status

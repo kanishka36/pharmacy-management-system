@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 const orderSchema = mongoose.Schema(
   {
-    cartIds: {
-      type: [String],
-      default: 1,
+    cartItems: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Cart",
       required: [true, "provide cart id"],
     },
     status: {
