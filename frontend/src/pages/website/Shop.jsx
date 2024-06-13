@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { addCart } from "../../api/cart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
+import ChatBotWrapper from "../../components/websiteComponents/ChatBotWrapper";
 
 const Shop = () => {
   const [items, setItems] = useState([]);
@@ -38,10 +39,7 @@ const Shop = () => {
       const selected = items.find((item) => item._id === itemId);
       const productId = selected._id;
       const subtotal = selected.sellingPrice;
-      // const productName = selected.productName;
       const sellingPrice = selected.sellingPrice;
-      // const quantity = selected.quantity;
-      // const values = { subtotal, productName, sellingPrice };
       const values = { productId, subtotal, sellingPrice };
       const response = await addCart(values);
       setMessage(response.message);
@@ -116,6 +114,7 @@ const Shop = () => {
           </div>
         </div>
       </div>
+      <ChatBotWrapper />
     </>
   );
 };

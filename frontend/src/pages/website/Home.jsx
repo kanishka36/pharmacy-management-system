@@ -1,8 +1,11 @@
 import React from "react";
 import { CategorySlider, HeroSlider } from "../../components/Slider";
 import "swiper/css";
+import ChatBotWrapper from "../../components/websiteComponents/ChatBotWrapper";
+
 
 const Home = () => {
+  
   return (
     <>
       <div className="full-width flex flex-col justify-center align-center">
@@ -22,6 +25,7 @@ const Home = () => {
         <h3 className="text-3xl font-medium text-indigo-600 mb-3">Category</h3>
         <CategorySlider />
       </div>
+      <ChatBotWrapper />
     </>
   );
 };

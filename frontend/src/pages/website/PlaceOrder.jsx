@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { addOrder } from "../../api/order";
 import { useSelector, useDispatch } from "react-redux";
 import { getOrderId } from "../../redux/user/orderSlice";
+import ChatBotWrapper from "../../components/websiteComponents/ChatBotWrapper";
 
 const PlaceOrder = () => {
   const cartData = useSelector((state) => state.cart.items);
@@ -102,6 +103,7 @@ const PlaceOrder = () => {
           </div>
         </div>
       </div>
+      <ChatBotWrapper />
     </>
   );
 };

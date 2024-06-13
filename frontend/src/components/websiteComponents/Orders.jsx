@@ -3,8 +3,9 @@ import { displayOrder } from "../../api/order";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
+  const [orderTrack, setOrderTrack] = useState({});
 
-  // display order
+  // Fetch orders from the API
   const fetchOrders = async () => {
     try {
       const response = await displayOrder();
@@ -17,6 +18,17 @@ const Orders = () => {
   useEffect(() => {
     fetchOrders();
   }, []);
+
+  // Handle track order button click
+  const handleTrack = (id) => {
+    const orderToTrack = orders.find((order) => order._id === id);
+    if (orderToTrack) {
+      setOrderTrack((prevOrderTrack) => ({
+        ...prevOrderTrack,
+        [id]: !prevOrderTrack[id], // Toggle the display of the delivery status
+      }));
+    }
+  };
 
   return (
     <>
@@ -38,6 +50,9 @@ const Orders = () => {
                   </th>
                   <th className="border border-indigo-600 text-indigo-600 py-2">
                     Total
+                  </th>
+                  <th className="border border-indigo-600 text-indigo-600 py-2">
+                    Track Order
                   </th>
                 </tr>
               </thead>
@@ -85,6 +100,19 @@ const Orders = () => {
                           0
                         )
                         .toFixed(2)}
+                    </td>
+                    <td className="border border-indigo-600 py-1">
+                      <div className="flex flex-col">
+                        {orderTrack[order._id] && (
+                          <div>{order.deliverStatus}</div>
+                        )}
+                        <button
+                          className="bg-indigo-600 hover:bg-indigo-800 text-white font-semibold px-4 py-2 rounded-md mt-4 mr-3"
+                          onClick={() => handleTrack(order._id)}
+                        >
+                          Track Order
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}

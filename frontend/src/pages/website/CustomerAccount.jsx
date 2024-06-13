@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Orders from "../../components/websiteComponents/Orders";
 import AccountDetails from "../../components/websiteComponents/AccountDetails";
 import Dashboard from "../../components/websiteComponents/Dashboard";
+import ChatBotWrapper from "../../components/websiteComponents/ChatBotWrapper";
 
 const CustomerAccount = () => {
   const [displayedComponent, setDisplayedComponent] = useState(null);
@@ -57,6 +58,7 @@ const CustomerAccount = () => {
           </div>
         </div>
       </div>
+      <ChatBotWrapper />
     </>
   );
 };

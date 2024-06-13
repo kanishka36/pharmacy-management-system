@@ -38,11 +38,25 @@ export const displayAllOrder = async () => {
 
 export const updatePaymentMethod = async (paymentMethod, orderId) => {
   try {
-    console.log(paymentMethod);
-    console.log("order id " + orderId);
     const response = await axios.put(
       `${apiUrl}update-payment-method/${orderId}`,
       paymentMethod,
+      {
+        withCredentials: true,
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error.response.data.error || "Something went wrong";
+  }
+};
+
+export const updateDeliverStatus = async (deliverStatus, orderId) => {
+  try {
+    console.log({deliverStatus})
+    const response = await axios.put(
+      `${apiUrl}update-deliver-status/${orderId}`,
+      {deliverStatus},
       {
         withCredentials: true,
       }

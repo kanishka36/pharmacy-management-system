@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Order from "../models/order.model.js";
+import { connect } from "mongoose";
 
 const addOrder = asyncHandler(async (req, res) => {
   const { cartData: cartItems, deliveryAddress, paymentMethod } = req.body; // assuming req.body contains an array of cart items
@@ -98,10 +99,44 @@ const updatePaymentMethod = asyncHandler(async (req, res) => {
       return res.status(404).json({ error: "payment method not updated" });
     }
 
-    res.status(200).json("Item has been updated");
+    res.status(200).json("payment method has been updated");
   } catch (error) {
     console.error("Error during payment method update:", error);
   }
 });
 
-export { addOrder, displayOrder, displayAllOrders, updatePaymentMethod };
+const updateDeliverStatus = asyncHandler(async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deliverStatus = req.body;
+
+    if (!deliverStatus) {
+      res.status(400).json({ error: "Please provide deliver Status" });
+      return;
+    }
+
+    const response = await Order.findByIdAndUpdate(
+      id,
+      deliverStatus,
+      {
+        new: true,
+      }
+    );
+
+    if (!response) {
+      return res.status(404).json({ error: "deliver status not updated" });
+    }
+
+    res.status(200).json("deliver status has been updated");
+  } catch (error) {
+    console.error("Error during payment method update:", error);
+  }
+});
+
+export {
+  addOrder,
+  displayOrder,
+  displayAllOrders,
+  updatePaymentMethod,
+  updateDeliverStatus,
+};

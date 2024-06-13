@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { updateTotal, proceedItem } from "../../redux/user/cartSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import ChatBotWrapper from "../../components/websiteComponents/ChatBotWrapper";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -219,6 +220,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
+      <ChatBotWrapper />
     </>
   );
 };
