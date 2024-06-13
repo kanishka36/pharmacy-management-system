@@ -21,6 +21,7 @@ import PlaceOrder from "./pages/website/PlaceOrder";
 import PaymentMethod from "./pages/website/PaymentMethod";
 import OrderHandling from "./pages/dashboard/OrderHandling";
 import Delivery from "./pages/dashboard/Delivery";
+import NotificationHandling from "./pages/dashboard/NotificationHandling";
 
 const App = () => {
   return (
@@ -55,6 +56,7 @@ const App = () => {
           <Route path="/dashboard/prescription/:id" element={<PrescriptionView />} />
           <Route path="/dashboard/orders" element={<OrderHandling />} />
           <Route path="/dashboard/delivery" element={<Delivery />} />
+          <Route path="/dashboard/notification" element={<NotificationHandling />} />
         </Route>
       </Routes>
     </BrowserRouter>

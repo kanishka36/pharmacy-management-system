@@ -9,7 +9,7 @@ const menuItem = [
   { name: "Stock Management", path: "/dashboard/stock" },
   { name: "Prescription Handling", path: "/dashboard/prescription" },
   { name: "Delivery", path: "/dashboard/delivery" },
-  { name: "News & Notification Management", path: "/" },
+  { name: "News & Notification Management", path: "/dashboard/notification" },
   { name: "Order Handling", path: "/dashboard/orders" },
   { name: "Website", path: "/" },
 ];
