@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import Order from "../models/order.model.js";
 
 const addOrder = asyncHandler(async (req, res) => {
-  const { cartData: cartItems, deliveryAddress, paymentMethod } = req.body; // assuming req.body contains an array of cart items
+  const { cartData: cartItems, deliveryAddress, paymentMethod } = req.body; 
   const customerId = req.user.userId;
 
   try {
@@ -16,7 +16,6 @@ const addOrder = asyncHandler(async (req, res) => {
     // Create a new order with the cart item IDs
     const newOrder = await Order.create({
       cartItems: cartItemIds,
-      status: "pending payment",
       customerId,
       deliveryAddress,
       paymentMethod,

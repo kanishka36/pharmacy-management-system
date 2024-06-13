@@ -84,9 +84,9 @@ export const CategorySlider = () => {
         {category.map((slide, index) => (
           <SwiperSlide
             key={index}
-            className="text-slate-500 fle flex-col justify-center align-center bg-white border-solid border border-indigo-600 p-8 uppercase"
+            className="text-slate-500 fle flex-col justify-center align-center bg-white border-solid border border-indigo-600 p-8 uppercase h-32"
           >
-            {<img src={slide} alt="icon" />}
+            {/* {<img src={slide} alt="icon" />} */}
             {slide.category}
           </SwiperSlide>
         ))}

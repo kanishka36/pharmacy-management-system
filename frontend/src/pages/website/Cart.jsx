@@ -187,7 +187,7 @@ const Cart = () => {
         </div>
         {/* Order Summary */}
         <div className="right sm:basis-1/3">
-          <div className="bg-indigo-50 rounded-md p-3">
+          <div className="bg-indigo-50 rounded-md p-3 mb-28">
             <p className="font-bold text-indigo-600 text-xl mb-2">
               Order Summary
             </p>
@@ -213,7 +213,7 @@ const Cart = () => {
                   {total + 450}.00 <span className="font-semibold">LKR</span>
                 </p>
               </div>
-              <button className="text-sm sm:text-base bg-indigo-600 hover:bg-indigo-800 hover:scale-[1.02] px-5 py-2 sm:px-10 sm:py-2 rounded-full text-white font-semibold transition-all duration-100 ease-in w-full mt-3">
+              <button className="text-sm sm:text-base bg-indigo-600 hover:bg-indigo-800 hover:scale-[1.02] px-5 py-2 sm:px-10 sm:py-2 rounded-full text-white font-semibold transition-all duration-100 ease-in w-full mt-3 mb-3">
                 <Link to="/place-order"> Proceed to checkout</Link>
               </button>
             </div>

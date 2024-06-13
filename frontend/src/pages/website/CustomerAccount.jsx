@@ -3,6 +3,7 @@ import Orders from "../../components/websiteComponents/Orders";
 import AccountDetails from "../../components/websiteComponents/AccountDetails";
 import Dashboard from "../../components/websiteComponents/Dashboard";
 import ChatBotWrapper from "../../components/websiteComponents/ChatBotWrapper";
+import Feedback from "../../components/websiteComponents/Feedback";
 
 const CustomerAccount = () => {
   const [displayedComponent, setDisplayedComponent] = useState(null);
@@ -15,7 +16,7 @@ const CustomerAccount = () => {
     <>
       <div className="container mx-auto flex flex-col sm:flex-row font-poppins">
         <div className="left sm:basis-1/3">
-          <div className="m-3 p-2 bg-indigo-50">
+          <div className="m-3 p-2 bg-indigo-50 mb-10">
             <ul>
               <li
                 className="p-1 my-2 border border-indigo-600 rounded-md cursor-pointer"
@@ -47,6 +48,12 @@ const CustomerAccount = () => {
               >
                 Account Details
               </li>
+              <li
+                className="p-1 my-2 border border-indigo-600 rounded-md cursor-pointer"
+                onClick={() => handleItemClick("Feedback")}
+              >
+                Add Feedback
+              </li>
             </ul>
           </div>
         </div>
@@ -55,6 +62,7 @@ const CustomerAccount = () => {
             {displayedComponent === "Dashboard" && <Dashboard />}
             {displayedComponent === "Orders" && <Orders />}
             {displayedComponent === "AccountDetails" && <AccountDetails />}
+            {displayedComponent === "Feedback" && <Feedback />}
           </div>
         </div>
       </div>

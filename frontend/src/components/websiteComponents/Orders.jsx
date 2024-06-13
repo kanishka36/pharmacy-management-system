@@ -88,7 +88,7 @@ const Orders = () => {
                       ))}
                     </td>
                     <td className="border border-indigo-600 py-1">
-                      {order.status}
+                      {order.paymentMethod}
                     </td>
                     <td className="border border-indigo-600 py-1">
                       Rs.{" "}

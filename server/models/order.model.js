@@ -7,10 +7,6 @@ const orderSchema = mongoose.Schema(
       ref: "Cart",
       required: [true, "provide cart id"],
     },
-    status: {
-      type: String,
-      required: true,
-    },
     customerId: {
       type: String,
       required: [true, "provide customer id"],

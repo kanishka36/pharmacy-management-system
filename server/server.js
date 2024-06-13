@@ -12,6 +12,7 @@ import md5 from "md5";
 import { orderRouter } from "./routes/order.routes.js";
 import { newsRouter } from "./routes/news.routes.js";
 import { NotificatonRouter } from "./routes/notifcation.routes.js";
+import { feedbackRouter } from "./routes/feedback.routes.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -58,6 +59,7 @@ app.use(cartRouter);
 app.use(orderRouter);
 app.use(newsRouter);
 app.use(NotificatonRouter);
+app.use(feedbackRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
