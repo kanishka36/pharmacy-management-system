@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import News from "../models/news.model.js";
 
 //add
-export const addNews = asyncHandler(async (req, res) => {
+const addNews = asyncHandler(async (req, res) => {
   const { header, body } = req.body;
 
   const news = new News({ header, body });
@@ -16,7 +16,7 @@ export const addNews = asyncHandler(async (req, res) => {
 });
 
 // update
-export const updateNews = asyncHandler(async (req, res) => {
+const updateNews = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { header, body } = req.body;
 
@@ -38,7 +38,7 @@ export const updateNews = asyncHandler(async (req, res) => {
 });
 
 // delete
-export const deleteNews = asyncHandler(async (req, res) => {
+const deleteNews = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   try {

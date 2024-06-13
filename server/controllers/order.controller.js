@@ -1,6 +1,5 @@
 import asyncHandler from "express-async-handler";
 import Order from "../models/order.model.js";
-import { connect } from "mongoose";
 
 const addOrder = asyncHandler(async (req, res) => {
   const { cartData: cartItems, deliveryAddress, paymentMethod } = req.body; // assuming req.body contains an array of cart items

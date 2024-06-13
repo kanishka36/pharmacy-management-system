@@ -1,12 +1,12 @@
 import axios from "axios";
-
 const apiUrl = import.meta.env.VITE_ROUTE_URL;
 
-export const addNews = async (values) => {
+export const addNotification = async (values) => {
   try {
-    const response = await axios.post(`${apiUrl}add-news`, values, {
+    const response = await axios.post(`${apiUrl}add-notification`, values, {
       withCredentials: true,
     });
+    console.log("second"+values)
     return response.data;
   } catch (error) {
     console.log(error)
@@ -14,9 +14,9 @@ export const addNews = async (values) => {
   }
 };
 
-export const displayNews = async () => {
+export const displayNotification = async () => {
   try {
-    const response = await axios.get(`${apiUrl}display-news`, {
+    const response = await axios.get(`${apiUrl}display-notification`, {
       withCredentials: true,
     });
     return response.data;
@@ -25,9 +25,9 @@ export const displayNews = async () => {
   }
 };
 
-export const deleteNews = async (newsId) => {
+export const deleteNotification = async (notificationId) => {
   try {
-    const response = await axios.delete(`${apiUrl}delete-news/${newsId}`, {
+    const response = await axios.delete(`${apiUrl}delete-notification/${notificationId}`, {
       withCredentials: true,
     });
     return response.data;
@@ -36,9 +36,9 @@ export const deleteNews = async (newsId) => {
   }
 };
 
-export const updateNews = async (items, newsId) => {
+export const updateNotification = async (items, notificationId) => {
   try {
-    const response = await axios.put(`${apiUrl}update-news/${newsId}`, items, {
+    const response = await axios.put(`${apiUrl}update-notification/${notificationId}`, items, {
       withCredentials: true,
     });
     return response;

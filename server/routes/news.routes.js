@@ -1,10 +1,16 @@
-import express from 'express';
-import { addNews, updateNews, deleteNews } from '../controllers/news.controller.js';
+import express from "express";
+import {
+  addNews,
+  updateNews,
+  deleteNews,
+  displayNews,
+} from "../controllers/news.controller.js";
 
-const router = express.Router();
+const newsRouter = express.Router();
 
-router.post('/add-news', addNews);
-router.put('/update-news/:id', updateNews);
-router.delete('/delete-news/:id', deleteNews);
+newsRouter.post("/add-news", addNews);
+newsRouter.get("/display-news", displayNews);
+newsRouter.put("/update-news/:id", updateNews);
+newsRouter.delete("/delete-news/:id", deleteNews);
 
-export default router;
+export { newsRouter };

@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import Notification from "../models/notification.model.js";
 
 //add
-export const addNotification = asyncHandler(async (req, res) => {
+const addNotification = asyncHandler(async (req, res) => {
   const { header, body } = req.body;
 
   const notification = new Notification({ header, body });
@@ -16,8 +16,8 @@ export const addNotification = asyncHandler(async (req, res) => {
 });
 
 // update
-export const updateNotification = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+const updateNotification = asyncHandler(async (req, res) => {
+  const id = req.params;
   const { header, body } = req.body;
 
   try {
@@ -38,7 +38,7 @@ export const updateNotification = asyncHandler(async (req, res) => {
 });
 
 // delete
-export const deleteNotification = asyncHandler(async (req, res) => {
+const deleteNotification = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -65,4 +65,9 @@ const displayNotification = asyncHandler(async (req, res) => {
   }
 });
 
-export { addNotification, displayNotification, deleteNotification, updateNotification };
+export {
+  addNotification,
+  displayNotification,
+  deleteNotification,
+  updateNotification,
+};

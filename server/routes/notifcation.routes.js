@@ -3,12 +3,14 @@ import {
   addNotification,
   updateNotification,
   deleteNotification,
+  displayNotification,
 } from "../controllers/notification.controller.js";
 
-const router = express.Router();
+const NotificatonRouter = express.Router();
 
-router.post("/add-notification", addNotification);
-router.put("/update-notification/:id", updateNotification);
-router.delete("/delete-notification/:id", deleteNotification);
+NotificatonRouter.post("/add-notification", addNotification);
+NotificatonRouter.get("/display-notification", displayNotification);
+NotificatonRouter.put("/update-notification/:id", updateNotification);
+NotificatonRouter.delete("/delete-notification/:id", deleteNotification);
 
-export default router;
+export {NotificatonRouter};
