@@ -4,6 +4,9 @@ import fb from "../assets/images/fb.png";
 import inst from "../assets/images/in.png";
 import tw from "../assets/images/tw.png";
 import wh from "../assets/images/wh.png";
+import phone from "../assets/images/phone.png"
+import email from "../assets/images/email.png"
+import location from "../assets/images/location.png"
 
 const Footer = () => {
   return (
@@ -57,9 +60,9 @@ const Footer = () => {
           {/* Address */}
           <div className="flex items-center mt-2">
             <img
-              src="/path/to/address-icon.png"
+              src={location}
               alt="address-icon"
-              className="w-4 h-4 mr-2"
+              className="w-5 mr-2"
             />
             <p className="text-sm text-gray-800">
               123 Main Street, City, Country
@@ -68,26 +71,26 @@ const Footer = () => {
           {/* Phone Numbers */}
           <div className="flex items-center mt-2">
             <img
-              src="/path/to/phone-icon.png"
+              src={phone}
               alt="phone-icon"
-              className="w-4 h-4 mr-2"
+              className="w-5 mr-2"
             />
             <p className="text-sm text-gray-800">+123 456 7890</p>
           </div>
           <div className="flex items-center mt-2">
             <img
-              src="/path/to/phone-icon.png"
+              src={phone}
               alt="phone-icon"
-              className="w-4 h-4 mr-2"
+              className="w-5 mr-2"
             />
             <p className="text-sm text-gray-800">+987 654 3210</p>
           </div>
           {/* Email */}
           <div className="flex items-center mt-2">
             <img
-              src="/path/to/email-icon.png"
+              src={email}
               alt="email-icon"
-              className="w-4 h-4 mr-2"
+              className="w-5 mr-2"
             />
             <p className="text-sm text-gray-800">contact@example.com</p>
           </div>
