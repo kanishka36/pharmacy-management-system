@@ -175,4 +175,13 @@ const logout = asyncHandler(async (req, res) => {
   }
 });
 
-export { regUser, loginUser, displayUser, updateUser, deleteUser, searchUser, logout };
+//checktoken
+const checkToken = asyncHandler(async (req, res)=> {
+  try {
+    res.status(200).json({message: "Token is valid"})
+  } catch (error) {
+    return res.status(500).json({error: "Internal server error"})
+  }
+})
+
+export { regUser, loginUser, displayUser, updateUser, deleteUser, searchUser, logout, checkToken };

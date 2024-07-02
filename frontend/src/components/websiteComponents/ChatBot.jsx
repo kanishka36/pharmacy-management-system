@@ -6,21 +6,24 @@ import React, { useState, useRef, useEffect } from "react";
 
 const faqs = [
   {
-    question: "What is your return policy?",
-    answer: "You can return any item within 30 days of purchase.",
+    question: "What are your opening hours?",
+    answer: "We are open at 8.00 am to 9.30pm",
+  },
+  {
+    question: "Where are you located?",
+    answer: "We are located at 123 Main Street, Colombo, Sri Lanka",
   },
   {
     question: "How do I track my order?",
-    answer:
-      "You can track your order using the tracking link sent to your email.",
+    answer: "You can track your order in you 'my account' tab in 'orders' section ",
   },
   {
     question: "Do you offer customer support?",
-    answer: "Yes, we offer 24/7 customer support. You can contact us anytime.",
+    answer: "<a href='https://api.whatsapp.com/send/?phone=%2B94713719748&text&type=phone_number&app_absent=0' target='_blank' rel='noopener noreferrer'>Click Here</a>",
   },
 ];
 
-const Chatbot = ({setToggle, toggle}) => {
+const Chatbot = ({ setToggle, toggle }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const messagesEndRef = useRef(null);
@@ -61,20 +64,24 @@ const Chatbot = ({setToggle, toggle}) => {
   return (
     <div className="flex flex-col justify-between h-196 w-96 p-4 border border-indigo-600 rounded-lg relative bg-white">
       <div className="absolute top-[-35px] left-[-35px]">
-        <FontAwesomeIcon icon={faXmark} className="text-2xl text-indigo-600 p-2 rounded-full border border-indigo-600" onClick={()=> setToggle(!toggle)} />
+        <FontAwesomeIcon icon={faXmark} className="text-2xl text-indigo-600 p-2 rounded-full border border-indigo-600" onClick={() => setToggle(!toggle)} />
       </div>
       <div className="flex-1 overflow-y-auto mb-4 max-h-60">
         {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`p-2 m-1 rounded-md ${
-              msg.sender === "user"
-                ? "bg-indigo-600 text-white self-end"
-                : "bg-gray-200 text-black self-start"
-            }`}
-          >
-            {msg.text}
-          </div>
+          msg.sender === "bot" ? (
+            <div
+              key={index}
+              className="p-2 m-1 rounded-md bg-gray-200 text-black self-start"
+              dangerouslySetInnerHTML={{ __html: msg.text }}
+            />
+          ) : (
+            <div
+              key={index}
+              className="p-2 m-1 rounded-md bg-indigo-600 text-white self-end"
+            >
+              {msg.text}
+            </div>
+          )
         ))}
         <div ref={messagesEndRef} />
       </div>
@@ -90,6 +97,20 @@ const Chatbot = ({setToggle, toggle}) => {
             </button>
           ))}
         </div>
+      </div>
+      <div className="flex mt-4">
+        <input
+          className="flex-1 p-2 border border-gray-300 rounded-md"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+        />
+        <button
+          className="ml-2 p-2 bg-indigo-600 text-white rounded-md"
+          onClick={() => handleSend()}
+        >
+          Send
+        </button>
       </div>
     </div>
   );

@@ -9,13 +9,13 @@ import ProductSearch from "./ProductSearch";
 
 const Navbar = () => {
   const total = useSelector((state) => state.cart.total);
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, isAuthenticated } = useSelector((state) => state.user);
   const Links = [
     { name: "Home", path: "/" },
     { name: "Shop", path: "/shop" },
     { name: "About Us", path: "/" },
     (currentUser && currentUser.rest.role === "customer") ||
-    currentUser === null
+    currentUser === null || !isAuthenticated
       ? ""
       : { name: "Dashboard", path: "/dashboard" },
   ];

@@ -7,6 +7,7 @@ import {
   deleteUser,
   searchUser,
   logout,
+  checkToken,
 } from "../controllers/user.controller.js";
 import { verifyToken } from "../utils/verifyUser.js";
 
@@ -19,5 +20,6 @@ userRouter.put("/update-staff/:id", verifyToken, updateUser);
 userRouter.get("/delete-staff/:id", verifyToken, deleteUser);
 userRouter.post("/search-staff", verifyToken, searchUser);
 userRouter.post("/logout", logout);
+userRouter.get("/checkToken", verifyToken, checkToken);
 
 export { userRouter };

@@ -242,9 +242,6 @@ const NotificationHandling = () => {
               <thead>
                 <tr>
                   <th className="border-2 border-indigo-600 text-indigo-600 py-2">
-                    Header
-                  </th>
-                  <th className="border-2 border-indigo-600 text-indigo-600 py-2">
                     Body
                   </th>
                 </tr>

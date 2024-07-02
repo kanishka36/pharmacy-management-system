@@ -73,7 +73,6 @@ const LoginRegister = () => {
     action.resetForm();
   };
 
-  console.log(error);
 
   return (
     <>

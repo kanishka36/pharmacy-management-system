@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Header = () => {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, isAuthenticated } = useSelector((state) => state.user);
   return (
     <div className="bg-cyan-400 py-2 px-3 text-white font-semibold font-poppins text-right">
-      {currentUser ? (
+      {currentUser && isAuthenticated ? (
         <div className="flex flex-col items-center sm:flex-row sm:justify-end gap-2">
           <p className="text-indigo-600 text-center">{`Welcome ${currentUser.rest.email}`}</p>
           <Link

@@ -4,7 +4,6 @@ import chtIcon from "../../../src/assets/images/chticon.png";
 
 const ChatBotWrapper = () => {
   const [toggle, setToggle] = useState(false);
-  console.log(toggle);
   return (
     <>
       <div className="relative">

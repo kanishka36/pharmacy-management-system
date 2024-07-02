@@ -65,7 +65,7 @@ const Footer = () => {
               className="w-5 mr-2"
             />
             <p className="text-sm text-gray-800">
-              123 Main Street, City, Country
+              123 Main Street, Colombo, Sri Lanka
             </p>
           </div>
           {/* Phone Numbers */}
