@@ -82,8 +82,7 @@ const Shop = () => {
                     <img className="h-40 object-contain" src={item.image} />
                   </div>
                   <p>{item.productName}</p>
-                  <p>
-                    {item.sellingPrice}.00{" "}
+                  <p>The Roundup: Punishment
                     <span className="font-bold">LKR</span>
                   </p>
                   <button
